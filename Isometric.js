@@ -1,0 +1,141 @@
+import { ObtenerDato, BorrarCard, db, onSnapshot, collection, query, where, getDocs } from "./db.js";
+
+
+const style = document.documentElement.style;
+const Titulo = document.getElementById('Titulo');
+const btnInformacion = document.getElementById('VerInfor');
+const ContenedorTexto = document.getElementById('Texto');
+const btnCopy = document.getElementById('btnCopy');
+const btnEliminar = document.getElementById('btnEliminar');
+const MSJ = document.getElementById('MSJ');
+
+var Text = '';
+var Text2 = '';
+var Codigo = '';
+
+function Copy() {
+    navigator.clipboard.writeText(Text)
+        .then(() => {
+            AlertMSJ('Se copio al portapapeles', true);
+        })
+        .catch(err => {
+            AlertMSJ('ah ocurrido un error al copiar', true);
+        });
+}
+
+function AlertMSJ(Descripcion, Funcion) {
+    if (Funcion == true) {
+        MSJ.innerHTML = Descripcion;
+        style.setProperty('--TranslateMsj', '0px');
+    } else {
+        style.setProperty('--TranslateMsj', '-200px');
+    }
+}
+
+//Variables
+var btnActivo = false;
+var Toques = 0;
+
+btnInformacion.onclick = function () {
+    Toques++;
+
+    if (Toques == 1) {
+        style.setProperty('--WidthCard', '800px');
+        CambiarOrientacion(-410, 0);
+        btnActivo = true;
+        ContenedorTexto.innerHTML = Text2;
+        btnInformacion.value = 'Resumen';
+    } else {
+        style.setProperty('--WidthCard', '300px');
+        CambiarOrientacion(-410, 0);
+        btnActivo = false;
+
+        ContenedorTexto.innerHTML = Text + '...';
+
+        btnInformacion.value = 'Ver más información';
+        Toques = 0;
+    }
+}
+
+function CambiarOrientacion(Translatex, TranslateInfox) {
+    style.setProperty('--Translatex', Translatex + 'px');
+    style.setProperty('--TranslateInfox', TranslateInfox + 'px');
+}
+
+function Transladar() {
+    if (btnActivo == true) {
+        CambiarOrientacion(-410, 0);
+    } else {
+        CambiarOrientacion(-410, 0);
+    }
+}
+
+const ContenedorBtn = document.getElementById('ListaTodo');
+var CodigoTema = localStorage.getItem('CodigoTema');
+console.log(CodigoTema);
+
+//ObtenerDatos
+window.addEventListener('DOMContentLoaded', async () => {
+
+    CargarCards();
+});
+
+async function CargarCards() {
+    const q = query(collection(db, "Cards"), where("IDTema", "==", CodigoTema));
+
+    const querySnapshot = await getDocs(q);
+    var lista = '';
+    var Numero = 10;
+    querySnapshot.forEach((doc) => {
+        const Cards = doc.data();
+        Numero--;
+        lista += `
+            <li class="Lista" style="--i:${Numero};"><a data-id=${doc.id} href="#">${Cards.Titulo}</a></li>                                    
+            `
+    });
+
+    ContenedorBtn.innerHTML = lista + `<li class="Lista" style="--i:0;"><a data-id="0" href="#">Salir</a></li>`;
+    const Botones = ContenedorBtn.querySelectorAll('.Lista');
+
+    Botones.forEach(btn => {
+        btn.addEventListener('click', async (event) => {
+            const doc = await ObtenerDato(event.target.dataset.id);
+            const Informacion = doc.data();
+            Transladar();
+
+            if (event.target.dataset.id == 0) {
+                CambiarOrientacion(0, 0);
+                style.setProperty('--WidthCard', '300px');
+                style.setProperty('--heigth', '800px');   
+                style.setProperty('--ListaBootom', '-400px');                 
+                Titulo.innerHTML = 'Salir';
+                ContenedorTexto.innerHTML = '';
+                AlertMSJ('msj', false);
+            } else {
+                Titulo.innerHTML = Informacion.Titulo;
+                ///Cortar String
+                Text = Informacion.Contenido;
+                Text2 = Informacion.Contenido;
+                Codigo = event.target.dataset.id;
+                AlertMSJ('msj', false);
+                ContenedorTexto.innerHTML = Text2;
+                style.setProperty('--heigth', '800px');
+                style.setProperty('--CardTop', '400px');
+                style.setProperty('--ListaBootom', '200px');    
+            }
+        });
+    });
+}
+
+
+btnCopy.onclick = function () {
+    Copy();
+}
+
+
+btnEliminar.onclick = function () {
+    BorrarCard(Codigo);
+    Titulo.innerHTML = 'Seleccione una Nota';
+    ContenedorTexto.innerHTML = '';
+    CargarCards();
+}

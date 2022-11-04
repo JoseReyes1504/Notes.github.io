@@ -1,0 +1,337 @@
+
+
+*{
+    box-sizing: border-box;
+    padding: 0%;
+    margin: 0%;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+::-webkit-scrollbar{
+    display: none;
+}
+
+:root{
+    --Translatex: 0px;
+    --TranslateInfox: 0px;
+    --WidthCard: 300px;
+    --opacidad: 100%;
+    --TranslateMsj: -200px;
+    --heigth: 900px;
+
+
+    --CardTop: 400px;
+    --ListaBootom: -400px; 
+}
+
+body{
+    background-color: #181818;
+    display: flex;
+    min-height: 100vh;
+}
+
+.Mensaje{
+    background-color: #ff6961;
+    width: 750px;
+    height: 40px;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    margin: 1% 25%;
+    border: 2px solid white;
+    border-radius: 10px;
+    transition: all 800ms;
+    transform: translateY(var(--TranslateMsj));
+    z-index: 6;
+}
+
+.Menu{
+    position: absolute;
+    background-color: rgb(122, 121, 121);
+    color: white;
+    width: var(--WidthCard);
+    height: 500px;
+    padding: 2%;
+    margin: 11% 40%;
+    display: flex;
+    flex-direction: column;    
+    align-items: center;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    transition: all 800ms;
+    transform: translateX(var(--TranslateInfox));
+}
+
+.Menu h1{    
+    margin-bottom: 2%;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 20px;    
+    letter-spacing: 3px;
+    /* background-color: red; */    
+}
+
+.Menu p{
+    /* background-color: red; */
+    width: 100%;
+    min-height: 75%;    
+    text-align: center;
+    opacity: var(--opacidad);
+    transition: all 200ms;    
+}
+
+.Menu p:hover{
+    color: #181818;    
+}
+
+.Boton{
+    position: absolute;
+    bottom: 0%;
+    right: 0%;    
+    width: 80%;
+    height: 10%;
+    background-color: white;
+    border: none;
+    color: #181818;
+    font-size: 18px;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    transition: all 800ms;
+    cursor: pointer;
+}
+
+
+#btnEliminar{
+    position: absolute;
+    top: 0%;
+    left: 0%;  
+    margin: 2% 2%;  
+    fill: white;
+    cursor: pointer;
+    transition: all 800ms;
+}
+
+#btnEliminar:hover{
+    fill: #C70039;
+
+}
+
+
+.BotonCopy{
+    position: absolute;
+    top: 0%;
+    right: 0%;    
+    margin: 2% 1%;
+    fill: white;        
+    transition: all 800ms;
+    cursor: pointer;
+}
+.BotonCopy:hover{
+    background-color: white;
+    color: #181818;        
+}
+
+.Boton:hover{
+    background-color: #181818;
+    color: white;        
+}
+
+
+.Contenedor{
+    position: absolute;
+    background-color: #181818;
+    display: flex;
+    margin: 11% 39%;
+    justify-content: center;
+    align-items: center;
+    width: 400px;
+    min-height: auto;
+    height: 500px;
+    transition: all 800ms;
+    transform: translateX(var(--Translatex));
+}
+
+
+ul{
+    position: relative;        
+    transform: skewY(-15deg);
+}
+
+ul li{
+    position: relative;
+    list-style-type: none;
+    display: flex;    
+    width: 200px;
+    background-color: #3e3f46;
+    transition: all 400ms; 
+    z-index: var(--i);
+    border: 1px solid white;
+}
+ul li:hover{
+    background-color: #3496bd;
+    transform:translate(15px ,15px);    
+}
+
+ul li::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -40px;
+    width: 40px;    
+    height: 100%;        
+    border: 1px solid white;
+    background-color: #3e3f46;
+    transform-origin: right;
+    transform: skewY(45deg);
+    transition: all 400ms;
+}
+
+ul li:hover:before{
+    background-color: #3496db;
+}
+
+
+ul li::after{
+    content: '';
+    position: absolute;
+    top: -40px;
+    left: 0px;
+    width: 100%;    
+    height: 40px;        
+    border: 1px solid white;
+    background-color: #3e3f46;
+    transform-origin: bottom;
+    transform: skewx(45deg);
+    transition: 0.5s;
+    transition: all 400ms;
+}
+
+ul li:hover:after{
+    background-color: #3496bd;
+}
+
+
+ul li a{
+    display: block;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1%;
+    text-align: center;
+    margin: 5%;
+    color: #aaa;
+    width: 100%;
+    height: auto;
+    /* background-color: red; */
+}
+
+ul li a:hover{
+    color: white;
+}
+
+ul li:last-child a{
+    color: #181818;
+}
+
+ul li:last-child a:hover{
+    color: white;
+}
+
+ul li:last-child:hover{
+    background-color: red;    
+}
+ul li:last-child:hover:after{    
+    background-color: red;
+}
+ul li:last-child:hover:before{
+    background-color: red;    
+}
+
+ul li:last-child::after{
+    box-shadow: -100px 100px 10px rgb(0,0,0,0.5);
+}
+ul li:last-child:hover:after{
+    box-shadow: -100px 100px 10px red;
+}
+
+
+#Enlace{
+    width: 200px;
+    height: 80px;
+    text-decoration: none;
+    padding: 1%;
+    background-color: #181818;
+    color: white;
+    border: 2px solid white;
+    border-radius: 10px;
+    transition: all 400ms;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1%;
+}
+
+#Enlace:hover{
+color: #3496bd;
+}
+
+.Texto{
+    overflow: hidden;
+    overflow-y: scroll;    
+    /* background-color: red; */
+    height: 71%;
+}
+
+@media only screen and (min-device-width : 320px) and (max-device-width : 768px) {
+
+    body{
+        min-height: 140vh;
+    }
+
+    .Contenedor{                
+        height: var(--heigth);
+        margin: 130% 2.5%;        
+        width: 95%;        
+        /* background-color: red; */
+        transform: translateY(var(--ListaBootom));        
+    }
+
+    .Menu{
+        width: 320px;        
+        margin: -65% 8%;
+        transform: translateY(var(--CardTop));        
+    }
+
+    .Boton{
+        opacity: 0%;
+    }
+
+    .Texto{
+        margin-top: 2%;
+        height: 90%;
+        padding: 2%;        
+        font-size: 18px;
+    }
+
+    #Titulo{
+        padding: 1%;
+        width: 85%;
+        min-height: 40px;
+        /* background-color: red; */
+    }
+
+    .Mensaje{        
+        width: 300px;
+        text-align: center;
+        height: 50px;
+        margin: 1% 12%;                
+    }
+
+    #Enlace{
+        margin: 2% auto;
+    }
+    
+}

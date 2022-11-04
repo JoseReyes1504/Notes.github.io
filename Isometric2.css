@@ -1,0 +1,542 @@
+* {
+    font-family: 'Arsenal', sans-serif;
+    font-family: 'Bebas Neue', cursive;
+    font-family: 'Glegoo', serif;
+}
+
+body {
+    background-color: #181818;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+
+:root {
+    --TranslateY: 00px;
+    --TranslateY2: -20px;
+    --Heigth: 740px;
+    --Color1: #181818;
+    --Color2: #181818;
+    --Color3: #181818;
+    --Color4: #181818;
+    --Color5: #181818;
+    --ColorLi: #3496db;
+    --ColorHover: rgb(170, 255, 169);
+    --TranslateXD: 350px;
+    --TranslateXD2: -350px;
+    --Visibilidad: visible;
+    --BotonsHeigth: 200px;
+
+    --Index: 3;
+    --IndexClase: 4;
+    --IndexContenedor: 5;
+    --TranslateArrow: 80px;
+    --TranslateArrow2: -80px;
+    --TranslateMsj: -100px;
+    --TranslateTodo: 0px;
+}
+
+.Mensaje {
+    background-color: #ff6961;
+    width: 750px;
+    height: 40px;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    margin: 0% 25%;
+    border: 2px solid white;
+    border-radius: 10px;
+    transition: all 800ms;
+    transform: translateY(var(--TranslateMsj));
+    z-index: 6;
+}
+
+.TodosLosContenedores {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    /* background-color: red; */
+    overflow: hidden;
+    transition: all 800ms;
+    transform: translateX(var(--TranslateTodo));
+}
+
+.ContenedorPrincipal {
+    position: absolute;
+    margin: 1% 30%;
+    background-color: #181818;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+textarea {
+    visibility: var(--Visibilidad);
+}
+
+.ContenedorSecundario,
+.ContenedorTerciario {
+    position: absolute;
+    right: 0%;
+    margin-right: 1%;
+    width: 350px;
+    height: 700px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #181818;
+    overflow: hidden;
+}
+
+.ContenedorSecundario {
+    left: 0%;
+    margin-right: 0%;
+    margin-left: 1%;
+}
+
+
+
+.Contenedor {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* background-color: red; */
+    margin-top: 10%;
+    width: 600px;
+    height: 600px;
+    border: 2px solid white;
+    border-radius: 10px;
+    color: white;
+    transition: all 800ms;
+    transform: translateY(var(--TranslateY2));
+    z-index: 4;
+}
+
+.Contenedor Input {
+    width: 80%;
+    height: 5%;
+    text-align: center;
+    font-size: 25px;
+    background-color: transparent;
+    outline: none;
+    border: none;
+    margin: 4% 0%;
+    color: white;
+    border-bottom: 2px solid white;
+}
+
+.FormBotones {
+    width: 90%;
+    /* background-color: red; */
+    height: 30%;
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 3%;
+}
+
+textarea {
+    width: 80%;
+    height: 40%;
+    resize: none;
+    background-color: transparent;
+    color: white;
+    outline: none;
+    font-size: 15px;
+    padding: 2%;
+    border: 2px solid white;
+    border-radius: 10px;
+    transition: all 800ms;
+}
+
+textarea:hover {
+    background-color: #121212;
+}
+
+.Contenedor .Boton {
+    background-color: transparent;
+    color: white;
+    border: none;
+    width: 45%;
+    margin: 2% auto;
+    height: 40%;
+    border-radius: 5px;
+    border-radius: 10px;
+    border: 2px solid white;
+    transition: all 800ms;
+    cursor: pointer;
+}
+
+#btnAgregar {
+    width: 95%;
+}
+
+.Contenedor .Boton:hover {
+    background-color: #2e4053;
+}
+
+.Enlace {
+    /* width: 200px; */
+    min-width: 150px;
+    height: var(--BotonsHeigth);
+    background-color: #181818;
+    color: white;
+    border: 2px solid white;
+    border-radius: 10px;
+    transition: all 500ms;
+    font-size: 16px;
+    letter-spacing: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1%;
+}
+
+.Enlace:hover {
+    color: var(--ColorHover);
+    transform: scale(1.05, 1.05);
+}
+
+.ContenedorBotones {
+    position: absolute;
+    width: 800px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: var(--Heigth);
+    background-color: #181818;
+    transition: all 800ms;
+    transform: translateY(var(--TranslateY));
+    margin-top: 2%;
+    z-index: 5;
+}
+
+#btnClase {
+    background: var(--Color1);
+}
+
+#btnTema {
+    background-color: var(--Color2);
+}
+
+#btnCard {
+    background-color: var(--Color3);
+}
+
+#btnEliminar {
+    background-color: var(--Color4);
+}
+
+#btnDatos {
+    border: none;
+    color: white;
+    border: 2px solid white;
+    background-color: var(--Color5);
+    /* background-color:  #f6ddcc;     */
+}
+
+/* Lista */
+
+.ContenedorAreas,
+.ContenedorAreas2 {
+    position: relative;
+    background-color: #181818;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: all 800ms;
+    transform: translateX(var(--TranslateXD));
+}
+
+.ContenedorAreas {
+    transform: translateX(var(--TranslateXD2));
+}
+
+.ContenedorAreas h1,
+.ContenedorAreas2 h1 {
+    position: absolute;
+    top: 0%;
+    margin-top: 15%;
+    color: white;
+    /* background-color: red; */
+    width: 80%;
+    text-align: center;
+    margin-right: 15%;
+    border: 2px solid;
+    transform: skewY(-5deg);
+}
+
+.ContenedorAreas2 h1 {
+    margin-right: 0%;
+    transform: skewY(5deg);
+}
+
+.ContenedorAreas h1::before,
+.ContenedorAreas2 h1::before {
+    content: '';
+    position: absolute;
+    width: 5px;
+    height: 200px;
+    bottom: 102%;
+    background-color: white;
+}
+
+.ContenedorAreas h1::after,
+.ContenedorAreas2 h1::after {
+    content: '';
+    position: absolute;
+    width: 5px;
+    height: 200px;
+    bottom: 102%;
+    background-color: white;
+}
+
+ul,
+.Lista2 {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    transform: skewY(25);
+    margin-right: 25%;
+}
+
+
+ul li,
+.Lista2 li {
+    position: relative;
+    width: 200px;
+    list-style-type: none;
+    /* padding: 15px; */
+    background-color: #181818;
+    /* transform: skewx(00deg); */
+    margin: 5% 2%;
+    border-top-left-radius: 10px;
+    border: 1.5px solid white;
+    transition: all 800ms;
+    text-align: center;
+    /* z-index: var(--i);  */
+}
+
+ul li {
+    width: auto;
+    height: auto;
+    font-size: 12px;
+}
+
+.Lista2 li {
+    border-top-left-radius: 0px;
+    z-index: var(--i);
+}
+
+ul li::after,
+.Lista2 li::after {
+    content: '';
+    position: absolute;
+    top: 20px;
+    right: -39px;
+    width: 35px;
+    height: 100%;
+    background-color: #181818;
+    transform-origin: right;
+    transform: skewY(30deg);
+    border-top-right-radius: 10px;
+    border: 1.5px solid white;
+    transition: all 800ms;
+}
+
+.Lista2 li::after {
+    border-top-right-radius: 0px;
+    /* border-bottom-left-radius: 10px; */
+    right: 0;
+    left: -20px;
+    width: 15px;
+    top: -20px;
+    transform-origin: left;
+    transform: skewY(45deg);
+}
+
+ul li::before,
+.Lista2 li::before {
+    content: '';
+    position: absolute;
+    bottom: -23px;
+    right: 0%;
+    width: 100%;
+    height: 20px;
+    background-color: #181818;
+    transform-origin: top;
+    transform: skewX(60deg);
+    transition: all 800ms;
+    border-bottom-left-radius: 10px;
+    border: 1.5px solid white;
+}
+
+.Lista2 li::before {
+    border-bottom-left-radius: 0px;
+    bottom: 53px;
+    height: 15px;
+    right: -2px;
+    transform: skewX(45deg);
+    transform-origin: bottom;
+}
+
+ul li:hover:before {
+    background-color: #162d39;
+}
+
+ul li:hover::after {
+    background-color: #1e3f51;
+}
+
+ul li:hover {
+    background-color: #3496db;
+    transform: translate(-20px, -20px);
+}
+
+.Lista2 li:hover {
+    background-color: #3496db;
+    transform: translate(20px, 20px);
+}
+
+.Lista2 li,
+ul li a {
+    display: flex;
+    text-decoration: none;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    height: 51.5px;
+    justify-content: center;
+    align-items: center;
+    /* background-color: red;     */
+}
+
+.Lista2 li a {
+    margin: 5%;
+}
+
+ul li a:hover {
+    color: white;
+}
+
+
+.SeleccionoEste {
+    background-color: var(--ColorLi);
+}
+
+
+.ContenedorFlecha,
+.ContenedorFlecha2 {
+    position: absolute;
+    right: 0%;
+    width: 15%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 10%;
+    /* background-color: red; */
+    overflow: hidden;
+}
+
+.ContenedorFlecha2 {
+    left: 0%;
+    margin-top: 25%;
+    /* background-color: red;     */
+}
+
+.ContenedorFlecha svg,
+.ContenedorFlecha2 svg {
+    fill: #ff6961;
+    transition: all 800ms;
+    transform: translateX(var(--TranslateArrow));
+}
+
+.ContenedorFlecha2 svg {
+    transform: translateX(var(--TranslateArrow2));
+}
+
+
+@media only screen and (min-device-width : 320px) and (max-device-width : 768px) {
+
+    .ContenedorPrincipal {        
+        width: 320px;
+        height: 400px;
+        margin: 30% 8%;    
+        z-index: var(--IndexContenedor);
+    }
+
+    .ContenedorBotones {
+        position: absolute;        
+        margin-bottom: 45%;
+        width: 325px;   
+        flex-direction: column;        
+        z-index: 5;
+    }
+
+    .ContenedorSecundario,
+    .ContenedorTerciario {        
+        right: 0%;
+        height: 1000px;
+        margin-left: 8%;
+        /* background-color: red; */
+        margin-top: 50%;        
+        z-index: var(--IndexClase);
+    }
+
+    .ContenedorTerciario {
+        margin-right: 2.3%;
+        /* background-color: red;                 */
+        z-index: var(--Index);
+    }
+
+    ul li,
+    .Lista2 li {
+        width: 200px;
+    }
+
+    ul li {
+        min-width: 200px;
+        width: auto;
+        height: auto;
+        font-size: 12px;
+    }
+
+    .ContenedorAreas h1::before,
+    .ContenedorAreas2 h1::before {
+        width: 0px;
+    }
+
+    .ContenedorAreas h1::after,
+    .ContenedorAreas2 h1::after {
+        width: 0px;
+    }
+
+    .Mensaje{        
+        width: 310px;
+        text-align: center;
+        height: 50px;
+        margin: 1% 7%;                
+    }
+
+    #Titulo, #Contenido{
+        font-size: 16px;
+    }
+
+    .Enlace {
+        height: 100px;    
+    }
+
+    .FormBotones input{        
+        font-size: 14px;
+    }
+
+}
