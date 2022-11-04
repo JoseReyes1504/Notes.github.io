@@ -90,7 +90,7 @@ function CargarClases(Coleccion, Contenedor, NLista) {
                 CodigoTema = '';
                 style.setProperty('--TranslateArrow', '80px');
                 style.setProperty('--TranslateXD', '0px');
-
+                style.setProperty('--TranslateArrow2', '0px');
                 ResetearIndex();
                 if (Boton == 0 || Boton == 3) {
                     style.setProperty('--Index', '6');
@@ -142,6 +142,7 @@ function ResetearIndex() {
     style.setProperty('--IndexClase', '3');
     style.setProperty('--Index', '4');
     style.setProperty('--IndexContenedor', '5');
+    style.setProperty('--TranslateXD2Movil', '0px');        
 }
 
 function ReplaceEnters(texto) {
@@ -163,9 +164,9 @@ btnAgregar.onclick = function () {
             } else {
                 if (CodigoClase == '') {
                     AlertMSJ('Elija la clase', true);
-                    style.setProperty('--TranslateArrow', '0px');
                     ResetearIndex();
-                style.setProperty('--IndexClase', '6');
+                    style.setProperty('--IndexClase', '6');
+                    style.setProperty('--TranslateArrow', '0px');                                    
                 } else if (CodigoTema == '') {
                     AlertMSJ('Elija el tema', true);                    
                     style.setProperty('--TranslateArrow2', '0px');
@@ -210,6 +211,8 @@ btnAgregar.onclick = function () {
                 AlertMSJ('Seleccione Seleccione la clase y el tema', true);
                 style.setProperty('--TranslateArrow', '0px');
                 style.setProperty('--TranslateArrow2', '0px');
+                ResetearIndex();
+                style.setProperty('--IndexClase', '6');
             }
             else if (CodigoClase == '') {
                 AlertMSJ('Seleccione una clase', true);
@@ -234,8 +237,7 @@ btnEliminar.onclick = function () {
         AlertMSJ('Se elimino la clase', true);
 
     } else if (CodigoClase == '') {
-        AlertMSJ('Seleccione una clase', true);
-        style.setProperty('--Index', '2');
+        AlertMSJ('Seleccione una clase', true);        
     }
 
     if (CodigoClase != '' && CodigoTema != '') {
@@ -255,8 +257,6 @@ btnClase.onclick = function () {
     btnClaseAct = true;
     FuncionBoton();
     LimpiarCodigos();
-    ResetearIndex();
-    style.setProperty('--IndexContenedor', '6');
     Boton = 1;
 }
 
@@ -269,8 +269,6 @@ btnTema.onclick = function () {
     FuncionBoton();
     LimpiarCodigos();
     Boton = 2;
-    ResetearIndex();
-    style.setProperty('--IndexClase', '6');
 }
 
 btnCard.onclick = function () {
@@ -293,8 +291,6 @@ btnDatos.onclick = function () {
     btnDatosAct = true;
     FuncionBoton();
     Boton = 3;
-    ResetearIndex();
-    style.setProperty('--IndexClase', '6');
 }
 
 function ColoresBotonesOff(ColorAct, Color2, Color3, Color5) {

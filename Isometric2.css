@@ -36,6 +36,7 @@ body {
     --TranslateArrow2: -80px;
     --TranslateMsj: -100px;
     --TranslateTodo: 0px;
+    --TranslateXD2Movil: -350px;
 }
 
 .Mensaje {
@@ -182,8 +183,7 @@ textarea:hover {
 }
 
 .Enlace {
-    /* width: 200px; */
-    min-width: 150px;
+    width: 150px;
     height: var(--BotonsHeigth);
     background-color: #181818;
     color: white;
@@ -467,28 +467,36 @@ ul li a:hover {
 
 @media only screen and (min-device-width : 320px) and (max-device-width : 768px) {
 
-    .ContenedorPrincipal {        
-        width: 320px;
-        height: 400px;
-        margin: 30% 8%;    
+    .Contenedor {
+        /* background-color: red; */
+        height: 500px;
+        margin-top: 0%;
+    }
+
+    .ContenedorPrincipal {
+        width: 360px;
+        /* background-color: blue; */
+        height: auto;
+        margin: 20% 2%;
         z-index: var(--IndexContenedor);
     }
 
-    .ContenedorBotones {
-        position: absolute;        
-        margin-bottom: 45%;
-        width: 325px;   
-        flex-direction: column;        
+    .ContenedorBotones {        
+        margin-bottom: 30%;
+        width: 380px;
+        align-items: flex-start;
+        /* background-color: red;         */
         z-index: 5;
     }
 
     .ContenedorSecundario,
-    .ContenedorTerciario {        
-        right: 0%;
-        height: 1000px;
-        margin-left: 8%;
+    .ContenedorTerciario {
+        width: 100%;        
+        right: 0%;                
+        min-height: 600px;        
+        /* margin-left: 8%; */
         /* background-color: red; */
-        margin-top: 50%;        
+        margin-top: 55%;
         z-index: var(--IndexClase);
     }
 
@@ -496,6 +504,28 @@ ul li a:hover {
         margin-right: 2.3%;
         /* background-color: red;                 */
         z-index: var(--Index);
+    }
+
+    .ContenedorAreas,
+    .ContenedorAreas2 {        
+        margin-left: 10%;
+    }
+
+    .ContenedorAreas{
+        transform: translateX(var(--TranslateXD2Movil));
+    }
+
+
+    .ContenedorFlecha,
+    .ContenedorFlecha2 {   
+        top: 0%;         
+        margin-top: 10%;
+        margin-right: 2%;        
+        /* background-color: blue; */
+    }
+
+    .ContenedorFlecha2 {  
+        margin-left: -8%;        
     }
 
     ul li,
@@ -520,23 +550,26 @@ ul li a:hover {
         width: 0px;
     }
 
-    .Mensaje{        
+    .Mensaje {
         width: 310px;
         text-align: center;
         height: 50px;
-        margin: 1% 7%;                
+        margin: 1% 7%;
     }
 
-    #Titulo, #Contenido{
+    #Titulo,
+    #Contenido {
         font-size: 16px;
     }
 
-    .Enlace {
-        height: 100px;    
+    .Enlace {        
+        font-size: 10px;
+        width: 100px;
+        height: 80px;
     }
 
-    .FormBotones input{        
-        font-size: 14px;
+    .FormBotones input {
+        font-size: 14px;        
     }
 
 }
