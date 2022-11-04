@@ -17,7 +17,7 @@
     --WidthCard: 300px;
     --opacidad: 100%;
     --TranslateMsj: -200px;
-    --heigth: 900px;
+    --heigth: 520px;
 
 
     --CardTop: 400px;
@@ -292,8 +292,8 @@ color: #3496bd;
     }
 
     .Contenedor{                
-        height: var(--heigth);
-        margin: 130% 2.5%;        
+        height: var(--heigth);        
+        margin: 170% 2.5%;        
         width: 95%;        
         /* background-color: red; */
         transform: translateY(var(--ListaBootom));        
@@ -301,7 +301,9 @@ color: #3496bd;
 
     .Menu{
         width: 320px;        
-        margin: -65% 8%;
+        height: 480px;
+        margin: -30% 8%;        
+        /* background-color: blue; */
         transform: translateY(var(--CardTop));        
     }
 

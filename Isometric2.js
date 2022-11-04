@@ -208,7 +208,7 @@ btnAgregar.onclick = function () {
             break;
         case 3:
             if (CodigoClase == '' && CodigoTema == '') {
-                AlertMSJ('Seleccione Seleccione la clase y el tema', true);
+                AlertMSJ('Seleccione la clase y el tema', true);
                 style.setProperty('--TranslateArrow', '0px');
                 style.setProperty('--TranslateArrow2', '0px');
                 ResetearIndex();

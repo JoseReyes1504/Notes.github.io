@@ -328,6 +328,7 @@ ul li,
 
 ul li {
     width: auto;
+    min-width: 200px;
     height: auto;
     font-size: 12px;
 }

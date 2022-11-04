@@ -106,7 +106,7 @@ async function CargarCards() {
             if (event.target.dataset.id == 0) {
                 CambiarOrientacion(0, 0);
                 style.setProperty('--WidthCard', '300px');
-                style.setProperty('--heigth', '800px');   
+                style.setProperty('--heigth', '520px');   
                 style.setProperty('--ListaBootom', '-400px');                 
                 Titulo.innerHTML = 'Salir';
                 ContenedorTexto.innerHTML = '';
@@ -119,7 +119,7 @@ async function CargarCards() {
                 Codigo = event.target.dataset.id;
                 AlertMSJ('msj', false);
                 ContenedorTexto.innerHTML = Text2;
-                style.setProperty('--heigth', '800px');
+                style.setProperty('--heigth', '520px');
                 style.setProperty('--CardTop', '400px');
                 style.setProperty('--ListaBootom', '200px');    
             }
