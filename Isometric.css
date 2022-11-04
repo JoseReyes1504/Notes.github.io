@@ -302,7 +302,7 @@ color: #3496bd;
     .Menu{
         width: 320px;        
         height: 480px;
-        margin: -30% 8%;        
+        margin: -20% 8%;        
         /* background-color: blue; */
         transform: translateY(var(--CardTop));        
     }
