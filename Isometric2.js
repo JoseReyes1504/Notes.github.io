@@ -33,16 +33,21 @@ function LimpiarCodigos() {
     CodigoTema = '';
     CodigoClaseRef = '';
     btnClaseAct = false;
+    EliminarColorBoton(1);
+    EliminarColorBoton(0);
 }
 
-function AlertMSJ(Descripcion, Funcion) {
-    if (Funcion == true) {
-        MSJ.innerHTML = Descripcion;
-        style.setProperty('--TranslateMsj', '0px');
-    } else {
-        style.setProperty('--TranslateMsj', '-200px');
-    }
+function AlertMSJ(Descripcion) {
+    MSJ.innerHTML = Descripcion;
+    style.setProperty('--TranslateMsj', '0px');
+    setTimeout(EsconderMSJ, 3000);
 }
+
+
+function EsconderMSJ() {
+    style.setProperty('--TranslateMsj', '-200px');
+}
+
 
 function GenerarCodigo(i = 0) {
     var caracteres = "abcdefghijkmnpqrtuvwxyzABCDEFGHJKMNPQRTUVWXYZ2346789";
@@ -81,6 +86,7 @@ function CargarClases(Coleccion, Contenedor, NLista) {
         Contenedor.innerHTML = lista;
         const Clases = Contenedor.querySelectorAll('.Lista1');
 
+
         Clases.forEach(btn => {
             btn.addEventListener('click', async (event) => {
                 const doc = await obtenerClase(event.target.dataset.id);
@@ -91,18 +97,34 @@ function CargarClases(Coleccion, Contenedor, NLista) {
                 style.setProperty('--TranslateArrow', '80px');
                 style.setProperty('--TranslateXD', '0px');
                 style.setProperty('--TranslateArrow2', '0px');
+                EliminarColorBoton(1);
+                btn.classList.add('BotonSeleccionado');
                 ResetearIndex();
                 if (Boton == 0 || Boton == 3) {
                     style.setProperty('--Index', '6');
                 } else {
                     style.setProperty('--IndexContenedor', '6');
                 }
-
                 btnEliminarStyle('Clase');
-                AlertMSJ('msj', false);
             });
         });
     });
+}
+
+function EliminarColorBoton(Lista) {
+    if (Lista == 1) {
+        const Botones = ContenedorListaClases.querySelectorAll('.Lista1');
+
+        Botones.forEach(btn => {
+            btn.classList.remove('BotonSeleccionado');
+        });
+    } else {
+        const Botones = ContenedorListaClases2.querySelectorAll('.Lista2');
+
+        Botones.forEach(btn => {
+            btn.classList.remove('BotonSeleccionado');
+        });
+    }
 }
 
 async function CargarTemas() {
@@ -127,12 +149,14 @@ async function CargarTemas() {
             const doc = await obtenerClase(event.target.dataset.id);
             CodigoTema = doc.id;
             CodigoTemaRef = event.target.dataset.idref;
-            style.setProperty('--TranslateArrow2', '-80px');
+            style.setProperty('--TranslateArrow2', '-80px');            
+            EliminarColorBoton(0);
+            btn.classList.add('BotonSeleccionado');
+
             ResetearIndex();
             style.setProperty('--IndexContenedor', '6');
             btnEliminarStyle('Tema');
             localStorage.setItem('CodigoTema', CodigoTema);
-            AlertMSJ('msj', false);
         });
     });
 }
@@ -142,7 +166,7 @@ function ResetearIndex() {
     style.setProperty('--IndexClase', '3');
     style.setProperty('--Index', '4');
     style.setProperty('--IndexContenedor', '5');
-    style.setProperty('--TranslateXD2Movil', '0px');        
+    style.setProperty('--TranslateXD2Movil', '0px');
 }
 
 function ReplaceEnters(texto) {
@@ -160,66 +184,66 @@ btnAgregar.onclick = function () {
     switch (Boton) {
         case 0:
             if (Titulo == '' || Contenido == '') {
-                AlertMSJ('LLene los Datos', true);
+                AlertMSJ('LLene los Datos');
             } else {
                 if (CodigoClase == '') {
-                    AlertMSJ('Elija la clase', true);
+                    AlertMSJ('Elija la clase');
                     ResetearIndex();
                     style.setProperty('--IndexClase', '6');
-                    style.setProperty('--TranslateArrow', '0px');                                    
+                    style.setProperty('--TranslateArrow', '0px');
                 } else if (CodigoTema == '') {
-                    AlertMSJ('Elija el tema', true);                    
+                    AlertMSJ('Elija el tema');
                     style.setProperty('--TranslateArrow2', '0px');
                 }
                 else {
                     Contenido = ReplaceEnters(Contenido);
                     AgregarCards(Titulo, Contenido, CodigoTema);
                     limpiar();
-                    AlertMSJ('Se Agrego la nota', true);
+                    AlertMSJ('Se Agrego la nota');
                 }
             }
             break;
         case 1:
             if (Titulo == '') {
-                AlertMSJ('LLene el Nombre de la clase', true);
+                AlertMSJ('LLene el Nombre de la clase');
             } else {
                 AgregarClase(Codigo, Titulo);
-                AlertMSJ('Se Agregaron los datos', true);
+                AlertMSJ('Se Agregaron los datos');
                 limpiar();
             }
             break;
         case 2:
             if (CodigoClase == '') {
-                AlertMSJ('Elija la clase', true);
+                AlertMSJ('Elija la clase');
                 style.setProperty('--TranslateArrow', '0px');
                 ResetearIndex();
                 style.setProperty('--IndexClase', '6');
             } else {
                 if (Titulo == '') {
-                    AlertMSJ('LLene el nombre del tema', true);
+                    AlertMSJ('LLene el nombre del tema');
                 } else {
                     var Codigo = GenerarCodigo();
                     AgregarTema(Titulo, Codigo, CodigoClase);
                     CargarTemas();
-                    AlertMSJ('Se agregaron los datos', true);
+                    AlertMSJ('Se agregaron los datos');
                     limpiar();
                 }
             }
             break;
         case 3:
             if (CodigoClase == '' && CodigoTema == '') {
-                AlertMSJ('Seleccione la clase y el tema', true);
+                AlertMSJ('Seleccione la clase y el tema');
                 style.setProperty('--TranslateArrow', '0px');
                 style.setProperty('--TranslateArrow2', '0px');
                 ResetearIndex();
                 style.setProperty('--IndexClase', '6');
             }
             else if (CodigoClase == '') {
-                AlertMSJ('Seleccione una clase', true);
+                AlertMSJ('Seleccione una clase');
                 ResetearIndex();
                 style.setProperty('--IndexClase', '6');
             } else if (CodigoTema == '') {
-                AlertMSJ('Seleccione el Tema', true);
+                AlertMSJ('Seleccione el Tema');
             } else {
                 location.href = './Isometric.html';
             }
@@ -234,17 +258,17 @@ btnEliminar.onclick = function () {
         EliminarClase(CodigoClaseRef);
         style.setProperty('--Color4', '#181818');
         LimpiarCodigos();
-        AlertMSJ('Se elimino la clase', true);
+        AlertMSJ('Se elimino la clase');
 
     } else if (CodigoClase == '') {
-        AlertMSJ('Seleccione una clase', true);        
+        AlertMSJ('Seleccione una clase');
     }
 
     if (CodigoClase != '' && CodigoTema != '') {
         EliminarTema(CodigoTemaRef);
         CargarTemas();
         style.setProperty('--Color4', '#181818');
-        AlertMSJ('Se elimino el tema', true);
+        AlertMSJ('Se elimino el tema');
     }
 }
 
@@ -267,7 +291,7 @@ btnTema.onclick = function () {
     btnTemaAct = true
     document.getElementById('Contenido').style.opacity = '0%';
     FuncionBoton();
-    LimpiarCodigos();
+    LimpiarCodigos();    
     Boton = 2;
 }
 
@@ -342,7 +366,6 @@ function FuncionBoton() {
         style.setProperty('--TranslateXD2', '-350px');
         style.setProperty('--TranslateArrow', '80px');
         style.setProperty('--TranslatdeArrow2', '-80px');
-        AlertMSJ('msj', false);
         btnEliminar.value = 'Eliminar';
         btnEliminar.setAttribute('disabled', true);
         LimpiarCodigos();

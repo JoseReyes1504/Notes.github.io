@@ -94,6 +94,7 @@ async function CargarCards() {
             `
     });
 
+    ContenedorBtn.innerHTML = lista;
     ContenedorBtn.innerHTML = lista + `<li class="Lista" style="--i:0;"><a data-id="0" href="#">Salir</a></li>`;
     const Botones = ContenedorBtn.querySelectorAll('.Lista');
 

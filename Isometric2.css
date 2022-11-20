@@ -22,6 +22,7 @@ body {
     --Color3: #181818;
     --Color4: #181818;
     --Color5: #181818;
+    --ColorBoton: #181818;
     --ColorLi: #3496db;
     --ColorHover: rgb(170, 255, 169);
     --TranslateXD: 350px;
@@ -314,16 +315,16 @@ ul li,
 .Lista2 li {
     position: relative;
     width: 200px;
-    list-style-type: none;
-    /* padding: 15px; */
-    background-color: #181818;
-    /* transform: skewx(00deg); */
+    list-style-type: none;        
     margin: 5% 2%;
     border-top-left-radius: 10px;
     border: 1.5px solid white;
     transition: all 800ms;
-    text-align: center;
-    /* z-index: var(--i);  */
+    text-align: center;    
+}
+
+.BotonSeleccionado{
+    background-color: #3496db;    
 }
 
 ul li {
