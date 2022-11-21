@@ -8,6 +8,7 @@ const btnTema = document.getElementById('btnTema');
 const btnClase = document.getElementById('btnClase');
 const btnCard = document.getElementById('btnCard');
 const btnDatos = document.getElementById('btnDatos');
+const btnLimpiar = document.getElementById('btnLimpiar');
 const btnEliminar = document.getElementById('btnEliminar');
 const MSJ = document.getElementById('MSJ');
 
@@ -279,8 +280,7 @@ btnClase.onclick = function () {
     ColoresBotonesOff(1, 3, 2, 5);
     document.getElementById('Contenido').style.opacity = '0%';
     btnClaseAct = true;
-    FuncionBoton();
-    LimpiarCodigos();
+    FuncionBoton();    
     Boton = 1;
 }
 
@@ -290,8 +290,7 @@ btnTema.onclick = function () {
     ColoresBotonesOff(2, 1, 3, 5);
     btnTemaAct = true
     document.getElementById('Contenido').style.opacity = '0%';
-    FuncionBoton();
-    LimpiarCodigos();    
+    FuncionBoton();    
     Boton = 2;
 }
 
@@ -302,8 +301,7 @@ btnCard.onclick = function () {
     ColoresBotonesOff(3, 1, 2, 5);
     document.getElementById('Contenido').style.opacity = '100%';
     style.setProperty('--Visibilidad', 'visible');
-    FuncionBoton();
-    LimpiarCodigos();
+    FuncionBoton();    
     Boton = 0;
 }
 
@@ -317,6 +315,11 @@ btnDatos.onclick = function () {
     Boton = 3;
 }
 
+
+btnLimpiar.onclick = function (){
+    LimpiarCodigos();
+}
+
 function ColoresBotonesOff(ColorAct, Color2, Color3, Color5) {
     style.setProperty('--Color' + ColorAct, '#2e4053');
     style.setProperty('--Color' + Color2, '#181818');
@@ -327,14 +330,14 @@ function ColoresBotonesOff(ColorAct, Color2, Color3, Color5) {
 function MostrarControles(NoMostrar) {
     if (NoMostrar == true) {
         document.getElementById('Titulo').style.opacity = '0%';
-        document.getElementById('btnEditar').style.opacity = '0%';
+        document.getElementById('btnLimpiar').style.opacity = '0%';
         document.getElementById('btnEliminar').style.opacity = '0%';
         btnAgregar.value = 'Ver Notas';
         // style.setProperty('--Visibilidad', 'hidden');
     } else {
         btnAgregar.value = 'Agregar';
         document.getElementById('Titulo').style.opacity = '100%';
-        document.getElementById('btnEditar').style.opacity = '100%';
+        document.getElementById('btnLimpiar').style.opacity = '100%';
         document.getElementById('btnEliminar').style.opacity = '100%';
     }
 }

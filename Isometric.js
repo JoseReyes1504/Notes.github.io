@@ -23,13 +23,14 @@ function Copy() {
         });
 }
 
-function AlertMSJ(Descripcion, Funcion) {
-    if (Funcion == true) {
-        MSJ.innerHTML = Descripcion;
-        style.setProperty('--TranslateMsj', '0px');
-    } else {
-        style.setProperty('--TranslateMsj', '-200px');
-    }
+function Esconder() {
+    style.setProperty('--TranslateMsj', '-200px');
+}
+
+function AlertMSJ(Descripcion) {
+    MSJ.innerHTML = Descripcion;
+    style.setProperty('--TranslateMsj', '0px');
+    setTimeout(Esconder, 3000);
 }
 
 //Variables
@@ -107,25 +108,29 @@ async function CargarCards() {
             if (event.target.dataset.id == 0) {
                 CambiarOrientacion(0, 0);
                 style.setProperty('--WidthCard', '300px');
-                style.setProperty('--heigth', '520px');   
-                style.setProperty('--ListaBootom', '-400px');                 
+                style.setProperty('--heigth', '520px');
+                style.setProperty('--ListaBootom', '-400px');
                 Titulo.innerHTML = 'Salir';
-                ContenedorTexto.innerHTML = '';
-                AlertMSJ('msj', false);
+                ContenedorTexto.innerHTML = '';                
             } else {
                 Titulo.innerHTML = Informacion.Titulo;
                 ///Cortar String
                 Text = Informacion.Contenido;
+                Text = ReplaceEnters(Text);
                 Text2 = Informacion.Contenido;
-                Codigo = event.target.dataset.id;
-                AlertMSJ('msj', false);
+                Codigo = event.target.dataset.id;                
                 ContenedorTexto.innerHTML = Text2;
                 style.setProperty('--heigth', '520px');
                 style.setProperty('--CardTop', '400px');
-                style.setProperty('--ListaBootom', '200px');    
+                style.setProperty('--ListaBootom', '200px');
             }
         });
     });
+}
+
+function ReplaceEnters(texto) {
+    texto = texto.replace(/<br>/g, "\r","\n");
+    return texto;
 }
 
 

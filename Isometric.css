@@ -285,6 +285,19 @@ color: #3496bd;
     height: 71%;
 }
 
+.Imagen{
+    position: absolute;    
+    /* background-color: red; */
+    width: 200px;
+    height: 200px;
+    margin: 10% 1%;
+}
+
+.Imagen img{
+    width: 100%;
+    height: 100%;
+}
+
 @media only screen and (min-device-width : 320px) and (max-device-width : 768px) {
 
     body{
@@ -336,4 +349,12 @@ color: #3496bd;
         margin: 2% auto;
     }
     
+
+    .Imagen{
+        position: absolute;    
+        /* background-color: red; */
+        width: 200px;
+        height: 200px;
+        margin: 25% 25%;
+    }
 }
