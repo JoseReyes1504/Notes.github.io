@@ -323,13 +323,14 @@ function ColoresBotonesOff(ColorAct, Color2, Color3, Color5) {
 
 function MostrarControles(NoMostrar) {
     if (NoMostrar == true) {
-        document.getElementById('Titulo').style.opacity = '0%';
-        document.getElementById('btnLimpiar').style.opacity = '0%';
+        document.getElementById('Titulo').style.opacity = '0%';        
+        document.getElementById('btnPantalla').style.opacity = '0%';
         document.getElementById('btnEliminar').style.opacity = '0%';
         btnAgregar.value = 'Ver Notas';
         // style.setProperty('--Visibilidad', 'hidden');
     } else {
         btnAgregar.value = 'Agregar';
+        document.getElementById('btnPantalla').style.opacity = '100%';
         document.getElementById('Titulo').style.opacity = '100%';        
         document.getElementById('btnEliminar').style.opacity = '100%';
     }
