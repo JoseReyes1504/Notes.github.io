@@ -6,6 +6,7 @@
 
 body {
     background-color: #181818;
+    min-height: 120vh;
 }
 
 ::-webkit-scrollbar {
@@ -30,6 +31,8 @@ body {
     --Visibilidad: visible;
     --BotonsHeigth: 200px;
 
+
+    --witdhArea: 600px;
     --Index: 3;
     --IndexClase: 4;
     --IndexContenedor: 5;
@@ -70,13 +73,14 @@ body {
 }
 
 .ContenedorPrincipal {
-    position: absolute;
-    margin: 1% 30%;
+    position: absolute;    
     background-color: #181818;
-    display: flex;
+    display: flex;    
+    width: 100%;
+    margin-top: 5%;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    height: 600px;
 }
 
 textarea {
@@ -110,9 +114,9 @@ textarea {
     flex-direction: column;
     align-items: center;
     /* background-color: red; */
-    margin-top: 10%;
-    width: 600px;
-    height: 600px;
+    margin-top: 8%;
+    width: var(--witdhArea);
+    height: 550px;
     border: 2px solid white;
     border-radius: 10px;
     color: white;
@@ -121,31 +125,48 @@ textarea {
     z-index: 4;
 }
 
+.Contenedor h1{
+    margin: 0%;
+}
 .Contenedor Input {
-    width: 80%;
-    height: 5%;
+    width: 400px;
+    height: 20px;
     text-align: center;
     font-size: 25px;
     background-color: transparent;
     outline: none;
     border: none;
-    margin: 4% 0%;
+    margin: 1% 0%;
     color: white;
     border-bottom: 2px solid white;
 }
 
 .FormBotones {
-    width: 90%;
+    width: 600px;
     /* background-color: red; */
-    height: 30%;
-    display: flex;
-    flex-wrap: wrap;
-    margin-bottom: 3%;
+    height: 100px;    
+    margin: 2% 0%;
+    display: flex;    
+    align-items: center;
+    flex-direction: row;    
+}
+
+.Contenedor .Boton {
+    background-color: transparent;
+    color: white;
+    border: none;    
+    width: 200px;
+    margin: 2% auto;
+    height: 100%;    
+    border-radius: 10px;
+    border: 2px solid white;
+    transition: all 800ms;
+    cursor: pointer;
 }
 
 textarea {
     width: 80%;
-    height: 40%;
+    height: 100%;
     resize: none;
     background-color: transparent;
     color: white;
@@ -159,24 +180,6 @@ textarea {
 
 textarea:hover {
     background-color: #121212;
-}
-
-.Contenedor .Boton {
-    background-color: transparent;
-    color: white;
-    border: none;
-    width: 45%;
-    margin: 2% auto;
-    height: 40%;
-    border-radius: 5px;
-    border-radius: 10px;
-    border: 2px solid white;
-    transition: all 800ms;
-    cursor: pointer;
-}
-
-#btnAgregar {
-    width: 95%;
 }
 
 .Contenedor .Boton:hover {
@@ -464,6 +467,15 @@ ul li a:hover {
 
 .ContenedorFlecha2 svg {
     transform: translateX(var(--TranslateArrow2));
+}
+
+.FormBotones svg{
+    fill: white;
+    cursor: pointer;
+}
+
+.FormBotones svg:hover{
+    fill: yellow;
 }
 
 

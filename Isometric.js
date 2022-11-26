@@ -128,6 +128,7 @@ async function CargarCards() {
     });
 }
 
+
 function ReplaceEnters(texto) {
     texto = texto.replace(/<br>/g, "\r","\n");
     return texto;

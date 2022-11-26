@@ -180,8 +180,7 @@ function ReplaceEnters(texto) {
 btnAgregar.onclick = function () {
     Titulo = document.getElementById('Titulo').value;
     Contenido = document.getElementById('Contenido').value;
-    var Codigo = GenerarCodigo();
-
+    var Codigo = GenerarCodigo();    
     switch (Boton) {
         case 0:
             if (Titulo == '' || Contenido == '') {
@@ -189,14 +188,14 @@ btnAgregar.onclick = function () {
             } else {
                 if (CodigoClase == '') {
                     AlertMSJ('Elija la clase');
-                    ResetearIndex();
+                    ResetearIndex();                    
                     style.setProperty('--IndexClase', '6');
                     style.setProperty('--TranslateArrow', '0px');
                 } else if (CodigoTema == '') {
                     AlertMSJ('Elija el tema');
                     style.setProperty('--TranslateArrow2', '0px');
                 }
-                else {
+                else {                    
                     Contenido = ReplaceEnters(Contenido);
                     AgregarCards(Titulo, Contenido, CodigoTema);
                     limpiar();
@@ -315,11 +314,6 @@ btnDatos.onclick = function () {
     Boton = 3;
 }
 
-
-btnLimpiar.onclick = function (){
-    LimpiarCodigos();
-}
-
 function ColoresBotonesOff(ColorAct, Color2, Color3, Color5) {
     style.setProperty('--Color' + ColorAct, '#2e4053');
     style.setProperty('--Color' + Color2, '#181818');
@@ -336,8 +330,7 @@ function MostrarControles(NoMostrar) {
         // style.setProperty('--Visibilidad', 'hidden');
     } else {
         btnAgregar.value = 'Agregar';
-        document.getElementById('Titulo').style.opacity = '100%';
-        document.getElementById('btnLimpiar').style.opacity = '100%';
+        document.getElementById('Titulo').style.opacity = '100%';        
         document.getElementById('btnEliminar').style.opacity = '100%';
     }
 }
@@ -356,6 +349,8 @@ function FuncionBoton() {
         style.setProperty('--ColorHover', '#181818');
         style.setProperty('--BotonsHeigth', '50px');
         style.setProperty('--TranslateXD2', '0px');
+        style.setProperty('--witdhArea', '600px');
+        Tocar = 0;
     }
 
     else if ((btnClaseAct && btnTemaAct && btnCardAct) == false) {
@@ -374,3 +369,25 @@ function FuncionBoton() {
         LimpiarCodigos();
     }
 }
+
+
+
+
+const btnPantalla = document.getElementById("btnPantalla");
+var Tocar = 0;
+
+btnPantalla.addEventListener("click" , function(){
+    Tocar ++;
+
+    if(Tocar == 1){
+        style.setProperty('--witdhArea', '1200px')
+        style.setProperty('--TranslateXD', '350px');
+        style.setProperty('--TranslateXD2', '-350px');    
+    }else{
+        style.setProperty('--witdhArea', '600px')
+        style.setProperty('--TranslateXD', '0px');
+        style.setProperty('--TranslateXD2', '0px');    
+        Tocar = 0;
+    }
+    
+});
