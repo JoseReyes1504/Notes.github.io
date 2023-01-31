@@ -177,7 +177,17 @@ function ReplaceEnters(texto) {
 
 ////////////////////////////////////////////////////////////////// FUNCION BOTONES //////////////////////////////////////////////////////
 
+window.addEventListener("keydown", (btn) => {
+    if(btn.code == "Enter"){
+        AgregarDatos();
+    }
+});
+
 btnAgregar.onclick = function () {
+    AgregarDatos();
+}
+
+function AgregarDatos(){
     Titulo = document.getElementById('Titulo').value;
     Contenido = document.getElementById('Contenido').value;
     var Codigo = GenerarCodigo();    
@@ -199,7 +209,7 @@ btnAgregar.onclick = function () {
                     Contenido = ReplaceEnters(Contenido);
                     AgregarCards(Titulo, Contenido, CodigoTema);
                     limpiar();
-                    AlertMSJ('Se Agrego la nota');
+                    AlertMSJ('Se Agrego la nota');                    
                 }
             }
             break;
@@ -210,6 +220,8 @@ btnAgregar.onclick = function () {
                 AgregarClase(Codigo, Titulo);
                 AlertMSJ('Se Agregaron los datos');
                 limpiar();
+                Tema();
+                Boton = 2;
             }
             break;
         case 2:
@@ -227,6 +239,8 @@ btnAgregar.onclick = function () {
                     CargarTemas();
                     AlertMSJ('Se agregaron los datos');
                     limpiar();
+                    Cards();
+                    Boton = 0;
                 }
             }
             break;
@@ -251,6 +265,7 @@ btnAgregar.onclick = function () {
     }
 }
 
+
 btnEliminar.onclick = function () {
 
 
@@ -273,7 +288,7 @@ btnEliminar.onclick = function () {
 }
 
 
-btnClase.onclick = function () {
+function Clase(){
     MostrarControles(false);
     TipoAccion.innerHTML = 'Clase';
     ColoresBotonesOff(1, 3, 2, 5);
@@ -283,7 +298,7 @@ btnClase.onclick = function () {
     Boton = 1;
 }
 
-btnTema.onclick = function () {
+function Tema(){
     MostrarControles(false);
     TipoAccion.innerHTML = 'Tema';
     ColoresBotonesOff(2, 1, 3, 5);
@@ -293,7 +308,7 @@ btnTema.onclick = function () {
     Boton = 2;
 }
 
-btnCard.onclick = function () {
+function Cards(){
     MostrarControles(false);
     TipoAccion.innerHTML = 'Nota';
     btnCardAct = true;
@@ -302,6 +317,18 @@ btnCard.onclick = function () {
     style.setProperty('--Visibilidad', 'visible');
     FuncionBoton();    
     Boton = 0;
+}
+
+btnClase.onclick = function () {
+    Clase();
+}
+
+btnTema.onclick = function () {
+    Tema();
+}
+
+btnCard.onclick = function () {
+    Cards();
 }
 
 btnDatos.onclick = function () {

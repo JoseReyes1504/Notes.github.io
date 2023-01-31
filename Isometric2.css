@@ -130,7 +130,7 @@ textarea {
 }
 .Contenedor Input {
     width: 400px;
-    height: 20px;
+    height: 25px;
     text-align: center;
     font-size: 25px;
     background-color: transparent;
@@ -362,9 +362,9 @@ ul li::after,
     border-top-right-radius: 0px;
     /* border-bottom-left-radius: 10px; */
     right: 0;
-    left: -20px;
+    left: -17px;
     width: 15px;
-    top: -20px;
+    top: -17px;
     transform-origin: left;
     transform: skewY(45deg);
 }
@@ -387,9 +387,9 @@ ul li::before,
 
 .Lista2 li::before {
     border-bottom-left-radius: 0px;
-    bottom: 53px;
+    bottom: 51px;
     height: 15px;
-    right: -2px;
+    right: -1px;
     transform: skewX(45deg);
     transform-origin: bottom;
 }
@@ -572,8 +572,9 @@ ul li a:hover {
     }
 
     #Titulo,
-    #Contenido {
-        font-size: 16px;
+    #Contenido {        
+        font-size: 16px;        
+        background-color: red;
     }
 
     .Enlace {        
