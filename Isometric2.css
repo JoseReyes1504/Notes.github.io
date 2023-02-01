@@ -1,7 +1,5 @@
 * {
-    font-family: 'Arsenal', sans-serif;
-    font-family: 'Bebas Neue', cursive;
-    font-family: 'Glegoo', serif;
+    font-family: 'Pragati Narrow', sans-serif;
 }
 
 body {
@@ -107,7 +105,25 @@ textarea {
     margin-left: 1%;
 }
 
+#btnCerrarSesion{
+    position: fixed;
+    left: 1%;
+    bottom: 2%;
+    width: 100px;
+    height: 50px;
+    z-index: 10;
+    background-color: #181818;
+    color: white;
+    border: 2px solid white;
+    font-size: 25px;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: all 400ms;
+}
 
+#btnCerrarSesion:hover{
+    background-color: #ff6961;
+}
 
 .Contenedor {
     display: flex;
@@ -171,7 +187,7 @@ textarea {
     background-color: transparent;
     color: white;
     outline: none;
-    font-size: 15px;
+    font-size: 20px;
     padding: 2%;
     border: 2px solid white;
     border-radius: 10px;

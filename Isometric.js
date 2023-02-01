@@ -1,4 +1,4 @@
-import { ObtenerDato, BorrarCard, db, onSnapshot, collection, query, where, getDocs } from "./db.js";
+import { ObtenerDato, BorrarCard, db, collection, query, where, getDocs } from "./db.js";
 
 
 const style = document.documentElement.style;
@@ -7,11 +7,14 @@ const btnInformacion = document.getElementById('VerInfor');
 const ContenedorTexto = document.getElementById('Texto');
 const btnCopy = document.getElementById('btnCopy');
 const btnEliminar = document.getElementById('btnEliminar');
+
 const MSJ = document.getElementById('MSJ');
 
 var Text = '';
 var Text2 = '';
 var Codigo = '';
+
+
 
 function Copy() {
     navigator.clipboard.writeText(Text)
@@ -22,6 +25,7 @@ function Copy() {
             AlertMSJ('ah ocurrido un error al copiar', true);
         });
 }
+
 
 function Esconder() {
     style.setProperty('--TranslateMsj', '-200px');

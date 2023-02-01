@@ -1,0 +1,156 @@
+
+*{
+    font-family: 'Pragati Narrow', sans-serif;
+}
+
+body{    
+    background-color: #181818;    
+}
+
+.ContenedorLogin {
+    position: relative;
+    display: flex;
+    width: 1200px;
+    height: 700px;
+    margin: 2% auto;
+    background-color: transparent;
+}
+
+.ContenedorImagen {
+    width: 50%;
+    height: 100%;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    display: flex;
+    justify-content: center;
+    background-color: white;
+    transition: all 800ms;
+    background-image: url('./artistic-tree-leaf-library-829810.jpeg');
+    background-size: cover;
+    background-position: center;
+}
+
+.ContenedorImagen img {
+    width: auto;
+    height: auto;
+}
+
+.ContenedorFormulario {
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+    /* background-color: red; */
+}
+
+.Box {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    color: #181818;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;    
+    transition: all 800ms;
+    z-index: 1;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.Box h1 {
+    font-size: 80px;
+    margin: 0%;
+    margin-top: 5%;    
+}
+
+
+.TextBox {
+    width: 80%;
+    height: 40px;
+    margin-top: 2%;
+    margin-bottom: 3%;
+    text-align: center;
+    background-color: transparent;
+    border: none;
+    color: #181818;
+    border-bottom: 2px solid #181818;
+    font-size: 28px;
+    outline: none;
+}
+
+.Formulario {
+    width: 100%;
+    height: 40%;
+    margin-top: 5%;
+    padding: 1%;
+    margin-left: 20%;
+    /* background-color: #181818; */
+}
+
+.Boton,
+.Boton1{
+    width: 35%;
+    height: 20%;
+    border: none;
+    background-color: #9ebcae;
+    border-radius: 10px;
+    font-size: 30px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 5% 2%;
+    transition: all 400ms;
+}
+
+.Boton1 {
+    position: absolute;
+    z-index: -1;
+}
+.Boton:hover,
+.Boton1:hover{
+    background-color: pink;
+}
+
+.Eslogan{
+    font-size: 25px;
+    text-align: center;
+}
+
+label{
+    font-size: 35px;
+}
+
+@media only screen and (min-device-width : 320px) and (max-device-width : 500px) {
+    body{
+        min-height: 145vh;
+    }
+    .ContenedorLogin {
+        flex-direction: column;
+        width: 90%;
+        /* background-color: red; */
+        margin-left: 8%;
+    }
+
+    .ContenedorImagen {
+        width: 100%;
+        height: 100%;        
+        border-radius: 0%;
+    }
+
+    .Boton{                
+        height: 50px;
+        margin-top: -10%;        
+    }
+    .Box {
+        position: absolute;
+        border-radius: 0%;  
+        margin: 5% auto;
+        height: 700px;
+        /* background-color: red;       */
+    }
+    .Eslogan{
+        font-size: 28px;
+        text-align: center;
+    }
+}

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pragati+Narrow&display=swap" rel="stylesheet">
+    <title>Menu De Inicio</title>
+    <link rel="stylesheet" href="Isometric2.css">
+</head>
+
+<body>
+    <input type="button" value="Salir" id="btnCerrarSesion">
+    <div class="Mensaje">
+        <p id="MSJ">Mensaje</p>
+    </div>
+    <div class="ContenedorPrincipal">
+        <div class="ContenedorBotones">
+            <input class="Enlace" type="button" id="btnClase" value="Crear Clase">
+            <input class="Enlace" type="button" id="btnTema" value="Crear Tema">
+            <input class="Enlace" type="button" id="btnCard" value="Crear Nota">
+            <input class="Enlace" type="button" id="btnDatos" value="Ver Datos">
+        </div>
+        <div class="Contenedor" id="Contenedor">
+            <h1 id="TipoAccion">Clase</h1>
+            <input type="text" autocomplete="off" id="Titulo" maxlength="45v" onfocus="this.placeholder=''">
+            <textarea name="" id="Contenido" cols="30" rows="10"></textarea>
+            <div class="FormBotones" id="FormBotones">
+                <input class="Boton" id="btnAgregar" type="button" value="Agregar">
+                <svg xmlns="http://www.w3.org/2000/svg" height="48" width="48" id="btnPantalla">
+                    <path
+                        d="M7 40q-1.25 0-2.125-.875T4 37V11q0-1.25.875-2.125T7 8h34q1.25 0 2.125.875T44 11v26q0 1.25-.875 2.125T41 40Zm0-3h3.5V11H7v26Zm6.5 0h21V11h-21Zm24 0H41V11h-3.5Zm-24-26v26Z" />
+                </svg>
+                <input class="Boton" type="button" id="btnEliminar" disabled value="Eliminar">
+            </div>
+        </div>
+    </div>
+    <div class="ContenedorTerciario">
+        <div class="ContenedorAreas2">
+            <h1>Temas</h1>
+            <div class="ContenedorFlecha2">
+                <svg xmlns="http://www.w3.org/2000/svg" height="48" width="48">
+                    <path d="m28.05 35.9-2.15-2.1 8.4-8.4H8v-3h26.3l-8.45-8.45 2.15-2.1L40.05 23.9Z" />
+                </svg>
+            </div>
+            <ul id="ContenedorLista2">
+            </ul>
+        </div>
+    </div>
+
+    <div class="ContenedorSecundario">
+        <div class="ContenedorAreas">
+            <h1>Clases</h1>
+            <div class="ContenedorFlecha">
+                <svg xmlns="http://www.w3.org/2000/svg" height="48" width="48">
+                    <path d="M17.95 35.9 6 23.95 17.95 12l2.15 2.15-8.3 8.3H42v3H11.8l8.3 8.3Z" />
+                </svg>
+            </div>
+            <ul class="Lista2" id="ContenedorLista">
+            </ul>
+        </div>
+    </div>
+    <script type="module" src="Isometric2.js"></script>
+    <script type="module" src="./main.js"></script>
+</body>
+
+</html>

@@ -1,4 +1,4 @@
-import { AgregarCards, EliminarTema, obtenerClase, EliminarClase, AgregarTema, AgregarClase, onSnapshot, db, collection, query, where, getDocs } from "./db.js";
+import { AgregarCards, EliminarTema, CerrarSesion, obtenerClase, EliminarClase, AgregarTema, AgregarClase, onSnapshot, db, collection, query, where, getDocs } from "./db.js";
 const style = document.documentElement.style;
 
 
@@ -9,6 +9,7 @@ const btnClase = document.getElementById('btnClase');
 const btnCard = document.getElementById('btnCard');
 const btnDatos = document.getElementById('btnDatos');
 const btnLimpiar = document.getElementById('btnLimpiar');
+const btnCerrar = document.getElementById('btnCerrarSesion');
 const btnEliminar = document.getElementById('btnEliminar');
 const MSJ = document.getElementById('MSJ');
 
@@ -23,6 +24,18 @@ var btnClaseAct = false;
 
 
 ////////////////////////////////////////////////////////////////// FUNCIONES //////////////////////////////////////////////////////
+
+btnCerrar.addEventListener("click", async () => {
+
+    try {
+        await CerrarSesion();
+        location.href = './index.html';
+    } catch (err) {
+        console.log(err);
+    }
+    
+});
+
 
 function limpiar() {
     document.getElementById('Contenido').value = '';
@@ -178,7 +191,7 @@ function ReplaceEnters(texto) {
 ////////////////////////////////////////////////////////////////// FUNCION BOTONES //////////////////////////////////////////////////////
 
 window.addEventListener("keydown", (btn) => {
-    if(btn.code == "Enter"){
+    if(btn.code == "Enter" && Boton != 0){
         AgregarDatos();
     }
 });
@@ -239,8 +252,7 @@ function AgregarDatos(){
                     CargarTemas();
                     AlertMSJ('Se agregaron los datos');
                     limpiar();
-                    Cards();
-                    Boton = 0;
+                    Cards();                    
                 }
             }
             break;

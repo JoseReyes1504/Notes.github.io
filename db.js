@@ -1,10 +1,9 @@
 
 import { getFirestore, doc, collection, addDoc, deleteDoc, getDocs, onSnapshot, getDoc, updateDoc, query, where } from "https://www.gstatic.com/firebasejs/9.8.2/firebase-firestore.js"
+import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged} from "https://www.gstatic.com/firebasejs/9.8.2/firebase-auth.js"
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.2/firebase-app.js";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
+
 const firebaseConfig = {
     apiKey: "AIzaSyC4MRrMA11cs63aGCfseXYj0pM44WmvQSU",
     authDomain: "presentaciones-6212e.firebaseapp.com",
@@ -17,9 +16,17 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore();
+export const auth = getAuth(app);
 
 
 
+/// Inicio De Sesion
+
+export const IniciarSesion = (Correo, Password) => signInWithEmailAndPassword(auth, Correo, Password);
+
+export const CerrarSesion = () => signOut(auth); 
+
+export const SesionCurso = () => onAuthStateChanged(auth); 
 
 export const ObtenerDatos = () => getDocs(collection(db, 'Cards'));
 
@@ -71,7 +78,10 @@ export {
     collection,
     onSnapshot,
     query,
-    where, getDocs
+    where, getDocs,
+    getAuth,
+    onAuthStateChanged,
+    getDoc
 }
 
 

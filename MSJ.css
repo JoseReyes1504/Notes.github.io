@@ -1,0 +1,86 @@
+:root {
+    --translate: -120px;
+}
+
+.MSJ {
+    position: fixed;
+    top: 0;
+    right: 0;
+    margin: 1%;
+    width: 400px;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #96CEB3;
+    border-radius: 15px;
+    transition: all 800ms;
+    transform: translateY(var(--translate));
+    z-index: 3;
+}
+
+#MSJR {
+    text-decoration: none;
+    height: 10px;
+    margin-top: -25px;
+    font-weight: bold;
+    color: #181818;
+}
+
+.Barra {
+    width: 300px;
+    height: auto;
+    border-radius: 15px;
+    background-color: white;
+}
+
+.Progreso {
+    width: 0px;
+    height: 10px;
+    border-radius: 15px;
+    background-image: linear-gradient(to right top, #3bafde, #00c5dd, #00d7c7, #5de6a3, #adee7a);
+}
+
+.ProgressAnimacion {
+    animation: BarraProgress 5s;
+}
+
+
+.TextoPrin {
+    font-size: 40px;
+    color: white;
+    font-family: 'Amatic SC', cursive;
+    text-decoration: overline;
+}
+
+@keyframes BarraProgress {
+    0% {
+        width: 0px;
+    }
+
+    100% {
+        width: 300px;
+    }
+}
+
+
+@media only screen and (min-device-width : 320px) and (max-device-width : 500px) {
+    .MSJ {
+        width: 300px;
+        height: 60px;
+        margin-right: 8%;
+        ;
+    }
+
+    #MSJR {
+        font-size: 30px;                
+    }
+
+    .Barra {
+        position: absolute;
+        bottom: 0%;
+        width: 80%;
+        margin: 2%;        
+    }
+}
