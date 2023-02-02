@@ -7,6 +7,10 @@ body{
     background-color: #181818;    
 }
 
+::-webkit-scrollbar{
+    display: none;
+}
+
 .ContenedorLogin {
     position: relative;
     display: flex;
@@ -25,7 +29,7 @@ body{
     justify-content: center;
     background-color: white;
     transition: all 800ms;
-    background-image: url('./artistic-tree-leaf-library-829810.jpeg');
+    background-image: url('./Notes.gif');
     background-size: cover;
     background-position: center;
 }
@@ -93,7 +97,7 @@ body{
     width: 35%;
     height: 20%;
     border: none;
-    background-color: #9ebcae;
+    background-color: #181818;
     border-radius: 10px;
     font-size: 30px;
     color: white;
@@ -109,7 +113,7 @@ body{
 }
 .Boton:hover,
 .Boton1:hover{
-    background-color: pink;
+    background-color: #3496db;
 }
 
 .Eslogan{

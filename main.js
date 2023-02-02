@@ -6,11 +6,4 @@ onAuthStateChanged(auth, (user) => {
     if (!user) {        
         location.href = './index.html';
     }
-    
-    console.log(user);
-    // if (user.email === "jose.reyessuazo@gmail.com") {
-        
-    // } else {
-
-    // }
 });

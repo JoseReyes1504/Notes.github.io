@@ -33,7 +33,7 @@ btnCerrar.addEventListener("click", async () => {
     } catch (err) {
         console.log(err);
     }
-    
+
 });
 
 
@@ -81,7 +81,6 @@ const ContenedorListaClases = document.getElementById('ContenedorLista');
 const ContenedorListaClases2 = document.getElementById('ContenedorLista2');
 
 window.addEventListener('DOMContentLoaded', async () => {
-
     CargarClases('Clases', ContenedorListaClases, 1);
 });
 
@@ -114,11 +113,13 @@ function CargarClases(Coleccion, Contenedor, NLista) {
                 EliminarColorBoton(1);
                 btn.classList.add('BotonSeleccionado');
                 ResetearIndex();
+
                 if (Boton == 0 || Boton == 3) {
                     style.setProperty('--Index', '6');
                 } else {
                     style.setProperty('--IndexContenedor', '6');
                 }
+
                 btnEliminarStyle('Clase');
             });
         });
@@ -163,10 +164,9 @@ async function CargarTemas() {
             const doc = await obtenerClase(event.target.dataset.id);
             CodigoTema = doc.id;
             CodigoTemaRef = event.target.dataset.idref;
-            style.setProperty('--TranslateArrow2', '-80px');            
+            style.setProperty('--TranslateArrow2', '-80px');
             EliminarColorBoton(0);
             btn.classList.add('BotonSeleccionado');
-
             ResetearIndex();
             style.setProperty('--IndexContenedor', '6');
             btnEliminarStyle('Tema');
@@ -188,10 +188,10 @@ function ReplaceEnters(texto) {
     return texto;
 }
 
-////////////////////////////////////////////////////////////////// FUNCION BOTONES //////////////////////////////////////////////////////
+//////////////////////////////////////////////// FUNCION BOTONES //////////////////////////////////////////////////////
 
 window.addEventListener("keydown", (btn) => {
-    if(btn.code == "Enter" && Boton != 0){
+    if (btn.code == "Enter" && Boton != 0) {
         AgregarDatos();
     }
 });
@@ -200,10 +200,11 @@ btnAgregar.onclick = function () {
     AgregarDatos();
 }
 
-function AgregarDatos(){
+function AgregarDatos() {
     Titulo = document.getElementById('Titulo').value;
     Contenido = document.getElementById('Contenido').value;
-    var Codigo = GenerarCodigo();    
+    var Codigo = GenerarCodigo();
+
     switch (Boton) {
         case 0:
             if (Titulo == '' || Contenido == '') {
@@ -211,18 +212,19 @@ function AgregarDatos(){
             } else {
                 if (CodigoClase == '') {
                     AlertMSJ('Elija la clase');
-                    ResetearIndex();                    
+                    ResetearIndex();
                     style.setProperty('--IndexClase', '6');
                     style.setProperty('--TranslateArrow', '0px');
                 } else if (CodigoTema == '') {
                     AlertMSJ('Elija el tema');
                     style.setProperty('--TranslateArrow2', '0px');
                 }
-                else {                    
+                else {
                     Contenido = ReplaceEnters(Contenido);
                     AgregarCards(Titulo, Contenido, CodigoTema);
                     limpiar();
-                    AlertMSJ('Se Agrego la nota');                    
+                    localStorage.setItem('CodigoTema', CodigoTema);
+                    AlertMSJ('Se Agrego la nota');
                 }
             }
             break;
@@ -230,10 +232,13 @@ function AgregarDatos(){
             if (Titulo == '') {
                 AlertMSJ('LLene el Nombre de la clase');
             } else {
+                CodigoClase = Codigo;
                 AgregarClase(Codigo, Titulo);
                 AlertMSJ('Se Agregaron los datos');
-                limpiar();
+                limpiar();                
                 Tema();
+                style.setProperty('--TranslateArrow', '80px');
+                style.setProperty('--TranslateXD', '0px');                
                 Boton = 2;
             }
             break;
@@ -248,6 +253,7 @@ function AgregarDatos(){
                     AlertMSJ('LLene el nombre del tema');
                 } else {
                     var Codigo = GenerarCodigo();
+                    CodigoTema = Codigo;
                     AgregarTema(Titulo, Codigo, CodigoClase);
                     CargarTemas();
                     AlertMSJ('Se agregaron los datos');
@@ -300,34 +306,34 @@ btnEliminar.onclick = function () {
 }
 
 
-function Clase(){
+function Clase() {
     MostrarControles(false);
     TipoAccion.innerHTML = 'Clase';
     ColoresBotonesOff(1, 3, 2, 5);
     document.getElementById('Contenido').style.opacity = '0%';
     btnClaseAct = true;
-    FuncionBoton();    
+    FuncionBoton();
     Boton = 1;
 }
 
-function Tema(){
+function Tema() {
     MostrarControles(false);
     TipoAccion.innerHTML = 'Tema';
     ColoresBotonesOff(2, 1, 3, 5);
     btnTemaAct = true
     document.getElementById('Contenido').style.opacity = '0%';
-    FuncionBoton();    
+    FuncionBoton();
     Boton = 2;
 }
 
-function Cards(){
+function Cards() {
     MostrarControles(false);
     TipoAccion.innerHTML = 'Nota';
     btnCardAct = true;
     ColoresBotonesOff(3, 1, 2, 5);
     document.getElementById('Contenido').style.opacity = '100%';
     style.setProperty('--Visibilidad', 'visible');
-    FuncionBoton();    
+    FuncionBoton();
     Boton = 0;
 }
 
@@ -344,7 +350,7 @@ btnCard.onclick = function () {
 }
 
 btnDatos.onclick = function () {
-    TipoAccion.innerHTML = 'Datos';
+    TipoAccion.innerHTML = 'Apuntes';
     document.getElementById('Contenido').style.opacity = '0%';
     ColoresBotonesOff(5, 3, 2, 1);
     MostrarControles(true);
@@ -362,15 +368,15 @@ function ColoresBotonesOff(ColorAct, Color2, Color3, Color5) {
 
 function MostrarControles(NoMostrar) {
     if (NoMostrar == true) {
-        document.getElementById('Titulo').style.opacity = '0%';        
+        document.getElementById('Titulo').style.opacity = '0%';
         document.getElementById('btnPantalla').style.opacity = '0%';
         document.getElementById('btnEliminar').style.opacity = '0%';
-        btnAgregar.value = 'Ver Notas';
+        btnAgregar.value = 'Ver Apuntes';
         // style.setProperty('--Visibilidad', 'hidden');
     } else {
         btnAgregar.value = 'Agregar';
         document.getElementById('btnPantalla').style.opacity = '100%';
-        document.getElementById('Titulo').style.opacity = '100%';        
+        document.getElementById('Titulo').style.opacity = '100%';
         document.getElementById('btnEliminar').style.opacity = '100%';
     }
 }
@@ -386,7 +392,7 @@ function FuncionBoton() {
         style.setProperty('--TranslateY', '-320px');
         style.setProperty('--TranslateY2', '0px');
         style.setProperty('--Heigth', '50px');
-        style.setProperty('--ColorHover', '#181818');
+        style.setProperty('--ColorHover', 'rgb(170,255,169)');
         style.setProperty('--BotonsHeigth', '50px');
         style.setProperty('--TranslateXD2', '0px');
         style.setProperty('--witdhArea', '600px');
@@ -414,20 +420,25 @@ function FuncionBoton() {
 
 
 const btnPantalla = document.getElementById("btnPantalla");
+const Botones = document.getElementById("ContenedorBotones");
 var Tocar = 0;
 
-btnPantalla.addEventListener("click" , function(){
-    Tocar ++;
+btnPantalla.addEventListener("click", function () {
+    Tocar++;
 
-    if(Tocar == 1){
-        style.setProperty('--witdhArea', '1200px')
+    if (Tocar == 1) {
+        Botones.classList.add("OcultarBotones");
+        style.setProperty('--witdhArea', '1200px');
+        style.setProperty('--witdhHeight', '800px');
         style.setProperty('--TranslateXD', '350px');
-        style.setProperty('--TranslateXD2', '-350px');    
-    }else{
-        style.setProperty('--witdhArea', '600px')
+        style.setProperty('--TranslateXD2', '-350px');
+    } else {
+        Botones.classList.remove("OcultarBotones");
+        style.setProperty('--witdhArea', '600px');
+        style.setProperty('--witdhHeight', '550px');
         style.setProperty('--TranslateXD', '0px');
-        style.setProperty('--TranslateXD2', '0px');    
+        style.setProperty('--TranslateXD2', '0px');
         Tocar = 0;
     }
-    
+
 });

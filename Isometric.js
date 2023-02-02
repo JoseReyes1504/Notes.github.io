@@ -17,7 +17,7 @@ var Codigo = '';
 
 
 function Copy() {
-    navigator.clipboard.writeText(Text)
+    navigator.clipboard.writeText(Titulo.innerHTML + "\n\n" + Text)
         .then(() => {
             AlertMSJ('Se copio al portapapeles', true);
         })

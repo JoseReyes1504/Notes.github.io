@@ -11,7 +11,6 @@ body {
     display: none;
 }
 
-
 :root {
     --TranslateY: 00px;
     --TranslateY2: -20px;
@@ -30,6 +29,7 @@ body {
     --BotonsHeigth: 200px;
 
 
+    --witdhHeight: 550px;
     --witdhArea: 600px;
     --Index: 3;
     --IndexClase: 4;
@@ -128,11 +128,10 @@ textarea {
 .Contenedor {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    /* background-color: red; */
+    align-items: center;    
     margin-top: 8%;
     width: var(--witdhArea);
-    height: 550px;
+    height: var(--witdhHeight);
     border: 2px solid white;
     border-radius: 10px;
     color: white;
@@ -346,6 +345,10 @@ ul li,
     background-color: #3496db;    
 }
 
+.BotonCreado{
+    background-color: #3496db;    
+}
+
 ul li {
     width: auto;
     min-width: 200px;
@@ -362,8 +365,8 @@ ul li::after,
 .Lista2 li::after {
     content: '';
     position: absolute;
-    top: 20px;
-    right: -39px;
+    top: 21px;
+    right: -37px;
     width: 35px;
     height: 100%;
     background-color: #181818;
@@ -491,7 +494,11 @@ ul li a:hover {
 }
 
 .FormBotones svg:hover{
-    fill: yellow;
+    fill: #3496db;
+}
+
+.OcultarBotones{
+    transform: translateY(-500px);
 }
 
 

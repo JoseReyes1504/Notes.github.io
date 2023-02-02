@@ -48,7 +48,8 @@
 
 
 .TextoPrin {
-    font-size: 40px;
+    font-size: 30px;
+    text-align: center;
     color: white;
     font-family: 'Amatic SC', cursive;
     text-decoration: overline;

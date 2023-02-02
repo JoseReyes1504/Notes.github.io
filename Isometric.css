@@ -121,7 +121,6 @@ body{
 
 }
 
-
 .BotonCopy{
     position: absolute;
     top: 0%;
@@ -288,9 +287,9 @@ color: #3496bd;
 
 .Imagen{
     position: absolute;    
-    /* background-color: red; */
+    background-image: url("./3hQC.gif");    
     width: 200px;
-    height: 200px;
+    height: 330px;
     margin: 10% 1%;
 }
 
