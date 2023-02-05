@@ -1,8 +1,14 @@
-import { AgregarCards, EliminarTema, CerrarSesion, obtenerClase, EliminarClase, AgregarTema, AgregarClase, onSnapshot, db, collection, query, where, getDocs } from "./db.js";
+import { ObtenerDato, BorrarCard, AgregarCards, EliminarTema, CerrarSesion, obtenerClase, EliminarClase, AgregarTema, AgregarClase, onSnapshot, db, collection, query, where, getDocs } from "./db.js";
 const style = document.documentElement.style;
 
 
 ////////////////////////////////////////////////////////////////// VARIABLES //////////////////////////////////////////////////////
+const TituloCard = document.getElementById('TituloCard');
+const btnInformacion = document.getElementById('VerInfor');
+const ContenedorTexto = document.getElementById('TextoCard');
+const btnCopy = document.getElementById('btnCopy');
+const btnEliminarCard = document.getElementById('btnEliminarCard');
+
 var btnAgregar = document.getElementById('btnAgregar');
 const btnTema = document.getElementById('btnTema');
 const btnClase = document.getElementById('btnClase');
@@ -22,8 +28,15 @@ var CodigoTema = '';
 var CodigoTemaRef = '';
 var btnClaseAct = false;
 
+var Text = '';
+var Text2 = '';
+var Codigo = '';
+
+var ApuntesActivo = false;
+
 
 ////////////////////////////////////////////////////////////////// FUNCIONES //////////////////////////////////////////////////////
+
 
 btnCerrar.addEventListener("click", async () => {
 
@@ -170,7 +183,15 @@ async function CargarTemas() {
             ResetearIndex();
             style.setProperty('--IndexContenedor', '6');
             btnEliminarStyle('Tema');
+
+            if (ApuntesActivo == true) {
+                style.setProperty('--opacidadLista', '100%');
+            } else {
+                style.setProperty('--opacidadLista', '0%');
+            }
+
             localStorage.setItem('CodigoTema', CodigoTema);
+            CargarCards();
         });
     });
 }
@@ -181,11 +202,6 @@ function ResetearIndex() {
     style.setProperty('--Index', '4');
     style.setProperty('--IndexContenedor', '5');
     style.setProperty('--TranslateXD2Movil', '0px');
-}
-
-function ReplaceEnters(texto) {
-    texto = texto.replace(/\r?\n/g, "<br>");
-    return texto;
 }
 
 //////////////////////////////////////////////// FUNCION BOTONES //////////////////////////////////////////////////////
@@ -235,10 +251,10 @@ function AgregarDatos() {
                 CodigoClase = Codigo;
                 AgregarClase(Codigo, Titulo);
                 AlertMSJ('Se Agregaron los datos');
-                limpiar();                
+                limpiar();
                 Tema();
                 style.setProperty('--TranslateArrow', '80px');
-                style.setProperty('--TranslateXD', '0px');                
+                style.setProperty('--TranslateXD', '0px');
                 Boton = 2;
             }
             break;
@@ -253,32 +269,40 @@ function AgregarDatos() {
                     AlertMSJ('LLene el nombre del tema');
                 } else {
                     var Codigo = GenerarCodigo();
-                    CodigoTema = Codigo;
+                    CodigoTema = Codigo;                                      
                     AgregarTema(Titulo, Codigo, CodigoClase);
                     CargarTemas();
                     AlertMSJ('Se agregaron los datos');
                     limpiar();
-                    Cards();                    
+                    Cards();
                 }
             }
             break;
         case 3:
-            if (CodigoClase == '' && CodigoTema == '') {
-                AlertMSJ('Seleccione la clase y el tema');
-                style.setProperty('--TranslateArrow', '0px');
-                style.setProperty('--TranslateArrow2', '0px');
-                ResetearIndex();
-                style.setProperty('--IndexClase', '6');
-            }
-            else if (CodigoClase == '') {
-                AlertMSJ('Seleccione una clase');
-                ResetearIndex();
-                style.setProperty('--IndexClase', '6');
-            } else if (CodigoTema == '') {
-                AlertMSJ('Seleccione el Tema');
-            } else {
-                location.href = './Isometric.html';
-            }
+            Botones.classList.remove("OcultarBotones");
+            style.setProperty('--witdhArea', '600px');
+            style.setProperty('--IndexCards', '0');
+            style.setProperty('--witdhHeight', '550px');
+            CambiarOrientacion(-80, -80);
+            style.setProperty('--WidthCard', '300px');
+            style.setProperty('--heigth', '520px');
+            style.setProperty('--ListaBootom', '-400px');
+            style.setProperty('--Widthborder', '0px');
+            TituloCard.innerHTML = 'Salir';
+            ContenedorTexto.innerHTML = '';
+            btnInformacion.value = 'Ver más información';
+            Toques = 0;
+            Tocar4 = 0;
+            ApuntesActivo = false;
+            MostrarControles(false);
+            TipoAccion.innerHTML = 'Clase';
+            ColoresBotonesOff(1, 3, 2, 5);
+            document.getElementById('Contenido').style.opacity = '0%';
+            btnClaseAct = true;
+            FuncionBoton();
+            Boton = 1;
+            style.setProperty('--opacidadLista', '0%');
+
             break;
     }
 }
@@ -350,13 +374,39 @@ btnCard.onclick = function () {
 }
 
 btnDatos.onclick = function () {
+
+    if (CodigoClase == '' && CodigoTema == '') {
+        AlertMSJ('Seleccione la clase y el tema');
+        style.setProperty('--TranslateArrow', '0px');
+        style.setProperty('--TranslateArrow2', '0px');
+        ResetearIndex();
+        style.setProperty('--IndexClase', '6');
+    }
+    else if (CodigoClase == '') {        
+        AlertMSJ('Seleccione una clase');
+        ResetearIndex();
+        style.setProperty('--IndexClase', '6');
+    } else if (CodigoTema == '') {
+        AlertMSJ('Seleccione el Tema');
+    } else {
+
+    }
     TipoAccion.innerHTML = 'Apuntes';
     document.getElementById('Contenido').style.opacity = '0%';
     ColoresBotonesOff(5, 3, 2, 1);
     MostrarControles(true);
+    style.setProperty('--TranslateY2', '-40px');
+    ApuntesActivo = true;    
+    if (ApuntesActivo == true && CodigoTema != "") {
+        style.setProperty('--opacidadLista', '100%');        
+        CargarCards();
+    } else {
+        style.setProperty('--opacidadLista', '0%');
+    }
     btnDatosAct = true;
     FuncionBoton();
     Boton = 3;
+    PantallaCompleta2();
 }
 
 function ColoresBotonesOff(ColorAct, Color2, Color3, Color5) {
@@ -371,7 +421,7 @@ function MostrarControles(NoMostrar) {
         document.getElementById('Titulo').style.opacity = '0%';
         document.getElementById('btnPantalla').style.opacity = '0%';
         document.getElementById('btnEliminar').style.opacity = '0%';
-        btnAgregar.value = 'Ver Apuntes';
+        btnAgregar.value = 'Salir Apuntes';
         // style.setProperty('--Visibilidad', 'hidden');
     } else {
         btnAgregar.value = 'Agregar';
@@ -389,8 +439,7 @@ var btnDatosAct = false;
 
 function FuncionBoton() {
     if ((btnClaseAct || btnTemaAct || btnCardAct || btnDatosAct) == true) {
-        style.setProperty('--TranslateY', '-320px');
-        style.setProperty('--TranslateY2', '0px');
+        style.setProperty('--TranslateY', '-320px');        
         style.setProperty('--Heigth', '50px');
         style.setProperty('--ColorHover', 'rgb(170,255,169)');
         style.setProperty('--BotonsHeigth', '50px');
@@ -416,29 +465,178 @@ function FuncionBoton() {
     }
 }
 
-
-
+function Copy() {
+    navigator.clipboard.writeText(TituloCard.innerHTML + "\n\n" + Text)
+        .then(() => {
+            AlertMSJ('Se copio al portapapeles', true);
+        })
+        .catch(err => {
+            AlertMSJ('ah ocurrido un error al copiar', true);
+        });
+}
 
 const btnPantalla = document.getElementById("btnPantalla");
 const Botones = document.getElementById("ContenedorBotones");
 var Tocar = 0;
+var Tocar4 = 0;
 
-btnPantalla.addEventListener("click", function () {
+function PantallaCompleta() {
     Tocar++;
 
     if (Tocar == 1) {
         Botones.classList.add("OcultarBotones");
         style.setProperty('--witdhArea', '1200px');
-        style.setProperty('--witdhHeight', '800px');
-        style.setProperty('--TranslateXD', '350px');
+        style.setProperty('--witdhHeight', '110%');
+        style.setProperty('--TranslateY2', '-40px');
+        style.setProperty('--TranslateXD', '350px');        
         style.setProperty('--TranslateXD2', '-350px');
     } else {
         Botones.classList.remove("OcultarBotones");
-        style.setProperty('--witdhArea', '600px');
+        style.setProperty('--witdhArea', '600px');        
         style.setProperty('--witdhHeight', '550px');
         style.setProperty('--TranslateXD', '0px');
         style.setProperty('--TranslateXD2', '0px');
         Tocar = 0;
     }
+}
 
+function PantallaCompleta2() {
+    Tocar4++;
+    if (Tocar4 == 1) {
+        Botones.classList.add("OcultarBotones");
+        style.setProperty('--witdhArea', '800px');
+        style.setProperty('--witdhHeight', '110%');
+        style.setProperty('--IndexCards', '5');
+    } else {
+        Botones.classList.remove("OcultarBotones");
+        style.setProperty('--witdhArea', '600px');
+        style.setProperty('--IndexCards', '0');
+        style.setProperty('--witdhHeight', '550px');
+        CambiarOrientacion(-80, -80);
+        style.setProperty('--WidthCard', '300px');
+        style.setProperty('--heigth', '520px');
+        style.setProperty('--ListaBootom', '-400px');
+        TituloCard.innerHTML = 'Salir';
+        ContenedorTexto.innerHTML = '';
+        btnInformacion.value = 'Ver más información';
+        Toques = 0;
+        Tocar4 = 0;
+    }
+}
+
+btnPantalla.addEventListener("click", function () {
+    PantallaCompleta();
 });
+
+
+//Variables
+var btnActivo = false;
+var Toques = 0;
+
+btnInformacion.onclick = function () {
+    Toques++;
+
+    if (Toques == 1) {
+        style.setProperty('--WidthCard', '800px');
+        CambiarOrientacion(-510, 0);
+        btnActivo = true;
+        ContenedorTexto.innerHTML = Text2;
+        btnInformacion.value = 'Resumen';
+    } else {
+        style.setProperty('--WidthCard', '300px');
+        CambiarOrientacion(-510, 0);
+        btnActivo = false;
+
+        ContenedorTexto.innerHTML = Text + '...';
+
+        btnInformacion.value = 'Ver más información';
+        Toques = 0;
+    }
+}
+
+
+function CambiarOrientacion(Translatex, TranslateInfox) {
+    style.setProperty('--Translatex', Translatex + 'px');
+    style.setProperty('--TranslateInfox', TranslateInfox + 'px');
+}
+
+function Transladar() {
+    if (btnActivo == true) {
+        CambiarOrientacion(-510, 0);
+    } else {
+        CambiarOrientacion(-510, 0);
+    }
+}
+
+
+const ContenedorBtn = document.getElementById('ListaTodo');
+
+async function CargarCards() {
+    const q = query(collection(db, "Cards"), where("IDTema", "==", CodigoTema));
+
+    const querySnapshot = await getDocs(q);
+    var lista = '';
+    var Numero = 10;
+    querySnapshot.forEach((doc) => {
+        const Cards = doc.data();
+        Numero--;
+        lista += `
+            <li class="Lista" style="--i:${Numero};"><a data-id=${doc.id} href="#">${Cards.Titulo}</a></li>                                    
+            `
+    });
+
+    ContenedorBtn.innerHTML = lista;
+    ContenedorBtn.innerHTML = lista + `<li class="Lista" style="--i:0;"><a data-id="0" href="#">Salir</a></li>`;
+    const Botones = ContenedorBtn.querySelectorAll('.Lista');
+
+    Botones.forEach(btn => {
+        btn.addEventListener('click', async (event) => {
+            const doc = await ObtenerDato(event.target.dataset.id);
+            const Informacion = doc.data();
+            Transladar();
+
+            if (event.target.dataset.id == 0) {
+                CambiarOrientacion(-80, -80);
+                style.setProperty('--WidthCard', '300px');
+                style.setProperty('--heigth', '520px');
+                style.setProperty('--Widthborder', '0px');
+                style.setProperty('--ListaBootom', '-400px');
+                TituloCard.innerHTML = 'Salir';
+                ContenedorTexto.innerHTML = '';
+                btnInformacion.value = 'Ver más información';
+                Toques = 0;
+            } else {
+                TituloCard.innerHTML = Informacion.Titulo;
+                ///Cortar String
+                Text = Informacion.Contenido;
+                Text = ReplaceEnters(Text);
+                Text2 = Informacion.Contenido;
+                Codigo = event.target.dataset.id;
+                ContenedorTexto.innerHTML = Text2;
+                style.setProperty('--Widthborder', '2px');
+                style.setProperty('--heigth', '520px');
+                style.setProperty('--CardTop', '400px');
+                style.setProperty('--ListaBootom', '200px');
+            }
+        });
+    });
+}
+
+
+function ReplaceEnters(texto) {
+    texto = texto.replace(/<br>/g, "\r", "\n");
+    return texto;
+}
+
+
+btnCopy.onclick = function () {
+    Copy();
+}
+
+
+btnEliminarCard.onclick = function () {
+    BorrarCard(Codigo);
+    TituloCard.innerHTML = 'Seleccione una Nota';
+    ContenedorTexto.innerHTML = '';
+    CargarCards();
+}

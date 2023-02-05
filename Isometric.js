@@ -2,11 +2,11 @@ import { ObtenerDato, BorrarCard, db, collection, query, where, getDocs } from "
 
 
 const style = document.documentElement.style;
-const Titulo = document.getElementById('Titulo');
+const Titulo = document.getElementById('TituloCard');
 const btnInformacion = document.getElementById('VerInfor');
-const ContenedorTexto = document.getElementById('Texto');
+const ContenedorTexto = document.getElementById('TextoCard');
 const btnCopy = document.getElementById('btnCopy');
-const btnEliminar = document.getElementById('btnEliminar');
+const btnEliminar = document.getElementById('btnEliminarCard');
 
 const MSJ = document.getElementById('MSJ');
 
@@ -77,11 +77,9 @@ function Transladar() {
 
 const ContenedorBtn = document.getElementById('ListaTodo');
 var CodigoTema = localStorage.getItem('CodigoTema');
-console.log(CodigoTema);
 
 //ObtenerDatos
 window.addEventListener('DOMContentLoaded', async () => {
-
     CargarCards();
 });
 

@@ -1,98 +1,101 @@
-
-
-*{
+* {
     box-sizing: border-box;
     padding: 0%;
     margin: 0%;
     font-family: 'Pragati Narrow', sans-serif;
 }
 
-::-webkit-scrollbar{
+::-webkit-scrollbar {
     display: none;
 }
 
-:root{
-    --Translatex: 0px;
+:root {
+    --Translatex: -80px;
     --TranslateInfox: 0px;
     --WidthCard: 300px;
     --opacidad: 100%;
     --TranslateMsj: -200px;
     --heigth: 520px;
-
-
+    --IndexCards: 0;
+    --Widthborder: 0px;
     --CardTop: 400px;
-    --ListaBootom: -400px; 
+    --ListaBootom: -400px;
+
+    --MargenAmbos: 10% 40%;
+    --AlturaAmbos: 500px;
+    --opacidadLista: 0%;
 }
 
-body{
+body {
     background-color: #181818;
     display: flex;
     min-height: 100vh;
 }
 
-.Mensaje{
-    background-color: #ff6961;
-    width: 750px;
-    height: 40px;
-    color: white;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.ContenedorCards {
     position: absolute;
-    margin: 1% 25%;
-    border: 2px solid white;
-    border-radius: 10px;
+    background-color: #181818;
+    display: flex;
+    margin: var(--MargenAmbos);
+    justify-content: center;
+    width: 500px;        
+    height: var(--AlturaAmbos);
+    overflow-y: scroll;
     transition: all 800ms;
-    transform: translateY(var(--TranslateMsj));
-    z-index: 6;
+    border: var(--Widthborder) solid white;
+    z-index: var(--IndexCards);
+    transform: translateX(var(--Translatex));
+    opacity: var(--opacidadLista);       
 }
 
-.Menu{
+.Menu {
     position: absolute;
     background-color: rgb(122, 121, 121);
     color: white;
     width: var(--WidthCard);
-    height: 500px;
+    height: var(--AlturaAmbos);
     padding: 2%;
-    margin: 11% 40%;
+    margin: var(--MargenAmbos);
     display: flex;
-    flex-direction: column;    
+    flex-direction: column;
     align-items: center;
     border-top-right-radius: 10px;
     border-bottom-left-radius: 10px;
     transition: all 800ms;
+    opacity: var(--opacidadLista);
+    z-index: var(--IndexCards);
     transform: translateX(var(--TranslateInfox));
 }
 
-.Menu h1{    
+.Menu h1 {
+    /* background-color: red; */
     margin-bottom: 2%;
     text-align: center;
+    min-height: 10%;
     text-transform: uppercase;
-    font-size: 20px;    
+    font-size: 18px;
     letter-spacing: 3px;
-    /* background-color: red; */    
+    /* background-color: red; */
 }
 
-.Menu p{
-    /* background-color: red; */
+.Menu p {
     width: 100%;
-    min-height: 75%;    
+    height: 70%;
     font-size: 18px;
+    overflow-y: scroll;
     text-align: center;
     opacity: var(--opacidad);
-    transition: all 200ms;    
+    transition: all 200ms;
 }
 
-.Menu p:hover{
-    color: #181818;    
+.Menu p:hover {
+    color: #181818;
 }
 
-.Boton{
+.BotonResumen {
     position: absolute;
     bottom: 0%;
-    right: 0%;    
+    right: 0%;
     width: 80%;
     height: 10%;
     background-color: white;
@@ -106,116 +109,103 @@ body{
 }
 
 
-#btnEliminar{
+#btnEliminarCard {
     position: absolute;
     top: 0%;
-    left: 0%;  
-    margin: 2% 2%;  
+    left: 0%;
+    margin: 2% 2%;
     fill: white;
     cursor: pointer;
     transition: all 800ms;
 }
 
-#btnEliminar:hover{
+#btnEliminarCard:hover {
     fill: #C70039;
 
 }
 
-.BotonCopy{
+.BotonCopy {
     position: absolute;
     top: 0%;
-    right: 0%;    
+    right: 0%;
     margin: 2% 1%;
-    fill: white;        
+    fill: white;
     transition: all 800ms;
     cursor: pointer;
 }
-.BotonCopy:hover{
+
+.BotonCopy:hover {
     background-color: white;
-    color: #181818;        
+    color: #181818;
 }
 
-.Boton:hover{
+.Boton:hover {
     background-color: #181818;
-    color: white;        
+    color: white;
 }
 
 
-.Contenedor{
-    position: absolute;
-    background-color: #181818;
-    display: flex;
-    margin: 11% 39%;
-    justify-content: center;
-    align-items: center;
-    width: 400px;
-    min-height: auto;
-    height: 500px;
-    transition: all 800ms;
-    transform: translateX(var(--Translatex));
+.ContenedorCards ul {
+    position: relative;
+    transform: skewY(-15deg);    
 }
 
-
-ul{
-    position: relative;        
-    transform: skewY(-15deg);
-}
-
-ul li{
+.ContenedorCards ul li {    
     position: relative;
     list-style-type: none;
-    display: flex;    
+    display: flex;
     width: 200px;
     background-color: #3e3f46;
-    transition: all 400ms; 
+    transition: all 400ms;
     z-index: var(--i);
-    border: 1px solid white;
-}
-ul li:hover{
-    background-color: #3496bd;
-    transform:translate(15px ,15px);    
+    border: 1px solid white;    
 }
 
-ul li::before{
+.ContenedorCards ul li:hover {
+    background-color: #3496bd;
+    transform: translate(15px, 15px);
+}
+
+.ContenedorCards ul li::before {
     content: '';
     position: absolute;
     top: 0;
     left: -40px;
-    width: 40px;    
-    height: 100%;        
+    width: 40px;
+    height: 100%;
     border: 1px solid white;
     background-color: #3e3f46;
     transform-origin: right;
     transform: skewY(45deg);
-    transition: all 400ms;
+    transition: all 400ms;            
 }
 
-ul li:hover:before{
+.ContenedorCards ul li:hover:before {
     background-color: #3496db;
 }
 
 
-ul li::after{
-    content: '';
+.ContenedorCards ul li::after {
+    content: '';    
     position: absolute;
     top: -40px;
     left: 0px;
-    width: 100%;    
-    height: 40px;        
+    width: 100%;
+    height: 40px;
     border: 1px solid white;
     background-color: #3e3f46;
     transform-origin: bottom;
     transform: skewx(45deg);
     transition: 0.5s;
-    transition: all 400ms;
+    transition: all 400ms;    
 }
 
-ul li:hover:after{
+.ContenedorCards ul li:hover:after {
     background-color: #3496bd;
 }
 
 
-ul li a{
+.ContenedorCards ul li a {
     display: block;
     text-decoration: none;
     text-transform: uppercase;
@@ -228,37 +218,40 @@ ul li a{
     /* background-color: red; */
 }
 
-ul li a:hover{
+.ContenedorCards ul li a:hover {
+    color: white;    
+}
+
+.ContenedorCards ul li:last-child a {
+    color: #181818;    
+}
+
+.ContenedorCards ul li:last-child a:hover {
     color: white;
 }
 
-ul li:last-child a{
-    color: #181818;
-}
-
-ul li:last-child a:hover{
-    color: white;
-}
-
-ul li:last-child:hover{
-    background-color: red;    
-}
-ul li:last-child:hover:after{    
+.ContenedorCards ul li:last-child:hover {
     background-color: red;
 }
-ul li:last-child:hover:before{
-    background-color: red;    
+
+.ContenedorCards ul li:last-child:hover:after {
+    background-color: red;
 }
 
-ul li:last-child::after{
-    box-shadow: -100px 100px 10px rgb(0,0,0,0.5);
+.ContenedorCards ul li:last-child:hover:before {
+    background-color: red;
 }
-ul li:last-child:hover:after{
+
+.ContenedorCards ul li:last-child::after {
+    box-shadow: -100px 100px 10px rgb(0, 0, 0, 0.5);
+}
+
+.ContenedorCards ul li:last-child:hover:after {
     box-shadow: -100px 100px 10px red;
 }
 
 
-#Enlace{
+/* #Enlace {
     width: 200px;
     height: 80px;
     text-decoration: none;
@@ -274,84 +267,84 @@ ul li:last-child:hover:after{
     margin: 1%;
 }
 
-#Enlace:hover{
-color: #3496bd;
-}
+#Enlace:hover {
+    color: #3496bd;
+} */
 
-.Texto{
+.Texto {
     overflow: hidden;
-    overflow-y: scroll;    
+    overflow-y: scroll;
     /* background-color: red; */
     height: 71%;
 }
 
-.Imagen{
-    position: absolute;    
-    background-image: url("./3hQC.gif");    
+.Imagen {
+    position: absolute;
+    background-image: url("./3hQC.gif");
     width: 200px;
     height: 330px;
     margin: 10% 1%;
 }
 
-.Imagen img{
+.Imagen img {
     width: 100%;
     height: 100%;
 }
 
 @media only screen and (min-device-width : 320px) and (max-device-width : 768px) {
 
-    body{
+    body {
         min-height: 140vh;
     }
 
-    .Contenedor{                
-        height: var(--heigth);        
-        margin: 170% 2.5%;        
-        width: 95%;        
+    .Contenedor {
+        height: var(--heigth);
+        margin: 170% 2.5%;
+        width: 95%;
         /* background-color: red; */
-        transform: translateY(var(--ListaBootom));        
+        transform: translateY(var(--ListaBootom));
     }
 
-    .Menu{
-        width: 320px;        
+    .Menu {
+        width: 320px;
         height: 480px;
-        margin: -20% 8%;        
+        margin: -20% 8%;
         /* background-color: blue; */
-        transform: translateY(var(--CardTop));        
+        transform: translateY(var(--CardTop));
     }
 
-    .Boton{
+    .Boton {
         opacity: 0%;
     }
 
-    .Texto{
+    .TextoCard {
         margin-top: 2%;
         height: 90%;
-        padding: 2%;        
+        padding: 2%;
         font-size: 18px;
     }
 
-    #Titulo{
+    #TituloCard {
         padding: 1%;
         width: 85%;
-        min-height: 40px;        
+        min-height: 40px;
         /* background-color: red; */
     }
 
-    .Mensaje{        
+    .Mensaje {
         width: 300px;
         text-align: center;
         height: 50px;
-        margin: 1% 12%;                
+        margin: 1% 12%;
     }
 
-    #Enlace{
+    #Enlace {
         margin: 2% auto;
     }
-    
 
-    .Imagen{
-        position: absolute;    
+
+    .Imagen {
+        position: absolute;
         /* background-color: red; */
         width: 200px;
         height: 200px;

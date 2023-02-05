@@ -3,8 +3,7 @@
 }
 
 body {
-    background-color: #181818;
-    min-height: 120vh;
+    background-color: #181818;    
 }
 
 ::-webkit-scrollbar {
@@ -38,7 +37,7 @@ body {
     --TranslateArrow2: -80px;
     --TranslateMsj: -100px;
     --TranslateTodo: 0px;
-    --TranslateXD2Movil: -350px;
+    --TranslateXD2Movil: -350px;    
 }
 
 .Mensaje {
@@ -81,21 +80,17 @@ body {
     height: 600px;
 }
 
-textarea {
-    visibility: var(--Visibilidad);
-}
-
 .ContenedorSecundario,
 .ContenedorTerciario {
     position: absolute;
     right: 0%;
-    margin-right: 1%;
+    margin-right: 1%;    
     width: 350px;
     height: 700px;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #181818;
+    background-color: #181818;    
     overflow: hidden;
 }
 
@@ -156,34 +151,38 @@ textarea {
     border-bottom: 2px solid white;
 }
 
-.FormBotones {
-    width: 600px;
-    /* background-color: red; */
+/* .FormBotones {
+    width: 600px;    
     height: 100px;    
     margin: 2% 0%;
     display: flex;    
     align-items: center;
     flex-direction: row;    
-}
+} */
 
-.Contenedor .Boton {
+.Boton {
+    position: absolute;
+    bottom: 1%;
+    right: 1%;    
     background-color: transparent;
     color: white;
     border: none;    
-    width: 200px;
-    margin: 2% auto;
-    height: 100%;    
+    width: 150px;
+    font-size: 18px;    
+    height: 80px;    
     border-radius: 10px;
     border: 2px solid white;
     transition: all 800ms;
     cursor: pointer;
+    transform: translateX(var(--TranslateXD));
+    z-index: 6;
 }
 
-textarea {
+#Contenido {
     width: 80%;
     height: 100%;
     resize: none;
-    background-color: transparent;
+    background-color: #181818;
     color: white;
     outline: none;
     font-size: 20px;
@@ -191,9 +190,10 @@ textarea {
     border: 2px solid white;
     border-radius: 10px;
     transition: all 800ms;
+    visibility: var(--Visibilidad);
 }
 
-textarea:hover {
+#Contenido:hover {
     background-color: #121212;
 }
 
@@ -265,10 +265,11 @@ textarea:hover {
 .ContenedorAreas,
 .ContenedorAreas2 {
     position: relative;
-    background-color: #181818;
+    background-color: #181818;     
     width: 100%;
-    height: 100%;
+    height: 65%;
     display: flex;
+    overflow-y: scroll;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -280,27 +281,29 @@ textarea:hover {
     transform: translateX(var(--TranslateXD2));
 }
 
-.ContenedorAreas h1,
-.ContenedorAreas2 h1 {
+.TitulosAreas,
+.TitulosAreas2{
     position: absolute;
     top: 0%;
     margin-top: 15%;
-    color: white;
-    /* background-color: red; */
+    color: white;    
     width: 80%;
     text-align: center;
     margin-right: 15%;
     border: 2px solid;
+    transition: all 800ms;
     transform: skewY(-5deg);
+    transform: translateX(var(--TranslateXD2));
 }
 
-.ContenedorAreas2 h1 {
+.TitulosAreas2{
     margin-right: 0%;
     transform: skewY(5deg);
+    transform: translateX(var(--TranslateXD));
 }
 
-.ContenedorAreas h1::before,
-.ContenedorAreas2 h1::before {
+.TitulosAreas::before,
+.TitulosAreas2::before {
     content: '';
     position: absolute;
     width: 5px;
@@ -309,8 +312,8 @@ textarea:hover {
     background-color: white;
 }
 
-.ContenedorAreas h1::after,
-.ContenedorAreas2 h1::after {
+.TitulosAreas::after,
+.TitulosAreas2::after {
     content: '';
     position: absolute;
     width: 5px;
@@ -325,7 +328,9 @@ ul,
     display: flex;
     flex-direction: column;
     transform: skewY(25);
-    margin-right: 25%;
+    width: 150px;
+    margin-top: 12%;
+    /* background-color: red;     */
 }
 
 
@@ -488,12 +493,12 @@ ul li a:hover {
     transform: translateX(var(--TranslateArrow2));
 }
 
-.FormBotones svg{
+#btnPantalla{    
     fill: white;
     cursor: pointer;
 }
 
-.FormBotones svg:hover{
+#btnPantalla:hover{
     fill: #3496db;
 }
 
@@ -544,7 +549,7 @@ ul li a:hover {
     }
 
     .ContenedorAreas,
-    .ContenedorAreas2 {        
+    .Areas2 {        
         margin-left: 10%;
     }
 
@@ -611,3 +616,4 @@ ul li a:hover {
     }
 
 }
+
