@@ -8,8 +8,9 @@ const btnEntrar = document.getElementById("btnLogin");
 btnEntrar.addEventListener("click", async () => {
     try {
         const credenciales = await IniciarSesion(email.value, password.value);  
+        localStorage.setItem("User", credenciales.user.email);        
         if(credenciales != null){
-            location.href="./Menu.html";
+            location.href="./src/html/Menu.html";
         }
     } catch (err) {
 
