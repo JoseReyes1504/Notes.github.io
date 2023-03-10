@@ -29,7 +29,7 @@ body{
     justify-content: center;
     background-color: white;
     transition: all 800ms;
-    background-image: url('./Notes.gif');
+    background-image: url('../iconos/Notes.gif');
     background-size: cover;
     background-position: center;
 }
