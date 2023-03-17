@@ -34,6 +34,7 @@ var Text2 = '';
 var Codigo = '';
 
 var ApuntesActivo = false;
+var NotasActivas = false;
 
 ////////////////////////////////////////////////// FUNCIONES //////////////////////////////////////////////////////
 
@@ -217,11 +218,26 @@ function ResetearIndex() {
 
 //////////////////////////////////////////////// FUNCION BOTONES //////////////////////////////////////////////////////
 
+var contadorFullScreen = 0;
+
 window.addEventListener("keydown", (btn) => {
+    console.log(btn);
     if (btn.code == "Enter" && Boton != 0) {
         AgregarDatos();
     } else if (btn.shiftKey && btn.code == "Enter") {
         AgregarDatos();
+    }
+
+    if (btn.code == "KeyF" && NotasActivas == true) {
+        contadorFullScreen++;
+        if (contadorFullScreen == 1) {
+            FullScreen();
+        } else if (contadorFullScreen == 2) {
+            ExitFullScreen();
+            contadorFullScreen = 0;
+        }
+    } else if (btn.code == "Escape" && NotasActivas == true) {
+        CerrarCard();
     }
 });
 
@@ -570,8 +586,6 @@ btnInformacion.onclick = function () {
         CambiarOrientacion(-510, 0);
         btnActivo = false;
 
-        ContenedorTexto.innerHTML = Text + '...';
-
         btnInformacion.value = 'Ver más información';
         Toques = 0;
     }
@@ -609,7 +623,7 @@ async function CargarCards() {
     });
 
     ContenedorBtn.innerHTML = lista;
-    ContenedorBtn.innerHTML = lista + `<li class="Lista" style="--i:0;"><a data-id="0" href="#">Cerrar Nota</a></li>`;
+    // ContenedorBtn.innerHTML = lista + `<li class="Lista" style="--i:0;"><a data-id="0" href="#">Cerrar Nota</a></li>`;
     const Botones = ContenedorBtn.querySelectorAll('.Lista');
 
     Botones.forEach(btn => {
@@ -619,17 +633,11 @@ async function CargarCards() {
             Transladar();
             EliminarColorBoton(3)
             btn.classList.add('BotonSeleccionado');
+            NotasActivas = true;
+
+
             if (event.target.dataset.id == 0) {
-                CambiarOrientacion(-80, -80);
-                style.setProperty('--WidthCard', '300px');
-                style.setProperty('--heigth', '520px');
-                style.setProperty('--Widthborder', '0px');
-                style.setProperty('--ListaBootom', '-400px');
-                TituloCard.innerHTML = 'Cerrada';
-                ContenedorTexto.innerHTML = '';
-                btnInformacion.value = 'Ver más información';
-                Toques = 0;
-                EliminarColorBoton(3);
+                CerrarCard();
             } else {
                 TituloCard.innerHTML = Informacion.Titulo;
                 ///Cortar String
@@ -648,6 +656,20 @@ async function CargarCards() {
     });
 }
 
+
+function CerrarCard() {
+    CambiarOrientacion(-80, -80);
+    style.setProperty('--WidthCard', '300px');
+    style.setProperty('--heigth', '520px');
+    style.setProperty('--Widthborder', '0px');
+    style.setProperty('--ListaBootom', '-400px');
+    TituloCard.innerHTML = 'Cerrada';
+    ContenedorTexto.innerHTML = '';
+    btnInformacion.value = 'Ver más información';
+    Toques = 0;
+    NotasActivas = false;
+    EliminarColorBoton(3);
+}
 
 function ReplaceEnters(texto) {
     texto = texto.replace(/<br>/g, "\r", "\n");
@@ -674,20 +696,31 @@ btnEliminarCard.onclick = async function () {
     CargarCards();
 }
 
-
 var elemento = document.getElementById("Menu");
 
 btnFullCard.onclick = function () {
+    FullScreen();
+}
+
+btnFullExit.onclick = function () {
+    ExitFullScreen();
+}
+
+
+document.addEventListener('fullscreenchange', () => {
+    if (!document.fullscreenElement) {
+        ExitFullScreen();
+    }
+});
+
+function FullScreen() {
     btnInformacion.style.display = "none";
     btnFullCard.style.display = "none";
     btnFullExit.style.display = "block";
-
+    contadorFullScreen = 1;
     //Aumentar Tamaño Letra
     style.setProperty('--TamanoHeightLetra', '90%');
     style.setProperty('--FontSize', '25px');
-
-    //
-
 
     // Verifica si el navegador soporta la API Fullscreen
     if (elemento.requestFullscreen) {
@@ -702,8 +735,15 @@ btnFullCard.onclick = function () {
     }
 }
 
-btnFullExit.onclick = function () {
-    ExitFullScreen();
+
+function ExitFullScreen() {
+    btnFullCard.style.display = "block";
+    btnFullExit.style.display = "none";
+    btnInformacion.style.display = "block";
+    style.setProperty('--TamanoHeightLetra', '80%');
+    style.setProperty('--FontSize', '17px');
+    contadorFullScreen = 0;
+
     // Verifica si el navegador soporta la API Fullscreen
     if (document.exitFullscreen) {
         // Si es así, solicita salir del modo pantalla completa
@@ -721,18 +761,6 @@ btnFullExit.onclick = function () {
 }
 
 
-document.addEventListener('fullscreenchange', () => {
-    if (!document.fullscreenElement) {
-        ExitFullScreen();
-    }
+ContenedorTexto.addEventListener('click', () => {
+    Copy();
 });
-
-
-function ExitFullScreen(){
-    btnFullCard.style.display = "block";
-    btnFullExit.style.display = "none";
-    btnInformacion.style.display = "block";
-    style.setProperty('--TamanoHeightLetra', '70%');
-    style.setProperty('--FontSize', '17px');
-}
-

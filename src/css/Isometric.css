@@ -52,7 +52,9 @@ body {
 
 .Menu {
     position: absolute;
-    background-color: rgb(122, 121, 121);
+    background-image: linear-gradient(to right top, #673250, #522e4c, #3e2a45, #2c243b, #1d1e2e, #1b2231, #1a2634, #192a36, #1b3c4a, #1a505b, #1d646a, #297974);
+    background-color: white;
+    border: 2px solid white;
     color: white;
     width: var(--WidthCard);
     height: var(--AlturaAmbos);
@@ -82,15 +84,13 @@ body {
     width: 100%;
     height: var(--TamanoHeightLetra);
     font-size: var(--FontSize);
-    overflow-y: scroll;
-    /* text-align: center; */
+    overflow-y: scroll;    
     opacity: var(--opacidad);
-    transition: all 200ms;
-    /* color: #181818; */
+    transition: all 200ms;    
 }
 
 .Menu p:hover {
-    color: #181818;
+    /* color: #f5f5dc; */
 }
 
 .BotonResumen {
@@ -99,14 +99,20 @@ body {
     right: 0%;
     width: 80%;
     height: 10%;
-    background-color: white;
+    background-color: #181818;
     border: none;
-    color: #181818;
+    color: white;
     font-size: 18px;
+    border: 2px solid white;
     border-top-right-radius: 10px;
     border-bottom-left-radius: 10px;
     transition: all 800ms;
     cursor: pointer;
+}
+
+.BotonResumen:hover{
+    background-color:white ;
+    color: black;
 }
 
 
@@ -139,7 +145,7 @@ body {
 }
 
 #btnEliminarCard:hover {
-    fill: #C70039;
+    fill:  #f59d39 ;
 }
 
 .BotonCopy:hover, #btnFullCard:hover, #btnFullExit:hover{    
@@ -151,8 +157,13 @@ body {
     color: white;
 }
 
+.ContenedorCards{   
+    display: flex;
+    justify-content: center;    
+}
 
 .ContenedorCards ul {
+    margin-left: 25%;
     position: relative;
     transform: skewY(-15deg);    
 }
@@ -161,7 +172,7 @@ body {
     position: relative;
     list-style-type: none;
     display: flex;
-    width: 200px;    
+    width: 200px;             
     background-color: #3e3f46;
     transition: all 400ms;
     z-index: var(--i);
@@ -230,13 +241,13 @@ body {
 }
 
 .ContenedorCards ul li:last-child a {
-    color: #181818;    
+    color: white;    
 }
-
+ 
 .ContenedorCards ul li:last-child a:hover {
     color: white;
 }
-
+/*
 .ContenedorCards ul li:last-child:hover {
     background-color: red;
 }
@@ -255,7 +266,7 @@ body {
 
 .ContenedorCards ul li:last-child:hover:after {
     box-shadow: -100px 100px 10px red;
-}
+} */
 
 .Texto {
     overflow: hidden;
