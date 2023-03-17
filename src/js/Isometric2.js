@@ -1,4 +1,5 @@
 import { ObtenerDato, BorrarCard, AgregarCards, ActualizarCard, EliminarTema, CerrarSesion, obtenerClase, EliminarClase, AgregarTema, AgregarClase, onSnapshot, db, collection, query, where, getDocs, BorrarCards, updateDoc } from "./db.js";
+import { MostrarMSJ } from "./MSJ.js";
 const style = document.documentElement.style;
 
 ////////////////////////////////////////////////////////////////// VARIABLES //////////////////////////////////////////////////////
@@ -10,6 +11,8 @@ const btnEliminarCard = document.getElementById('btnEliminarCard');
 const btnFullCard = document.getElementById('btnFullCard');
 const btnFullExit = document.getElementById('btnFullExit');
 const btnEditarNota = document.getElementById('btnEditarNota');
+
+var TextArea = document.getElementById('Contenido');
 
 var btnAgregar = document.getElementById('btnAgregar');
 const btnTema = document.getElementById('btnTema');
@@ -71,10 +74,21 @@ function LimpiarCodigos() {
     EliminarColorBoton(0);
 }
 
+var MensajeFondo = document.getElementById("Mensaje");
+
 function AlertMSJ(Descripcion) {
     MSJ.innerHTML = Descripcion;
     style.setProperty('--TranslateMsj', '0px');
     setTimeout(EsconderMSJ, 3000);
+}
+
+function AlertMSJSinEsconder(Descripcion) {
+    MSJ.innerHTML = Descripcion;
+    style.setProperty('--TranslateMsj', '0px');
+}
+
+function CambiarColorMSJ(Color = '#3bafde') {
+    style.setProperty('--ColorMSJ', Color);
 }
 
 
@@ -231,14 +245,8 @@ window.addEventListener("keydown", async (btn) => {
     else if (btn.shiftKey && btn.code == "Enter" && EdicionActiva == false) {
         AgregarDatos();
     }
-    else if (btn.shiftKey && btn.code == "Enter" && EdicionActiva == true) {        
-        await updateDoc(ActualizarCard(CodigoCard), {
-            "Contenido": document.getElementById('Contenido').value,
-        });
-        EdicionActiva = false;
-        AlertMSJ("Edicion realizada");
-        AbrirApuntesScreen();
-        limpiar();
+    else if (btn.shiftKey && btn.code == "Enter" && EdicionActiva == true) {
+        EditarNota();
     }
 
     if (btn.code == "KeyF" && NotasActivas == true) {
@@ -282,6 +290,7 @@ function AgregarDatos() {
                     AgregarCards(Titulo, Contenido, CodigoTema);
                     limpiar();
                     localStorage.setItem('CodigoTema', CodigoTema);
+                    CambiarColorMSJ(" #adee7a");
                     AlertMSJ('Se Agrego la nota');
                 }
             }
@@ -294,6 +303,7 @@ function AgregarDatos() {
                 AgregarClase(Usuario, Codigo, Titulo);
                 CargarTemas();
                 style.setProperty('--TranslateArrow2', '0px');
+                CambiarColorMSJ(" #adee7a");
                 AlertMSJ('Se Agregaron los datos');
                 limpiar();
                 Tema();
@@ -318,6 +328,7 @@ function AgregarDatos() {
                     AgregarTema(Titulo, Codigo, CodigoClase);
                     style.setProperty('--TranslateArrow2', '-80px');
                     CargarTemas();
+                    CambiarColorMSJ("#adee7a");
                     AlertMSJ('Se agregaron los datos');
                     limpiar();
                     Cards();
@@ -326,6 +337,10 @@ function AgregarDatos() {
             break;
         case 3:
             CerrarCardsScreen();
+            break;
+
+        case 4:
+            EditarNota();
             break;
     }
 }
@@ -355,7 +370,8 @@ function CerrarCardsScreen() {
     FuncionBoton();
     Boton = 1;
     style.setProperty('--opacidadLista', '0%');
-
+    contadorFullScreen = 0;  
+    NotasActivas = false; 
 }
 
 btnEliminar.onclick = async function () {
@@ -364,6 +380,7 @@ btnEliminar.onclick = async function () {
         await EliminarClase(CodigoClaseRef);
         style.setProperty('--Color4', '#181818');
         LimpiarCodigos();
+        CambiarColorMSJ("#e74c3c");
         AlertMSJ('Se elimino la clase');
         CargarClases();
         CargarTemas();
@@ -378,6 +395,7 @@ btnEliminar.onclick = async function () {
         EliminarTema(CodigoTemaRef);
         CargarTemas();
         style.setProperty('--Color4', '#181818');
+        CambiarColorMSJ("#e74c3c");
         AlertMSJ('Se elimino el tema');
     }
 }
@@ -429,6 +447,7 @@ btnCard.onclick = function () {
 btnDatos.onclick = function () {
 
     if (CodigoClase == '' && CodigoTema == '') {
+        CambiarColorMSJ("#3bafde");
         AlertMSJ('Seleccione la clase y el tema');
         style.setProperty('--TranslateArrow', '0px');
         style.setProperty('--TranslateArrow2', '0px');
@@ -444,7 +463,6 @@ btnDatos.onclick = function () {
     } else {
 
     }
-
     AbrirApuntesScreen();
 }
 
@@ -465,7 +483,7 @@ function AbrirApuntesScreen() {
     FuncionBoton();
     style.setProperty('--TranslateXD', '0px');
     Boton = 3;
-    PantallaCompleta2();
+    PantallaCompleta2();   
 }
 
 function ColoresBotonesOff(ColorAct, Color2, Color3, Color5) {
@@ -714,6 +732,8 @@ btnCopy.onclick = function () {
 
 btnEliminarCard.onclick = async function () {
     await BorrarCard(Codigo);
+    CambiarColorMSJ(" #e74c3c");
+    AlertMSJ("Se elimino el apunte: " + TituloCard.innerText);
     TituloCard.innerHTML = 'Seleccione una Nota';
     ContenedorTexto.innerHTML = '';
     CargarCards();
@@ -764,35 +784,50 @@ function ExitFullScreen() {
     btnFullExit.style.display = "none";
     btnInformacion.style.display = "block";
     style.setProperty('--TamanoHeightLetra', '80%');
-    style.setProperty('--FontSize', '17px');
-    contadorFullScreen = 0;
+    style.setProperty('--FontSize', '20px');
+    contadorFullScreen = 0;    
 
     // Verifica si el navegador soporta la API Fullscreen
     if (document.exitFullscreen) {
         // Si es así, solicita salir del modo pantalla completa
         document.exitFullscreen();
     } else if (document.mozCancelFullScreen) { /* Firefox */
-        style.setProperty('--FontSize', '17px');
         document.mozCancelFullScreen();
     } else if (document.webkitExitFullscreen) { /* Chrome, Safari y Opera */
-        style.setProperty('--FontSize', '17px');
         document.webkitExitFullscreen();
     } else if (document.msExitFullscreen) { /* Internet Explorer y Edge */
-        style.setProperty('--FontSize', '17px');
         document.msExitFullscreen();
     }
 }
 
 btnEditarNota.addEventListener('click', async () => {
     document.getElementById('Titulo').value = TituloCard.innerText;
-    document.getElementById('Contenido').innerHTML = Text;
+    TextArea.innerHTML = Text;
     EdicionActiva = true;
-    AlertMSJ("Editando Nota: " + document.getElementById('Titulo').value);
+    CambiarColorMSJ("#f7dc6f");
+    AlertMSJSinEsconder("Editando Nota: " + document.getElementById('Titulo').value);
     CerrarCardsScreen();
-    Cards();    
+    Cards();
+    NotasActivas = false;
+    btnAgregar.value = "Editar Nota";
 });
 
 
+async function EditarNota() {
+    Contenido = document.getElementById('Contenido').value;
+    Contenido = ReplaceSaltos(Contenido);
+    await updateDoc(ActualizarCard(CodigoCard), {
+        "Contenido": Contenido,
+    });
+    EdicionActiva = false;
+    CambiarColorMSJ("#adee7a");
+    AlertMSJ("Edicion realizada");
+    AbrirApuntesScreen();
+    limpiar();
+
+    Boton = 3;
+    btnAgregar.value = "Salir Notas";    
+}
 
 
 

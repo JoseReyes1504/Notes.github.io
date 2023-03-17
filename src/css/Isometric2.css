@@ -38,10 +38,12 @@ body {
     --TranslateMsj: -100px;
     --TranslateTodo: 0px;
     --TranslateXD2Movil: -350px;    
+
+    --ColorMSJ: #3bafde;
 }
 
 .Mensaje {
-    background-color: #ff6961;
+    background-color: var(--ColorMSJ);
     width: 750px;
     height: 40px;
     color: white;
