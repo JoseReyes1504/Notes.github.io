@@ -24,7 +24,7 @@
     --MargenAmbos: 10% 40%;
     --AlturaAmbos: 500px;
     --opacidadLista: 0%;    
-    --TamanoHeightLetra: 70%;
+    --TamanoHeightLetra: 80%;
     --FontSize: 17px;
 }
 
@@ -83,9 +83,10 @@ body {
     height: var(--TamanoHeightLetra);
     font-size: var(--FontSize);
     overflow-y: scroll;
-    text-align: center;
+    /* text-align: center; */
     opacity: var(--opacidad);
     transition: all 200ms;
+    /* color: #181818; */
 }
 
 .Menu p:hover {
@@ -160,7 +161,7 @@ body {
     position: relative;
     list-style-type: none;
     display: flex;
-    width: 200px;
+    width: 200px;    
     background-color: #3e3f46;
     transition: all 400ms;
     z-index: var(--i);
@@ -218,7 +219,7 @@ body {
     letter-spacing: 1%;
     text-align: center;
     margin: 5%;
-    color: #aaa;
+    color: white;
     width: 100%;
     height: auto;
     /* background-color: red; */

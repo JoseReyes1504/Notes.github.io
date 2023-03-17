@@ -39,6 +39,7 @@ var ApuntesActivo = false;
 
 function ReplaceSaltos(texto) {
     texto = texto.replace(/\r?\n/g, "<br>");
+    // texto = texto.replace(/\[b\](.*?)\[\/b\]/g, "<b> </b>")
     return texto;
 }
 
@@ -150,8 +151,14 @@ function EliminarColorBoton(Lista) {
         Botones.forEach(btn => {
             btn.classList.remove('BotonSeleccionado');
         });
-    } else {
+    } else if (Lista == 2) {
         const Botones = ContenedorListaClases2.querySelectorAll('.Lista2');
+
+        Botones.forEach(btn => {
+            btn.classList.remove('BotonSeleccionado');
+        });
+    } else {
+        const Botones = ContenedorBtn.querySelectorAll('.Lista');
 
         Botones.forEach(btn => {
             btn.classList.remove('BotonSeleccionado');
@@ -182,7 +189,7 @@ async function CargarTemas() {
             CodigoTema = doc.id;
             CodigoTemaRef = event.target.dataset.idref;
             style.setProperty('--TranslateArrow2', '-80px');
-            EliminarColorBoton(0);
+            EliminarColorBoton(2);
             btn.classList.add('BotonSeleccionado');
             ResetearIndex();
             style.setProperty('--IndexContenedor', '6');
@@ -316,7 +323,6 @@ function AgregarDatos() {
             break;
     }
 }
-
 
 btnEliminar.onclick = async function () {
 
@@ -611,7 +617,8 @@ async function CargarCards() {
             const doc = await ObtenerDato(event.target.dataset.id);
             const Informacion = doc.data();
             Transladar();
-
+            EliminarColorBoton(3)
+            btn.classList.add('BotonSeleccionado');
             if (event.target.dataset.id == 0) {
                 CambiarOrientacion(-80, -80);
                 style.setProperty('--WidthCard', '300px');
@@ -622,6 +629,7 @@ async function CargarCards() {
                 ContenedorTexto.innerHTML = '';
                 btnInformacion.value = 'Ver más información';
                 Toques = 0;
+                EliminarColorBoton(3);
             } else {
                 TituloCard.innerHTML = Informacion.Titulo;
                 ///Cortar String
@@ -634,6 +642,7 @@ async function CargarCards() {
                 style.setProperty('--heigth', '520px');
                 style.setProperty('--CardTop', '400px');
                 style.setProperty('--ListaBootom', '200px');
+
             }
         });
     });
@@ -642,10 +651,12 @@ async function CargarCards() {
 
 function ReplaceEnters(texto) {
     texto = texto.replace(/<br>/g, "\r", "\n");
+    // texto = texto.replace(/<b>(.*?)<\/b>/g, "[b]$1[/b]");
     return texto;
 }
 
 function ReplaceEnters2(texto) {
+    // texto = texto.replace(/\[b\](.*?)\[\/b\]/g, "<b>$1</b>");
     texto = texto.replace(/\r\n/g, "<br>");
     return texto;
 }
@@ -692,33 +703,36 @@ btnFullCard.onclick = function () {
 }
 
 btnFullExit.onclick = function () {
-    btnFullCard.style.display = "block";
-    btnFullExit.style.display = "none";
-    btnInformacion.style.display = "block";
-
-    //Disminuir Tamaño Letra
-    style.setProperty('--TamanoHeightLetra', '70%');
-    style.setProperty('--FontSize', '17px');
-
-
-    //
-
+    ExitFullScreen();
     // Verifica si el navegador soporta la API Fullscreen
     if (document.exitFullscreen) {
         // Si es así, solicita salir del modo pantalla completa
         document.exitFullscreen();
     } else if (document.mozCancelFullScreen) { /* Firefox */
+        style.setProperty('--FontSize', '17px');
         document.mozCancelFullScreen();
     } else if (document.webkitExitFullscreen) { /* Chrome, Safari y Opera */
+        style.setProperty('--FontSize', '17px');
         document.webkitExitFullscreen();
     } else if (document.msExitFullscreen) { /* Internet Explorer y Edge */
+        style.setProperty('--FontSize', '17px');
         document.msExitFullscreen();
     }
-
 }
 
 
+document.addEventListener('fullscreenchange', () => {
+    if (!document.fullscreenElement) {
+        ExitFullScreen();
+    }
+});
 
 
-
+function ExitFullScreen(){
+    btnFullCard.style.display = "block";
+    btnFullExit.style.display = "none";
+    btnInformacion.style.display = "block";
+    style.setProperty('--TamanoHeightLetra', '70%');
+    style.setProperty('--FontSize', '17px');
+}
 

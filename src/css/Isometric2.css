@@ -355,7 +355,7 @@ ul li,
 }
 
 .BotonSeleccionado{
-    background-color: #3496db;    
+    background-color: #3496db !important;    
 }
 
 .BotonCreado{
