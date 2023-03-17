@@ -39,6 +39,8 @@ export const EliminarClase = (id) => deleteDoc(doc(db, 'Clases', id));
 export const BorrarCards = (ID) => deleteDoc(doc(db, 'Cards', where("IDTema", "==", ID)));
 
 
+export const ActualizarCard = (ID) => doc(db, "Cards", ID);
+
 export const EliminarTema = (id) => deleteDoc(doc(db, 'Tema', id));
 
 export function AgregarCards(Titulo, Contenido, IDTema) {
@@ -48,7 +50,6 @@ export function AgregarCards(Titulo, Contenido, IDTema) {
 export function AgregarClase(IDUser,ID, Titulo) {
     addDoc(collection(db, 'Clases'), {IDUser, Titulo, ID });
 }
-
 
 export async function ObtenerTemaClase(Tema, arrTema, CodigoClase){
     const q = query(collection(db, "Tema"), where("IDClase", "==", CodigoClase));
@@ -79,7 +80,8 @@ export {
     where, getDocs,
     getAuth,
     onAuthStateChanged,
-    getDoc
+    getDoc,
+    updateDoc
 }
 
 

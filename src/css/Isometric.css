@@ -120,14 +120,15 @@ body {
     position: absolute;
     right: 1%;    
     top: 1%;
-    width: 80px;
+    width: 120px;
     height: 30px;
     /* background-color: #181818; */
 }
 
-.BotonCopy, #btnEliminarCard, #btnFullCard, #btnFullExit{
+.BotonCopy, #btnEliminarCard, #btnFullCard, #btnFullExit, #btnEditarNota{
     fill: white;
     cursor: pointer;
+    margin: 0% 2%;
     transition: all 500ms;    
 }
 
@@ -148,7 +149,7 @@ body {
     fill:  #f59d39 ;
 }
 
-.BotonCopy:hover, #btnFullCard:hover, #btnFullExit:hover{    
+.BotonCopy:hover, #btnFullCard:hover, #btnFullExit:hover, #btnEditarNota:hover{    
     fill: #181818;
 }
 

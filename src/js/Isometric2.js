@@ -1,4 +1,4 @@
-import { ObtenerDato, BorrarCard, AgregarCards, EliminarTema, CerrarSesion, obtenerClase, EliminarClase, AgregarTema, AgregarClase, onSnapshot, db, collection, query, where, getDocs, BorrarCards } from "./db.js";
+import { ObtenerDato, BorrarCard, AgregarCards, ActualizarCard, EliminarTema, CerrarSesion, obtenerClase, EliminarClase, AgregarTema, AgregarClase, onSnapshot, db, collection, query, where, getDocs, BorrarCards, updateDoc } from "./db.js";
 const style = document.documentElement.style;
 
 ////////////////////////////////////////////////////////////////// VARIABLES //////////////////////////////////////////////////////
@@ -9,7 +9,7 @@ const btnCopy = document.getElementById('btnCopy');
 const btnEliminarCard = document.getElementById('btnEliminarCard');
 const btnFullCard = document.getElementById('btnFullCard');
 const btnFullExit = document.getElementById('btnFullExit');
-
+const btnEditarNota = document.getElementById('btnEditarNota');
 
 var btnAgregar = document.getElementById('btnAgregar');
 const btnTema = document.getElementById('btnTema');
@@ -28,6 +28,9 @@ var CodigoClase = '';
 var CodigoTema = '';
 var CodigoTemaRef = '';
 var btnClaseAct = false;
+
+var CodigoCard = '';
+var EdicionActiva = false;
 
 var Text = '';
 var Text2 = '';
@@ -220,12 +223,22 @@ function ResetearIndex() {
 
 var contadorFullScreen = 0;
 
-window.addEventListener("keydown", (btn) => {
-    console.log(btn);
+window.addEventListener("keydown", async (btn) => {
+    // console.log(btn);
     if (btn.code == "Enter" && Boton != 0) {
         AgregarDatos();
-    } else if (btn.shiftKey && btn.code == "Enter") {
+    }
+    else if (btn.shiftKey && btn.code == "Enter" && EdicionActiva == false) {
         AgregarDatos();
+    }
+    else if (btn.shiftKey && btn.code == "Enter" && EdicionActiva == true) {        
+        await updateDoc(ActualizarCard(CodigoCard), {
+            "Contenido": document.getElementById('Contenido').value,
+        });
+        EdicionActiva = false;
+        AlertMSJ("Edicion realizada");
+        AbrirApuntesScreen();
+        limpiar();
     }
 
     if (btn.code == "KeyF" && NotasActivas == true) {
@@ -312,32 +325,37 @@ function AgregarDatos() {
             }
             break;
         case 3:
-            Botones.classList.remove("OcultarBotones");
-            style.setProperty('--witdhArea', '600px');
-            style.setProperty('--IndexCards', '0');
-            style.setProperty('--witdhHeight', '550px');
-            CambiarOrientacion(-80, -80);
-            style.setProperty('--WidthCard', '300px');
-            style.setProperty('--heigth', '520px');
-            style.setProperty('--ListaBootom', '-400px');
-            style.setProperty('--Widthborder', '0px');
-            TituloCard.innerHTML = 'Salir';
-            ContenedorTexto.innerHTML = '';
-            btnInformacion.value = 'Ver más información';
-            Toques = 0;
-            Tocar4 = 0;
-            ApuntesActivo = false;
-            MostrarControles(false);
-            TipoAccion.innerHTML = 'Clase';
-            ColoresBotonesOff(1, 3, 2, 5);
-            document.getElementById('Contenido').style.opacity = '0%';
-            btnClaseAct = true;
-            FuncionBoton();
-            Boton = 1;
-            style.setProperty('--opacidadLista', '0%');
-
+            CerrarCardsScreen();
             break;
     }
+}
+
+
+function CerrarCardsScreen() {
+    Botones.classList.remove("OcultarBotones");
+    style.setProperty('--witdhArea', '600px');
+    style.setProperty('--IndexCards', '0');
+    style.setProperty('--witdhHeight', '550px');
+    CambiarOrientacion(-80, -80);
+    style.setProperty('--WidthCard', '300px');
+    style.setProperty('--heigth', '520px');
+    style.setProperty('--ListaBootom', '-400px');
+    style.setProperty('--Widthborder', '0px');
+    TituloCard.innerHTML = 'Salir';
+    ContenedorTexto.innerHTML = '';
+    btnInformacion.value = 'Ver más información';
+    Toques = 0;
+    Tocar4 = 0;
+    ApuntesActivo = false;
+    MostrarControles(false);
+    TipoAccion.innerHTML = 'Clase';
+    ColoresBotonesOff(1, 3, 2, 5);
+    document.getElementById('Contenido').style.opacity = '0%';
+    btnClaseAct = true;
+    FuncionBoton();
+    Boton = 1;
+    style.setProperty('--opacidadLista', '0%');
+
 }
 
 btnEliminar.onclick = async function () {
@@ -426,6 +444,11 @@ btnDatos.onclick = function () {
     } else {
 
     }
+
+    AbrirApuntesScreen();
+}
+
+function AbrirApuntesScreen() {
     TipoAccion.innerHTML = 'Apuntes';
     document.getElementById('Contenido').style.opacity = '0%';
     ColoresBotonesOff(5, 3, 2, 1);
@@ -634,7 +657,7 @@ async function CargarCards() {
             EliminarColorBoton(3)
             btn.classList.add('BotonSeleccionado');
             NotasActivas = true;
-
+            CodigoCard = event.target.dataset.id;
 
             if (event.target.dataset.id == 0) {
                 CerrarCard();
@@ -760,7 +783,25 @@ function ExitFullScreen() {
     }
 }
 
-
-ContenedorTexto.addEventListener('click', () => {
-    Copy();
+btnEditarNota.addEventListener('click', async () => {
+    document.getElementById('Titulo').value = TituloCard.innerText;
+    document.getElementById('Contenido').innerHTML = Text;
+    EdicionActiva = true;
+    AlertMSJ("Editando Nota: " + document.getElementById('Titulo').value);
+    CerrarCardsScreen();
+    Cards();    
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
