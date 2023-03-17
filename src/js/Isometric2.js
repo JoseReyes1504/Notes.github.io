@@ -7,6 +7,9 @@ const btnInformacion = document.getElementById('VerInfor');
 const ContenedorTexto = document.getElementById('TextoCard');
 const btnCopy = document.getElementById('btnCopy');
 const btnEliminarCard = document.getElementById('btnEliminarCard');
+const btnFullCard = document.getElementById('btnFullCard');
+const btnFullExit = document.getElementById('btnFullExit');
+
 
 var btnAgregar = document.getElementById('btnAgregar');
 const btnTema = document.getElementById('btnTema');
@@ -210,7 +213,7 @@ function ResetearIndex() {
 window.addEventListener("keydown", (btn) => {
     if (btn.code == "Enter" && Boton != 0) {
         AgregarDatos();
-    }else if(btn.shiftKey && btn.code == "Enter"){
+    } else if (btn.shiftKey && btn.code == "Enter") {
         AgregarDatos();
     }
 });
@@ -255,7 +258,7 @@ function AgregarDatos() {
                 AgregarClase(Usuario, Codigo, Titulo);
                 CargarTemas();
                 style.setProperty('--TranslateArrow2', '0px');
-                AlertMSJ('Se Agregaron los datos');                
+                AlertMSJ('Se Agregaron los datos');
                 limpiar();
                 Tema();
                 style.setProperty('--TranslateArrow', '80px');
@@ -316,7 +319,7 @@ function AgregarDatos() {
 
 
 btnEliminar.onclick = async function () {
-    
+
     if (CodigoClase != '' && CodigoTema == '') {
         await EliminarClase(CodigoClaseRef);
         style.setProperty('--Color4', '#181818');
@@ -478,6 +481,7 @@ function FuncionBoton() {
 }
 
 function Copy() {
+    ReplaceEnters2(Text);
     navigator.clipboard.writeText(TituloCard.innerHTML + "\n\n" + Text)
         .then(() => {
             AlertMSJ('Se copio al portapapeles', true);
@@ -641,6 +645,11 @@ function ReplaceEnters(texto) {
     return texto;
 }
 
+function ReplaceEnters2(texto) {
+    texto = texto.replace(/\r\n/g, "<br>");
+    return texto;
+}
+
 
 btnCopy.onclick = function () {
     Copy();
@@ -653,3 +662,63 @@ btnEliminarCard.onclick = async function () {
     ContenedorTexto.innerHTML = '';
     CargarCards();
 }
+
+
+var elemento = document.getElementById("Menu");
+
+btnFullCard.onclick = function () {
+    btnInformacion.style.display = "none";
+    btnFullCard.style.display = "none";
+    btnFullExit.style.display = "block";
+
+    //Aumentar Tamaño Letra
+    style.setProperty('--TamanoHeightLetra', '90%');
+    style.setProperty('--FontSize', '25px');
+
+    //
+
+
+    // Verifica si el navegador soporta la API Fullscreen
+    if (elemento.requestFullscreen) {
+        // Si es así, solicita que se ponga en pantalla completa
+        elemento.requestFullscreen();
+    } else if (elemento.mozRequestFullScreen) { /* Firefox */
+        elemento.mozRequestFullScreen();
+    } else if (elemento.webkitRequestFullscreen) { /* Chrome, Safari y Opera */
+        elemento.webkitRequestFullscreen();
+    } else if (elemento.msRequestFullscreen) { /* Internet Explorer y Edge */
+        elemento.msRequestFullscreen();
+    }
+}
+
+btnFullExit.onclick = function () {
+    btnFullCard.style.display = "block";
+    btnFullExit.style.display = "none";
+    btnInformacion.style.display = "block";
+
+    //Disminuir Tamaño Letra
+    style.setProperty('--TamanoHeightLetra', '70%');
+    style.setProperty('--FontSize', '17px');
+
+
+    //
+
+    // Verifica si el navegador soporta la API Fullscreen
+    if (document.exitFullscreen) {
+        // Si es así, solicita salir del modo pantalla completa
+        document.exitFullscreen();
+    } else if (document.mozCancelFullScreen) { /* Firefox */
+        document.mozCancelFullScreen();
+    } else if (document.webkitExitFullscreen) { /* Chrome, Safari y Opera */
+        document.webkitExitFullscreen();
+    } else if (document.msExitFullscreen) { /* Internet Explorer y Edge */
+        document.msExitFullscreen();
+    }
+
+}
+
+
+
+
+
+

@@ -8,14 +8,17 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Pragati+Narrow&display=swap" rel="stylesheet">
-    <title>Menu De Inicio</title>    
+    <title>Menu De Inicio</title>
     <link rel="stylesheet" href="../css/Isometric.css">
     <link rel="stylesheet" href="../css/Isometric2.css">
 </head>
 
-<body>    
-    <span title="Cerrar Sesión"><svg xmlns="http://www.w3.org/2000/svg" id="btnCerrarSesion" height="48" width="48"><path d="M22.5 26.1V5.8h3v20.3Zm1.5 16q-3.7 0-6.975-1.425Q13.75 39.25 11.3 36.8q-2.45-2.45-3.875-5.725Q6 27.8 6 24.1q0-4 1.7-7.475 1.7-3.475 4.8-6.175l2.1 2.1q-2.65 2.15-4.125 5.125T9 24.1q0 6.25 4.375 10.625T24 39.1q6.25 0 10.625-4.375T39 24.1q0-3.45-1.475-6.475Q36.05 14.6 33.5 12.55l2.15-2.1q3 2.55 4.675 6.1Q42 20.1 42 24.1q0 3.7-1.425 6.975-1.425 3.275-3.85 5.725-2.425 2.45-5.7 3.875Q27.75 42.1 24 42.1Z"/></svg></span>
-    <input class="Boton" id="btnAgregar" type="button" value="Agregar">    
+<body>
+    <span title="Cerrar Sesión"><svg xmlns="http://www.w3.org/2000/svg" id="btnCerrarSesion" height="48" width="48">
+            <path
+                d="M22.5 26.1V5.8h3v20.3Zm1.5 16q-3.7 0-6.975-1.425Q13.75 39.25 11.3 36.8q-2.45-2.45-3.875-5.725Q6 27.8 6 24.1q0-4 1.7-7.475 1.7-3.475 4.8-6.175l2.1 2.1q-2.65 2.15-4.125 5.125T9 24.1q0 6.25 4.375 10.625T24 39.1q6.25 0 10.625-4.375T39 24.1q0-3.45-1.475-6.475Q36.05 14.6 33.5 12.55l2.15-2.1q3 2.55 4.675 6.1Q42 20.1 42 24.1q0 3.7-1.425 6.975-1.425 3.275-3.85 5.725-2.425 2.45-5.7 3.875Q27.75 42.1 24 42.1Z" />
+        </svg></span>
+    <input class="Boton" id="btnAgregar" type="button" value="Agregar">
     <input class="Boton" type="button" id="btnEliminar" disabled value="Eliminar">
 
 
@@ -37,9 +40,10 @@
 
             <div class="FormBotones" id="FormBotones">
                 <span title="Pantalla Completa"><svg xmlns="http://www.w3.org/2000/svg" height="48" width="48"
-                    id="btnPantalla">
-                    <path d="M7 40q-1.25 0-2.125-.875T4 37V11q0-1.25.875-2.125T7 8h34q1.25 0 2.125.875T44 11v26q0 1.25-.875 2.125T41 40Zm0-3h3.5V11H7v26Zm6.5 0h21V11h-21Zm24 0H41V11h-3.5Zm-24-26v26Z" />
-                </svg></span>
+                        id="btnPantalla">
+                        <path
+                            d="M7 40q-1.25 0-2.125-.875T4 37V11q0-1.25.875-2.125T7 8h34q1.25 0 2.125.875T44 11v26q0 1.25-.875 2.125T41 40Zm0-3h3.5V11H7v26Zm6.5 0h21V11h-21Zm24 0H41V11h-3.5Zm-24-26v26Z" />
+                    </svg></span>
             </div>
         </div>
     </div>
@@ -71,22 +75,39 @@
 
 
 
-    <div class="Menu">
+    <div class="Menu" id="Menu">
         <h1 id="TituloCard">Notas</h1>
         <p id="TextoCard" class="TextobtnEliminarCard">Hola</p>
         <input id="VerInfor" class="BotonResumen" type="button" value="Ver más información">
-        <svg xmlns="http://www.w3.org/2000/svg" id="btnCopy" class="BotonCopy" height="24" width="24">
-            <path d="M5 22q-.825 0-1.413-.587Q3 20.825 3 20V6h2v14h11v2Zm4-4q-.825 0-1.412-.587Q7 16.825 7 16V4q0-.825.588-1.413Q8.175 2 9 2h9q.825 0 1.413.587Q20 3.175 20 4v12q0 .825-.587 1.413Q18.825 18 18 18Zm0-2h9V4H9v12Zm0 0V4v12Z" />
-        </svg>
-        <svg id="btnEliminarCard" xmlns="http://www.w3.org/2000/svg" height="24" width="24">
-            <path d="M7 21q-.825 0-1.412-.587Q5 19.825 5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.587 1.413Q17.825 21 17 21ZM17 6H7v13h10ZM9 17h2V8H9Zm4 0h2V8h-2ZM7 6v13Z" />
-        </svg>
+
+        <div class="Iconos-Opciones">
+            <span title="Eliminar Nota"><svg id="btnEliminarCard" xmlns="http://www.w3.org/2000/svg" height="24"
+                    width="24">
+                    <path d="M7 21q-.825 0-1.412-.587Q5 19.825 5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.587 1.413Q17.825 21 17 21ZM17 6H7v13h10ZM9 17h2V8H9Zm4 0h2V8h-2ZM7 6v13Z" />
+                </svg></span>
+            <span title="Copiar Nota"><svg xmlns="http://www.w3.org/2000/svg" id="btnCopy" class="BotonCopy" height="24"
+                    width="24">
+                    <path d="M5 22q-.825 0-1.413-.587Q3 20.825 3 20V6h2v14h11v2Zm4-4q-.825 0-1.412-.587Q7 16.825 7 16V4q0-.825.588-1.413Q8.175 2 9 2h9q.825 0 1.413.587Q20 3.175 20 4v12q0 .825-.587 1.413Q18.825 18 18 18Zm0-2h9V4H9v12Zm0 0V4v12Z" />
+                </svg>
+            </span>
+
+            <span title="Close FullScreen"> <svg id="btnFullExit" xmlns="http://www.w3.org/2000/svg" height="24" width="24">
+                    <path d="M3.4 22 2 20.6 8.6 14H4v-2h8v8h-2v-4.6ZM12 12V4h2v4.6L20.6 2 22 3.4 15.4 10H20v2Z" />
+                </svg>
+            </span>
+
+            <span title="Pantalla Completa"><svg id="btnFullCard" xmlns="http://www.w3.org/2000/svg" height="24"
+                    width="24">
+                    <path d="M3 21v-8h2v4.6L17.6 5H13V3h8v8h-2V6.4L6.4 19H11v2Z" />
+            </svg></span>
+            
+        </div>
     </div>
     <div class="ContenedorCards">
         <ul id="ListaTodo">
         </ul>
     </div>
-        
+
     <script type="module" src="../js/main.js"></script>
     <script type="module" src="../js/Isometric2.js"></script>
 
