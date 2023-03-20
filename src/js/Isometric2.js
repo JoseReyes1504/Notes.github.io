@@ -6,7 +6,7 @@ const style = document.documentElement.style;
 const TituloCard = document.getElementById('TituloCard');
 const btnInformacion = document.getElementById('VerInfor');
 const ContenedorTexto = document.getElementById('TextoCard');
-const btnCopy = document.getElementById('btnCopy');
+// const btnCopy = document.getElementById('btnCopy');
 const btnEliminarCard = document.getElementById('btnEliminarCard');
 const btnFullCard = document.getElementById('btnFullCard');
 const btnFullExit = document.getElementById('btnFullExit');
@@ -31,7 +31,7 @@ var CodigoClase = '';
 var CodigoTema = '';
 var CodigoTemaRef = '';
 var btnClaseAct = false;
-
+btnAgregar.style.display = 'none';        
 var CodigoCard = '';
 var EdicionActiva = false;
 
@@ -41,6 +41,7 @@ var Codigo = '';
 
 var ApuntesActivo = false;
 var NotasActivas = false;
+var MenuActivo = true;
 
 ////////////////////////////////////////////////// FUNCIONES //////////////////////////////////////////////////////
 
@@ -61,7 +62,7 @@ btnCerrar.addEventListener("click", async () => {
 });
 
 function limpiar() {
-    document.getElementById('Contenido').value = '';
+    document.getElementById('Contenido').innerHTML = '';
     document.getElementById('Titulo').value = '';
 }
 
@@ -144,13 +145,14 @@ async function CargarClases() {
             CodigoClaseRef = event.target.dataset.idref;
             CargarTemas();
             CodigoTema = '';
+            
             style.setProperty('--TranslateArrow', '80px');
             style.setProperty('--TranslateXD', '0px');
             style.setProperty('--TranslateArrow2', '0px');
             EliminarColorBoton(1);
             btn.classList.add('BotonSeleccionado');
             ResetearIndex();
-
+            btnAgregar.style.display = 'block';        
             if (Boton == 0 || Boton == 3) {
                 style.setProperty('--Index', '6');
             } else {
@@ -249,6 +251,11 @@ window.addEventListener("keydown", async (btn) => {
         EditarNota();
     }
 
+
+    if (btn.code == "KeyT" && NotasActivas == true) {
+        AbrirCard();
+    }
+
     if (btn.code == "KeyF" && NotasActivas == true) {
         contadorFullScreen++;
         if (contadorFullScreen == 1) {
@@ -257,8 +264,12 @@ window.addEventListener("keydown", async (btn) => {
             ExitFullScreen();
             contadorFullScreen = 0;
         }
-    } else if (btn.code == "Escape" && NotasActivas == true) {
+    } else if (btn.code == "Escape" && NotasActivas == true && MenuActivo == false) {    
         CerrarCard();
+    }
+    
+    if (btn.code == "Escape" && MenuActivo == true) {
+        CerrarCardsScreen();
     }
 });
 
@@ -268,11 +279,12 @@ btnAgregar.onclick = function () {
 
 function AgregarDatos() {
     Titulo = document.getElementById('Titulo').value;
-    Contenido = document.getElementById('Contenido').value;
+    Contenido = document.getElementById('Contenido').innerHTML;
     var Codigo = GenerarCodigo();
 
     switch (Boton) {
         case 0:
+            //NOTAS
             if (Titulo == '' || Contenido == '') {
                 AlertMSJ('LLene los Datos');
             } else {
@@ -296,6 +308,7 @@ function AgregarDatos() {
             }
             break;
         case 1:
+            //CLASES
             if (Titulo == '') {
                 AlertMSJ('LLene el Nombre de la clase');
             } else {
@@ -314,6 +327,7 @@ function AgregarDatos() {
             }
             break;
         case 2:
+            //TEMAS
             if (CodigoClase == '') {
                 AlertMSJ('Elija la clase');
                 style.setProperty('--TranslateArrow', '0px');
@@ -335,7 +349,7 @@ function AgregarDatos() {
                 }
             }
             break;
-        case 3:
+        case 3:            
             CerrarCardsScreen();
             break;
 
@@ -370,8 +384,8 @@ function CerrarCardsScreen() {
     FuncionBoton();
     Boton = 1;
     style.setProperty('--opacidadLista', '0%');
-    contadorFullScreen = 0;  
-    NotasActivas = false; 
+    contadorFullScreen = 0;
+    NotasActivas = false;
 }
 
 btnEliminar.onclick = async function () {
@@ -445,7 +459,7 @@ btnCard.onclick = function () {
 }
 
 btnDatos.onclick = function () {
-
+    btnAgregar.style.display = 'block';        
     if (CodigoClase == '' && CodigoTema == '') {
         CambiarColorMSJ("#3bafde");
         AlertMSJ('Seleccione la clase y el tema');
@@ -483,7 +497,7 @@ function AbrirApuntesScreen() {
     FuncionBoton();
     style.setProperty('--TranslateXD', '0px');
     Boton = 3;
-    PantallaCompleta2();   
+    PantallaCompleta2();
 }
 
 function ColoresBotonesOff(ColorAct, Color2, Color3, Color5) {
@@ -543,8 +557,8 @@ function FuncionBoton() {
     }
 }
 
-function Copy() {
-    ReplaceEnters2(Text);
+function Copy() {    
+    Text = ReplaceEnters2(Text);
     navigator.clipboard.writeText(TituloCard.innerHTML + "\n\n" + Text)
         .then(() => {
             AlertMSJ('Se copio al portapapeles', true);
@@ -561,7 +575,6 @@ var Tocar4 = 0;
 
 function PantallaCompleta() {
     Tocar++;
-
     if (Tocar == 1) {
         Botones.classList.add("OcultarBotones");
         style.setProperty('--witdhArea', '1200px');
@@ -569,12 +582,14 @@ function PantallaCompleta() {
         style.setProperty('--TranslateY2', '-40px');
         style.setProperty('--TranslateXD', '350px');
         style.setProperty('--TranslateXD2', '-350px');
+        btnAgregar.style.display = 'none';        
     } else {
         Botones.classList.remove("OcultarBotones");
         style.setProperty('--witdhArea', '600px');
         style.setProperty('--witdhHeight', '550px');
         style.setProperty('--TranslateXD', '0px');
         style.setProperty('--TranslateXD2', '0px');
+        btnAgregar.style.display = 'block';
         Tocar = 0;
     }
 }
@@ -585,7 +600,7 @@ function PantallaCompleta2() {
         Botones.classList.add("OcultarBotones");
         style.setProperty('--witdhArea', '800px');
         style.setProperty('--witdhHeight', '110%');
-        style.setProperty('--IndexCards', '5');
+        style.setProperty('--IndexCards', '5');        
     } else {
         Botones.classList.remove("OcultarBotones");
         style.setProperty('--witdhArea', '600px');
@@ -614,8 +629,11 @@ var btnActivo = false;
 var Toques = 0;
 
 btnInformacion.onclick = function () {
-    Toques++;
+    AbrirCard();
+}
 
+function AbrirCard(){
+    Toques++;
     if (Toques == 1) {
         style.setProperty('--WidthCard', '800px');
         CambiarOrientacion(-510, 0);
@@ -631,7 +649,6 @@ btnInformacion.onclick = function () {
         Toques = 0;
     }
 }
-
 
 function CambiarOrientacion(Translatex, TranslateInfox) {
     style.setProperty('--Translatex', Translatex + 'px');
@@ -676,7 +693,7 @@ async function CargarCards() {
             btn.classList.add('BotonSeleccionado');
             NotasActivas = true;
             CodigoCard = event.target.dataset.id;
-
+            MenuActivo = false;            
             if (event.target.dataset.id == 0) {
                 CerrarCard();
             } else {
@@ -710,6 +727,13 @@ function CerrarCard() {
     Toques = 0;
     NotasActivas = false;
     EliminarColorBoton(3);
+    SetMenuActivo();
+}
+
+function SetMenuActivo (){
+    setTimeout(function () {
+        MenuActivo = true;
+    }, 1000);
 }
 
 function ReplaceEnters(texto) {
@@ -725,9 +749,9 @@ function ReplaceEnters2(texto) {
 }
 
 
-btnCopy.onclick = function () {
-    Copy();
-}
+// btnCopy.onclick = function () {
+//     Copy();
+// }
 
 
 btnEliminarCard.onclick = async function () {
@@ -785,7 +809,7 @@ function ExitFullScreen() {
     btnInformacion.style.display = "block";
     style.setProperty('--TamanoHeightLetra', '80%');
     style.setProperty('--FontSize', '20px');
-    contadorFullScreen = 0;    
+    contadorFullScreen = 0;
 
     // Verifica si el navegador soporta la API Fullscreen
     if (document.exitFullscreen) {
@@ -801,8 +825,8 @@ function ExitFullScreen() {
 }
 
 btnEditarNota.addEventListener('click', async () => {
-    document.getElementById('Titulo').value = TituloCard.innerText;
-    TextArea.innerHTML = Text;
+    document.getElementById('Titulo').value = TituloCard.innerText;     
+    TextArea.innerHTML = Text2;
     EdicionActiva = true;
     CambiarColorMSJ("#f7dc6f");
     AlertMSJSinEsconder("Editando Nota: " + document.getElementById('Titulo').value);
@@ -814,7 +838,7 @@ btnEditarNota.addEventListener('click', async () => {
 
 
 async function EditarNota() {
-    Contenido = document.getElementById('Contenido').value;
+    Contenido = document.getElementById('Contenido').innerHTML;
     Contenido = ReplaceSaltos(Contenido);
     await updateDoc(ActualizarCard(CodigoCard), {
         "Contenido": Contenido,
@@ -826,7 +850,7 @@ async function EditarNota() {
     limpiar();
 
     Boton = 3;
-    btnAgregar.value = "Salir Notas";    
+    btnAgregar.value = "Salir Notas";
 }
 
 

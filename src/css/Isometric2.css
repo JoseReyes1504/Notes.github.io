@@ -187,7 +187,8 @@ body {
     color: white;
     outline: none;
     font-size: 20px;
-    padding: 2%;
+    padding: 2%;    
+    overflow-y: scroll;
     border: 2px solid white;
     border-radius: 10px;
     transition: all 800ms;
@@ -444,6 +445,7 @@ ul li a {
     text-decoration: none;
     color: white;
     text-transform: uppercase;
+    width: 100%;
     letter-spacing: 2px;
     height: 51.5px;
     justify-content: center;
@@ -473,15 +475,13 @@ ul li a:hover {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 10%;
-    /* background-color: red; */
+    height: 10%;    
     overflow: hidden;
 }
 
 .ContenedorFlecha2 {
     left: 0%;
-    margin-top: 25%;
-    /* background-color: red;     */
+    margin-top: 25%;    
 }
 
 .ContenedorFlecha svg,
@@ -511,15 +511,13 @@ ul li a:hover {
 
 @media only screen and (min-device-width : 320px) and (max-device-width : 768px) {
 
-    .Contenedor {
-        /* background-color: red; */
+    .Contenedor {        
         height: 500px;
         margin-top: 0%;
     }
 
     .ContenedorPrincipal {
-        width: 360px;
-        /* background-color: blue; */
+        width: 360px;        
         height: auto;
         margin: 20% 2%;
         z-index: var(--IndexContenedor);
@@ -528,8 +526,7 @@ ul li a:hover {
     .ContenedorBotones {        
         margin-bottom: 30%;
         width: 380px;
-        align-items: flex-start;
-        /* background-color: red;         */
+        align-items: flex-start;        
         z-index: 5;
     }
 
@@ -537,16 +534,13 @@ ul li a:hover {
     .ContenedorTerciario {
         width: 100%;        
         right: 0%;                
-        min-height: 600px;        
-        /* margin-left: 8%; */
-        /* background-color: red; */
+        min-height: 600px;                
         margin-top: 55%;
         z-index: var(--IndexClase);
     }
 
     .ContenedorTerciario {
-        margin-right: 2.3%;
-        /* background-color: red;                 */
+        margin-right: 2.3%;        
         z-index: var(--Index);
     }
 
@@ -564,8 +558,7 @@ ul li a:hover {
     .ContenedorFlecha2 {   
         top: 0%;         
         margin-top: 10%;
-        margin-right: 2%;        
-        /* background-color: blue; */
+        margin-right: 2%;                
     }
 
     .ContenedorFlecha2 {  

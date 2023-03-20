@@ -11,13 +11,13 @@
     <title>Menu De Inicio</title>
     <link rel="stylesheet" href="../css/Isometric.css">
     <link rel="stylesheet" href="../css/Isometric2.css">
+    <link rel="stylesheet" href="../css/IconosTextArea.css">
     <link rel="icon" type="image/x-icon" href="../iconos/note_FILL0_wght400_GRAD0_opsz24.png">
 </head>
 
 <body>
     <span title="Cerrar Sesión"><svg xmlns="http://www.w3.org/2000/svg" id="btnCerrarSesion" height="48" width="48">
-            <path
-                d="M22.5 26.1V5.8h3v20.3Zm1.5 16q-3.7 0-6.975-1.425Q13.75 39.25 11.3 36.8q-2.45-2.45-3.875-5.725Q6 27.8 6 24.1q0-4 1.7-7.475 1.7-3.475 4.8-6.175l2.1 2.1q-2.65 2.15-4.125 5.125T9 24.1q0 6.25 4.375 10.625T24 39.1q6.25 0 10.625-4.375T39 24.1q0-3.45-1.475-6.475Q36.05 14.6 33.5 12.55l2.15-2.1q3 2.55 4.675 6.1Q42 20.1 42 24.1q0 3.7-1.425 6.975-1.425 3.275-3.85 5.725-2.425 2.45-5.7 3.875Q27.75 42.1 24 42.1Z" />
+            <path d="M22.5 26.1V5.8h3v20.3Zm1.5 16q-3.7 0-6.975-1.425Q13.75 39.25 11.3 36.8q-2.45-2.45-3.875-5.725Q6 27.8 6 24.1q0-4 1.7-7.475 1.7-3.475 4.8-6.175l2.1 2.1q-2.65 2.15-4.125 5.125T9 24.1q0 6.25 4.375 10.625T24 39.1q6.25 0 10.625-4.375T39 24.1q0-3.45-1.475-6.475Q36.05 14.6 33.5 12.55l2.15-2.1q3 2.55 4.675 6.1Q42 20.1 42 24.1q0 3.7-1.425 6.975-1.425 3.275-3.85 5.725-2.425 2.45-5.7 3.875Q27.75 42.1 24 42.1Z" />
         </svg></span>
     <input class="Boton" id="btnAgregar" type="button" value="Agregar">
     <input class="Boton" type="button" id="btnEliminar" disabled value="Eliminar">
@@ -33,12 +33,16 @@
             <input class="Enlace" type="button" id="btnTema" value="Crear Tema">
             <input class="Enlace" type="button" id="btnCard" value="Crear Nota">
             <input class="Enlace" type="button" id="btnDatos" value="Ver Notas">
-        </div>
-        <div class="Contenedor" id="Contenedor">
+        </div>        
+        
+        <div class="Contenedor" id="Contenedor">            
+            <!-- <div class="IconosDiv">                
+                <button class="btnIconos" id="btnNegrita" role="button">B</button>                                 
+            </div> -->
+            
             <h1 id="TipoAccion">Clase</h1>
             <input type="text" autocomplete="off" id="Titulo" maxlength="45v" onfocus="this.placeholder=''">
-            <textarea name="" id="Contenido" cols="30" rows="10"></textarea>
-
+            <div name="" id="Contenido" cols="30" rows="10" contenteditable></div>
 
             <div class="FormBotones" id="FormBotones">
                 <span title="Pantalla Completa"><svg xmlns="http://www.w3.org/2000/svg" height="48" width="48"
@@ -92,11 +96,11 @@
                 </svg>
             </span>
             
-            <span title="Copiar Nota"><svg xmlns="http://www.w3.org/2000/svg" id="btnCopy" class="BotonCopy" height="24"
+            <!-- <span title="Copiar Nota"><svg xmlns="http://www.w3.org/2000/svg" id="btnCopy" class="BotonCopy" height="24"
                     width="24">
                     <path d="M5 22q-.825 0-1.413-.587Q3 20.825 3 20V6h2v14h11v2Zm4-4q-.825 0-1.412-.587Q7 16.825 7 16V4q0-.825.588-1.413Q8.175 2 9 2h9q.825 0 1.413.587Q20 3.175 20 4v12q0 .825-.587 1.413Q18.825 18 18 18Zm0-2h9V4H9v12Zm0 0V4v12Z" />
                 </svg>
-            </span>
+            </span> -->
 
             <span title="Close FullScreen"> <svg id="btnFullExit" xmlns="http://www.w3.org/2000/svg" height="24"
                     width="24">
@@ -109,6 +113,7 @@
                     <path d="M3 21v-8h2v4.6L17.6 5H13V3h8v8h-2V6.4L6.4 19H11v2Z" />
                 </svg></span>
 
+                <span title="Crear PDF"><svg  id="btnCrearPDF" xmlns="http://www.w3.org/2000/svg" height="24" width="24"><path d="M9 12.5h1v-2h1q.425 0 .713-.288Q12 9.925 12 9.5v-1q0-.425-.287-.713Q11.425 7.5 11 7.5H9Zm1-3v-1h1v1Zm3 3h2q.425 0 .713-.288.287-.287.287-.712v-3q0-.425-.287-.713Q15.425 7.5 15 7.5h-2Zm1-1v-3h1v3Zm3 1h1v-2h1v-1h-1v-1h1v-1h-2ZM8 18q-.825 0-1.412-.587Q6 16.825 6 16V4q0-.825.588-1.413Q7.175 2 8 2h12q.825 0 1.413.587Q22 3.175 22 4v12q0 .825-.587 1.413Q20.825 18 20 18Zm0-2h12V4H8v12Zm-4 6q-.825 0-1.412-.587Q2 20.825 2 20V6h2v14h14v2ZM8 4v12V4Z"/></svg></span>                
             
         </div>
     </div>
@@ -119,7 +124,10 @@
 
     <script type="module" src="../js/main.js"></script>
     <script type="module" src="../js/Isometric2.js"></script>
+    <script src="../js/jspdf.min.js" type="text/javascript"></script>
+    <script src="../js/generarPDF.js"></script>
 
+    <script src="../js/textArea.js"></script>
 </body>
 
 </html>
