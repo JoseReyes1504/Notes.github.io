@@ -1,10 +1,15 @@
-.IconosDiv{
-    position: absolute;
-    right: 0%;
-    bottom: 0.5%;
-    width: 200px;
-    border-radius: 10px;    
+
+.formatos {
+  width: 90%;
+  height: 9%;
 }
+
+.opciones svg {
+  fill: white;
+  border: 2px solid white;
+  cursor: pointer;
+}
+
 
 /* CSS */
 .btnIconos {

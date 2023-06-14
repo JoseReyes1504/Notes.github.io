@@ -16,8 +16,10 @@
 </head>
 
 <body>
+    <input type="button" id="btnModo" value="Noche">
     <span title="Cerrar Sesión"><svg xmlns="http://www.w3.org/2000/svg" id="btnCerrarSesion" height="48" width="48">
-            <path d="M22.5 26.1V5.8h3v20.3Zm1.5 16q-3.7 0-6.975-1.425Q13.75 39.25 11.3 36.8q-2.45-2.45-3.875-5.725Q6 27.8 6 24.1q0-4 1.7-7.475 1.7-3.475 4.8-6.175l2.1 2.1q-2.65 2.15-4.125 5.125T9 24.1q0 6.25 4.375 10.625T24 39.1q6.25 0 10.625-4.375T39 24.1q0-3.45-1.475-6.475Q36.05 14.6 33.5 12.55l2.15-2.1q3 2.55 4.675 6.1Q42 20.1 42 24.1q0 3.7-1.425 6.975-1.425 3.275-3.85 5.725-2.425 2.45-5.7 3.875Q27.75 42.1 24 42.1Z" />
+            <path
+                d="M22.5 26.1V5.8h3v20.3Zm1.5 16q-3.7 0-6.975-1.425Q13.75 39.25 11.3 36.8q-2.45-2.45-3.875-5.725Q6 27.8 6 24.1q0-4 1.7-7.475 1.7-3.475 4.8-6.175l2.1 2.1q-2.65 2.15-4.125 5.125T9 24.1q0 6.25 4.375 10.625T24 39.1q6.25 0 10.625-4.375T39 24.1q0-3.45-1.475-6.475Q36.05 14.6 33.5 12.55l2.15-2.1q3 2.55 4.675 6.1Q42 20.1 42 24.1q0 3.7-1.425 6.975-1.425 3.275-3.85 5.725-2.425 2.45-5.7 3.875Q27.75 42.1 24 42.1Z" />
         </svg></span>
     <input class="Boton" id="btnAgregar" type="button" value="Agregar">
     <input class="Boton" type="button" id="btnEliminar" disabled value="Eliminar">
@@ -26,29 +28,72 @@
     <div class="Mensaje">
         <p id="MSJ">Mensaje</p>
     </div>
-    
+
     <div class="ContenedorPrincipal">
         <div class="ContenedorBotones" id="ContenedorBotones">
             <input class="Enlace" type="button" id="btnClase" value="Crear Clase">
             <input class="Enlace" type="button" id="btnTema" value="Crear Tema">
             <input class="Enlace" type="button" id="btnCard" value="Crear Nota">
             <input class="Enlace" type="button" id="btnDatos" value="Ver Notas">
-        </div>        
-        
-        <div class="Contenedor" id="Contenedor">            
-            <!-- <div class="IconosDiv">                
-                <button class="btnIconos" id="btnNegrita" role="button">B</button>                                 
-            </div> -->
-            
+        </div>
+
+        <div class="Contenedor" id="Contenedor">          
             <h1 id="TipoAccion">Clase</h1>
             <input type="text" autocomplete="off" id="Titulo" maxlength="45v" onfocus="this.placeholder=''">
-            <div name="" id="Contenido" cols="30" rows="10" contenteditable></div>
+
+            <div id="Contenido" contenteditable="true"></div>
+
+            <section class="opciones">
+                
+                <button class="formatos" onclick="document.execCommand('bold',false,'');">B</button>
+                <button class="formatos" onclick="document.execCommand('italic',false,'');">I</button>
+                <button class="formatos" onclick="document.execCommand('underline',false,'');">ù</button>
+
+                <select onchange="formatoFuente('formatblock',this[this.selectedIndex].value);this.selectedIndex=0;">
+                    <option class="heading" selected>Formato</option>
+                    <option value="<h1>">Cabecera &lt;h1&gt;</option>
+                    <option value="<h2>">Título &lt;h2&gt;</option>
+                    <option value="<h3>">Título &lt;h3&gt;</option>
+                    <option value="<h4>">Título &lt;h4&gt;</option>
+                    <option value="<h5>">Título &lt;h5&gt;</option>
+                    <option value="<h6>">Título &lt;h6&gt;</option>
+                    <option value="<p>">Párrafo &lt;p&gt;</option>
+                    <option value="<pre>">Preformateado &lt;pre&gt;</option>
+                </select>                                
+                <select onchange="formatoFuente('forecolor',this[this.selectedIndex].value);this.selectedIndex=0;">
+                    <option class="heading" selected>Color</option>
+                    <option value="white">white</option>
+                    <option value="blue">Azul</option>
+                    <option value="green">Verde</option>
+                    <option value="black">Negro</option>
+                </select>
+                
+                <button class="formatos" onclick="document.execCommand('insertorderedlist',false,'');">1.</button>
+                <button class="formatos" onclick="document.execCommand('justifyleft',false,'');">[</button>
+                <button class="formatos" onclick="document.execCommand('justifycenter',false,'');">|</button>
+                <button class="formatos" onclick="document.execCommand('justifyright',false,'');">]</button>
+                
+                <select onchange="formatoFuente('fontsize',this[this.selectedIndex].value);this.selectedIndex=0;">
+                    <option class="heading" selected>Fuente</option>
+                    <option value="1">Muy pequeña</option>
+                    <option value="2">Pequeña</option>
+                    <option value="3">Normal</option>
+                    <option value="4">Media</option>
+                    <option value="5">Grande</option>
+                    <option value="6">Muy grande</option>
+                    <option value="7">Enorme</option>
+                </select>
+
+                <select onchange="formatoFuente('font-family',this[this.selectedIndex].value);this.selectedIndex=0;">
+                    <option class="heading" selected>Tipo</option>
+                    <option value="TimesNewRoman">Times New Roman</option>                    
+                </select>
+            </section>            
+
+            <!-- <div name="" id="Contenido" cols="30" rows="10" contenteditable></div> -->
 
             <div class="FormBotones" id="FormBotones">
-                <span title="Pantalla Completa"><svg xmlns="http://www.w3.org/2000/svg" height="48" width="48"
-                        id="btnPantalla">
-                        <path d="M7 40q-1.25 0-2.125-.875T4 37V11q0-1.25.875-2.125T7 8h34q1.25 0 2.125.875T44 11v26q0 1.25-.875 2.125T41 40Zm0-3h3.5V11H7v26Zm6.5 0h21V11h-21Zm24 0H41V11h-3.5Zm-24-26v26Z" />
-                    </svg></span>
+                <span title="Pantalla Completa"><svg xmlns="http://www.w3.org/2000/svg" height="48" width="48" id="btnPantalla"> <path d="M7 40q-1.25 0-2.125-.875T4 37V11q0-1.25.875-2.125T7 8h34q1.25 0 2.125.875T44 11v26q0 1.25-.875 2.125T41 40Zm0-3h3.5V11H7v26Zm6.5 0h21V11h-21Zm24 0H41V11h-3.5Zm-24-26v26Z" /> </svg></span>
             </div>
         </div>
     </div>
@@ -88,33 +133,38 @@
         <div class="Iconos-Opciones">
             <span title="Eliminar Nota"><svg id="btnEliminarCard" xmlns="http://www.w3.org/2000/svg" height="24"
                     width="24">
-                    <path d="M7 21q-.825 0-1.412-.587Q5 19.825 5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.587 1.413Q17.825 21 17 21ZM17 6H7v13h10ZM9 17h2V8H9Zm4 0h2V8h-2ZM7 6v13Z" />
+                    <path
+                        d="M7 21q-.825 0-1.412-.587Q5 19.825 5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.587 1.413Q17.825 21 17 21ZM17 6H7v13h10ZM9 17h2V8H9Zm4 0h2V8h-2ZM7 6v13Z" />
                 </svg></span>
-                
-                <span title="Editar Nota"><svg id="btnEditarNota" xmlns="http://www.w3.org/2000/svg" height="24" width="24">
-                    <path d="M12 21v-2.125l5.3-5.3 2.125 2.125-5.3 5.3Zm-9-5v-2h7v2Zm17.125-1L18 12.875l.725-.725q.275-.275.7-.275.425 0 .7.275l.725.725q.275.275.275.7 0 .425-.275.7ZM3 12v-2h11v2Zm0-4V6h11v2Z" />
+
+            <span title="Editar Nota"><svg id="btnEditarNota" xmlns="http://www.w3.org/2000/svg" height="24" width="24">
+                    <path
+                        d="M12 21v-2.125l5.3-5.3 2.125 2.125-5.3 5.3Zm-9-5v-2h7v2Zm17.125-1L18 12.875l.725-.725q.275-.275.7-.275.425 0 .7.275l.725.725q.275.275.275.7 0 .425-.275.7ZM3 12v-2h11v2Zm0-4V6h11v2Z" />
                 </svg>
             </span>
-            
-            <!-- <span title="Copiar Nota"><svg xmlns="http://www.w3.org/2000/svg" id="btnCopy" class="BotonCopy" height="24"
+
+            <span title="Copiar Nota 'C'"><svg xmlns="http://www.w3.org/2000/svg" id="btnCopy" class="BotonCopy" height="24"
                     width="24">
                     <path d="M5 22q-.825 0-1.413-.587Q3 20.825 3 20V6h2v14h11v2Zm4-4q-.825 0-1.412-.587Q7 16.825 7 16V4q0-.825.588-1.413Q8.175 2 9 2h9q.825 0 1.413.587Q20 3.175 20 4v12q0 .825-.587 1.413Q18.825 18 18 18Zm0-2h9V4H9v12Zm0 0V4v12Z" />
                 </svg>
-            </span> -->
+            </span>
 
-            <span title="Close FullScreen"> <svg id="btnFullExit" xmlns="http://www.w3.org/2000/svg" height="24"
+            <span title="Close FullScreen 'F'"> <svg id="btnFullExit" xmlns="http://www.w3.org/2000/svg" height="24"
                     width="24">
                     <path d="M3.4 22 2 20.6 8.6 14H4v-2h8v8h-2v-4.6ZM12 12V4h2v4.6L20.6 2 22 3.4 15.4 10H20v2Z" />
                 </svg>
             </span>
 
-            <span title="Pantalla Completa"><svg id="btnFullCard" xmlns="http://www.w3.org/2000/svg" height="24"
+            <span title="Pantalla Completa 'F'"><svg id="btnFullCard" xmlns="http://www.w3.org/2000/svg" height="24"
                     width="24">
                     <path d="M3 21v-8h2v4.6L17.6 5H13V3h8v8h-2V6.4L6.4 19H11v2Z" />
                 </svg></span>
 
-                <span title="Crear PDF"><svg  id="btnCrearPDF" xmlns="http://www.w3.org/2000/svg" height="24" width="24"><path d="M9 12.5h1v-2h1q.425 0 .713-.288Q12 9.925 12 9.5v-1q0-.425-.287-.713Q11.425 7.5 11 7.5H9Zm1-3v-1h1v1Zm3 3h2q.425 0 .713-.288.287-.287.287-.712v-3q0-.425-.287-.713Q15.425 7.5 15 7.5h-2Zm1-1v-3h1v3Zm3 1h1v-2h1v-1h-1v-1h1v-1h-2ZM8 18q-.825 0-1.412-.587Q6 16.825 6 16V4q0-.825.588-1.413Q7.175 2 8 2h12q.825 0 1.413.587Q22 3.175 22 4v12q0 .825-.587 1.413Q20.825 18 20 18Zm0-2h12V4H8v12Zm-4 6q-.825 0-1.412-.587Q2 20.825 2 20V6h2v14h14v2ZM8 4v12V4Z"/></svg></span>                
-            
+            <span title="Crear PDF 'D'"><svg id="btnCrearPDF" xmlns="http://www.w3.org/2000/svg" height="24" width="24">
+                    <path
+                        d="M9 12.5h1v-2h1q.425 0 .713-.288Q12 9.925 12 9.5v-1q0-.425-.287-.713Q11.425 7.5 11 7.5H9Zm1-3v-1h1v1Zm3 3h2q.425 0 .713-.288.287-.287.287-.712v-3q0-.425-.287-.713Q15.425 7.5 15 7.5h-2Zm1-1v-3h1v3Zm3 1h1v-2h1v-1h-1v-1h1v-1h-2ZM8 18q-.825 0-1.412-.587Q6 16.825 6 16V4q0-.825.588-1.413Q7.175 2 8 2h12q.825 0 1.413.587Q22 3.175 22 4v12q0 .825-.587 1.413Q20.825 18 20 18Zm0-2h12V4H8v12Zm-4 6q-.825 0-1.412-.587Q2 20.825 2 20V6h2v14h14v2ZM8 4v12V4Z" />
+                </svg></span>
+
         </div>
     </div>
     <div class="ContenedorCards">

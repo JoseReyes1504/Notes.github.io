@@ -3,7 +3,8 @@
 }
 
 body {
-    background-color: #181818;    
+    background-color: var(--ModoNocheFont);
+    color: var(--ModoNoche);
 }
 
 ::-webkit-scrollbar {
@@ -26,7 +27,9 @@ body {
     --TranslateXD2: -350px;
     --Visibilidad: visible;
     --BotonsHeigth: 200px;
+    --Color: #FFFFFF;
 
+    --opacity: 0%;
 
     --witdhHeight: 550px;
     --witdhArea: 600px;
@@ -37,9 +40,11 @@ body {
     --TranslateArrow2: -80px;
     --TranslateMsj: -100px;
     --TranslateTodo: 0px;
-    --TranslateXD2Movil: -350px;    
+    --TranslateXD2Movil: -350px;
 
     --ColorMSJ: #3bafde;
+    --ModoNoche: white;
+    --ModoNocheFont: #181818;
 }
 
 .Mensaje {
@@ -65,16 +70,16 @@ body {
     position: absolute;
     width: 100%;
     height: 100%;
-    /* background-color: red; */
     overflow: hidden;
     transition: all 800ms;
     transform: translateX(var(--TranslateTodo));
 }
 
 .ContenedorPrincipal {
-    position: absolute;    
-    background-color: #181818;
-    display: flex;    
+    position: absolute;
+    background-color: var(--ModoNocheFont);
+    color: var(--ModoNoche);
+    display: flex;
     width: 100%;
     margin-top: 5%;
     justify-content: center;
@@ -86,13 +91,14 @@ body {
 .ContenedorTerciario {
     position: absolute;
     right: 0%;
-    margin-right: 1%;    
+    margin-right: 1%;
     width: 350px;
     height: 700px;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #181818;    
+    background-color: var(--ModoNocheFont);
+    color: var(--ModoNoche);
     overflow: hidden;
 }
 
@@ -102,45 +108,46 @@ body {
     margin-left: 1%;
 }
 
-#btnCerrarSesion{
+#btnCerrarSesion {
     position: fixed;
     left: 1%;
     bottom: 2%;
     width: 50px;
-    fill: white;
+    fill: var(--ModoNoche);
     height: 50px;
     z-index: 10;
-    background-color: #181818;
-    color: white;
-    border: 2px solid white;
+    background-color: var(--ModoNocheFont);
+    color: var(--ModoNoche);
+    border: 2px solid var(--ModoNoche);
     font-size: 25px;
     cursor: pointer;
     border-radius: 10px;
     transition: all 400ms;
 }
 
-#btnCerrarSesion:hover{
+#btnCerrarSesion:hover {
     background-color: #C70039;
 }
 
 .Contenedor {
     display: flex;
     flex-direction: column;
-    align-items: center;    
+    align-items: center;
     margin-top: 8%;
     width: var(--witdhArea);
     height: var(--witdhHeight);
-    border: 2px solid white;
+    border: 2px solid var(--ModoNoche);
     border-radius: 10px;
-    color: white;
+    color: var(--ModoNoche);
     transition: all 800ms;
     transform: translateY(var(--TranslateY2));
     z-index: 4;
 }
 
-.Contenedor h1{
+.Contenedor h1 {
     margin: 0%;
 }
+
 .Contenedor Input {
     width: 400px;
     height: 25px;
@@ -150,53 +157,92 @@ body {
     outline: none;
     border: none;
     margin: 1% 0%;
-    color: white;
-    border-bottom: 2px solid white;
+    color: var(--ModoNoche);
+    border-bottom: 2px solid var(--ModoNoche);
 }
 
 
 .Boton {
     position: absolute;
     bottom: 1%;
-    right: 1%;    
+    right: 1%;
     background-color: transparent;
-    color: white;
-    border: none;    
+    color: var(--ModoNoche);
+    border: none;
     width: 150px;
-    font-size: 25px;    
-    height: 50px;    
+    font-size: 25px;
+    height: 50px;
     border-radius: 10px;
-    border: 2px solid white;
+    border: 2px solid var(--ModoNoche);
     transition: all 800ms;
     cursor: pointer;
     transform: translateX(var(--TranslateXD));
     z-index: 6;
 }
 
-#btnEliminar{
+#btnEliminar {
     bottom: 2%;
-    left: 5%;       
+    left: 5%;
     transform: translateX(var(--TranslateXD2));
+}
+
+.opciones {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    left: 0%;
+    top: 5%;
+    width: 10%;
+    height: 90%;    
+    align-items: center;
+    border-radius: 10px;
+    /* background-color: red; */
+    background-color: var(--ModoNocheFont);
+    color: var(--ModoNoche);
+    /* border: 2px solid var(--ModoNoche); */    
+}
+
+.opciones select {
+    height: 9%;
+    width: 90%;
+}
+
+.opciones button, select {
+    margin: 5% 0.5%;
+    background-color: var(--ModoNocheFont);
+    color: var(--ModoNoche);
+    border: 2px solid var(--ModoNoche);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 400ms;
+    opacity: var(--opacity);    
+}
+
+.opciones button:hover, select:hover {
+    background-color: var(--ModoNoche);
+    color: var(--ModoNocheFont);
+    border: 2px solid var(--ModoNocheFont);
 }
 
 #Contenido {
     width: 80%;
-    height: 100%;
+    height: 90%;
     resize: none;
-    background-color: #181818;
-    color: white;
+    background-color: var(--ModoNocheFont);
+    color: var(--ModoNoche);
     outline: none;
     font-size: 20px;
-    padding: 2%;    
+    padding: 2%;
     overflow-y: scroll;
-    border: 2px solid white;
+    border: 2px solid var(--ModoNoche);
     border-radius: 10px;
     transition: all 800ms;
     visibility: var(--Visibilidad);
 }
 
 #Contenido:hover {
-    background-color: #121212;
+    background-color: var(--ModoNocheFont);
 }
 
 .Contenedor .Boton:hover {
@@ -206,9 +252,8 @@ body {
 .Enlace {
     width: 150px;
     height: var(--BotonsHeigth);
-    background-color: #181818;
     color: white;
-    border: 2px solid white;
+    border: 2px solid var(--ModoNoche);
     border-radius: 10px;
     transition: all 500ms;
     font-size: 16px;
@@ -231,11 +276,28 @@ body {
     justify-content: center;
     align-items: center;
     height: var(--Heigth);
-    background-color: #181818;
+    background-color: var(--ModoNocheFont);
+    color: var(--ModoNoche);
     transition: all 800ms;
     transform: translateY(var(--TranslateY));
     margin-top: 2%;
     z-index: 5;
+}
+
+#btnModo {
+    width: 50px;
+    height: 50px;
+    background-color: var(--ModoNocheFont);
+    color: var(--ModoNoche);
+    border: 2px solid var(--ModoNoche);
+    cursor: pointer;
+    position: fixed;
+    border-radius: 10px;
+    left: 1%;
+    bottom: 10%;
+    font-weight: bold;
+    z-index: 2;
+    transition: all 800ms;
 }
 
 #btnClase {
@@ -257,9 +319,8 @@ body {
 #btnDatos {
     border: none;
     color: white;
-    border: 2px solid white;
+    border: 2px solid var(--ModoNoche);
     background-color: var(--Color5);
-    /* background-color:  #f6ddcc;     */
 }
 
 /* Lista */
@@ -267,7 +328,8 @@ body {
 .ContenedorAreas,
 .ContenedorAreas2 {
     position: relative;
-    background-color: #181818;     
+    background-color: var(--ModoNocheFont);
+    color: var(--ModoNoche);
     width: 100%;
     height: 65%;
     display: flex;
@@ -284,21 +346,21 @@ body {
 }
 
 .TitulosAreas,
-.TitulosAreas2{
+.TitulosAreas2 {
     position: absolute;
     top: 0%;
     margin-top: 15%;
-    color: white;    
+    color: var(--ModoNoche);
     width: 80%;
     text-align: center;
     margin-right: 15%;
-    border: 2px solid;
+    border: 2px solid var(--ModoNoche);
     transition: all 800ms;
     transform: skewY(-5deg);
     transform: translateX(var(--TranslateXD2));
 }
 
-.TitulosAreas2{
+.TitulosAreas2 {
     margin-right: 0%;
     transform: skewY(5deg);
     transform: translateX(var(--TranslateXD));
@@ -341,26 +403,26 @@ ul li,
 .Lista2 li {
     position: relative;
     width: 200px;
-    list-style-type: none;        
+    list-style-type: none;
     margin: 5% 2%;
     border-top-left-radius: 10px;
-    border: 1.5px solid white;
+    border: 1px solid var(--ModoNoche);
     transition: all 800ms;
-    text-align: center;    
+    text-align: center;
 }
 
-.BotonSeleccionado{
-    background-color: #3496db !important;    
+.BotonSeleccionado {
+    background-color: #3496db !important;
 }
 
-.BotonCreado{
-    background-color: #3496db;    
+.BotonCreado {
+    background-color: #3496db;
 }
 
 ul li {
     width: auto;
     min-width: 200px;
-    height: auto;    
+    height: auto;
     font-size: 12px;
 }
 
@@ -443,14 +505,13 @@ ul li:hover {
 ul li a {
     display: flex;
     text-decoration: none;
-    color: white;
+    color: var(--ModoNoche);
     text-transform: uppercase;
     width: 100%;
     letter-spacing: 2px;
     height: 51.5px;
     justify-content: center;
     align-items: center;
-    /* background-color: red;     */
 }
 
 .Lista2 li a {
@@ -475,13 +536,13 @@ ul li a:hover {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 10%;    
+    height: 10%;
     overflow: hidden;
 }
 
 .ContenedorFlecha2 {
     left: 0%;
-    margin-top: 25%;    
+    margin-top: 25%;
 }
 
 .ContenedorFlecha svg,
@@ -495,74 +556,74 @@ ul li a:hover {
     transform: translateX(var(--TranslateArrow2));
 }
 
-#btnPantalla{    
-    fill: white;
+#btnPantalla {
+    fill: var(--ModoNoche);
     cursor: pointer;
 }
 
-#btnPantalla:hover{
+#btnPantalla:hover {
     fill: #3496db;
 }
 
-.OcultarBotones{
+.OcultarBotones {
     transform: translateY(-500px);
 }
 
 
 @media only screen and (min-device-width : 320px) and (max-device-width : 768px) {
 
-    .Contenedor {        
+    .Contenedor {
         height: 500px;
         margin-top: 0%;
     }
 
     .ContenedorPrincipal {
-        width: 360px;        
+        width: 360px;
         height: auto;
         margin: 20% 2%;
         z-index: var(--IndexContenedor);
     }
 
-    .ContenedorBotones {        
+    .ContenedorBotones {
         margin-bottom: 30%;
         width: 380px;
-        align-items: flex-start;        
+        align-items: flex-start;
         z-index: 5;
     }
 
     .ContenedorSecundario,
     .ContenedorTerciario {
-        width: 100%;        
-        right: 0%;                
-        min-height: 600px;                
+        width: 100%;
+        right: 0%;
+        min-height: 600px;
         margin-top: 55%;
         z-index: var(--IndexClase);
     }
 
     .ContenedorTerciario {
-        margin-right: 2.3%;        
+        margin-right: 2.3%;
         z-index: var(--Index);
     }
 
     .ContenedorAreas,
-    .Areas2 {        
+    .Areas2 {
         margin-left: 10%;
     }
 
-    .ContenedorAreas{
+    .ContenedorAreas {
         transform: translateX(var(--TranslateXD2Movil));
     }
 
 
     .ContenedorFlecha,
-    .ContenedorFlecha2 {   
-        top: 0%;         
+    .ContenedorFlecha2 {
+        top: 0%;
         margin-top: 10%;
-        margin-right: 2%;                
+        margin-right: 2%;
     }
 
-    .ContenedorFlecha2 {  
-        margin-left: -8%;        
+    .ContenedorFlecha2 {
+        margin-left: -8%;
     }
 
     ul li,
@@ -595,20 +656,19 @@ ul li a:hover {
     }
 
     #Titulo,
-    #Contenido {        
-        font-size: 16px;        
+    #Contenido {
+        font-size: 16px;
         background-color: red;
     }
 
-    .Enlace {        
+    .Enlace {
         font-size: 10px;
         width: 100px;
         height: 80px;
     }
 
     .FormBotones input {
-        font-size: 14px;        
+        font-size: 14px;
     }
 
 }
-
