@@ -36,3 +36,7 @@ function drop(e) {
   processFiles(files);
 }
 
+function cambiarFuente(fuente) {
+  var div = document.getElementById("Contenido");
+  div.style.fontFamily = fuente;
+}

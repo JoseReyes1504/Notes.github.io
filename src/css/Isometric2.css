@@ -137,6 +137,7 @@ body {
     width: var(--witdhArea);
     height: var(--witdhHeight);
     border: 2px solid var(--ModoNoche);
+    background-color: var(--ModoNocheFont);
     border-radius: 10px;
     color: var(--ModoNoche);
     transition: all 800ms;
@@ -186,26 +187,22 @@ body {
     transform: translateX(var(--TranslateXD2));
 }
 
-.opciones {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    left: 0%;
-    top: 5%;
-    width: 10%;
-    height: 90%;    
+.opciones {    
+    display: flex;    
+    justify-content: center;        
+    width: 80%;
+    height: 8%;
+    margin: auto;    
     align-items: center;
     border-radius: 10px;
     /* background-color: red; */
     background-color: var(--ModoNocheFont);
-    color: var(--ModoNoche);
-    /* border: 2px solid var(--ModoNoche); */    
+    color: var(--ModoNoche);    
 }
 
 .opciones select {
-    height: 9%;
-    width: 90%;
+    height: 100%;
+    width: 20%;
 }
 
 .opciones button, select {
@@ -227,9 +224,9 @@ body {
 
 #Contenido {
     width: 80%;
-    height: 90%;
+    height: 72%;    
     resize: none;
-    background-color: var(--ModoNocheFont);
+    /* background-color: var(--ModoNocheFont); */
     color: var(--ModoNoche);
     outline: none;
     font-size: 20px;
@@ -239,10 +236,6 @@ body {
     border-radius: 10px;
     transition: all 800ms;
     visibility: var(--Visibilidad);
-}
-
-#Contenido:hover {
-    background-color: var(--ModoNocheFont);
 }
 
 .Contenedor .Boton:hover {
@@ -404,7 +397,7 @@ ul li,
     position: relative;
     width: 200px;
     list-style-type: none;
-    margin: 5% 2%;
+    margin: 7% 2%;
     border-top-left-radius: 10px;
     border: 1px solid var(--ModoNoche);
     transition: all 800ms;
@@ -439,11 +432,11 @@ ul li::after,
     right: -37px;
     width: 35px;
     height: 100%;
-    background-color: #181818;
+    background-color: var(--ModoNocheFont);
+    border: 1.5px solid var(--ModoNoche);
     transform-origin: right;
     transform: skewY(30deg);
-    border-top-right-radius: 10px;
-    border: 1.5px solid white;
+    border-top-right-radius: 10px;    
     transition: all 800ms;
 }
 
@@ -466,12 +459,12 @@ ul li::before,
     right: 0%;
     width: 100%;
     height: 20px;
-    background-color: #181818;
+    background-color: var(--ModoNocheFont);
+    border: 1.5px solid var(--ModoNoche);
     transform-origin: top;
     transform: skewX(60deg);
     transition: all 800ms;
     border-bottom-left-radius: 10px;
-    border: 1.5px solid white;
 }
 
 .Lista2 li::before {
@@ -558,7 +551,9 @@ ul li a:hover {
 
 #btnPantalla {
     fill: var(--ModoNoche);
+    border: none;
     cursor: pointer;
+    margin-top: 20%;
 }
 
 #btnPantalla:hover {

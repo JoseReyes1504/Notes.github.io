@@ -131,17 +131,24 @@ body {
     position: absolute;
     right: 1%;    
     top: 1%;
-    width: 150px;
+    width: 180px;
     height: 30px;
     /* background-color: #181818; */
 }
 
 .BotonCopy, #btnEliminarCard, #btnFullCard, #btnFullExit, #btnEditarNota, #btnCrearPDF{
-    
     fill: white;
     cursor: pointer;
     margin: 0% 1%;
     transition: all 500ms;    
+}
+
+#btnCrearDoc{
+    fill: transparent;
+    cursor: pointer;
+    margin: 1% 1%;    
+    transition: all 500ms;    
+    stroke: white;
 }
 
 #btnFullCard{
@@ -161,8 +168,12 @@ body {
     fill:  #f59d39 ;
 }
 
-.BotonCopy:hover, #btnFullCard:hover, #btnFullExit:hover, #btnEditarNota:hover, #btnCrearPDF:hover{    
+.BotonCopy:hover, #btnFullCard:hover, #btnFullExit:hover, #btnEditarNota:hover, #btnCrearPDF:hover{
     fill: #181818;
+}
+
+#btnCrearDoc:hover{        
+    stroke: #181818;
 }
 
 .Boton:hover{

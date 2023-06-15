@@ -257,6 +257,19 @@ function PDF() {
     doc.save(document.getElementById('TituloCard').innerText);
 }
 
+function crearDocumento() {
+    // Obtener el contenido del elemento editable
+    var titulo = document.getElementById('TituloCard').innerText;
+    var Contenido = document.getElementById("TextoCard").innerText;
+    Contenido += titulo + Contenido;
+    // Crear un objeto Blob con el contenido en formato HTML
+    var blob = new Blob([Contenido], { type: 'application/msword' });
+
+    // Descargar el archivo usando FileSaver.js
+    saveAs(blob, document.getElementById('TituloCard').innerText);
+}
+
+
 //////////////////////////////////////////////// FUNCION BOTONES //////////////////////////////////////////////////////
 
 var Modo = 0;
@@ -294,6 +307,10 @@ window.addEventListener("keydown", async (btn) => {
     if (btn.code == "KeyT" && NotasActivas == true) {
         AbrirCard();
     }
+    
+    if (btn.code == "KeyS" && NotasActivas == true) {
+        crearDocumento();
+    }
 
     if (btn.code == "KeyC" && NotasActivas == true) {
         Copy();
@@ -301,12 +318,12 @@ window.addEventListener("keydown", async (btn) => {
 
     if (btn.code == "KeyD" && NotasActivas == true) {
         PDF();
-    }    
+    }
 
     if (btn.code == "KeyF" && NotasActivas == true) {
         contadorFullScreen++;
         if (contadorFullScreen == 1) {
-            FullScreen();
+            FullScreen(elemento);
         } else if (contadorFullScreen == 2) {
             ExitFullScreen();
             contadorFullScreen = 0;
@@ -608,7 +625,7 @@ function FuncionBoton() {
 }
 
 function Copy() {
-    
+
     navigator.clipboard.writeText(TituloCard.innerHTML + "\n\n" + document.getElementById("TextoCard").innerText)
         .then(() => {
             AlertMSJ('Se copio al portapapeles', true);
@@ -626,20 +643,22 @@ var Tocar4 = 0;
 function PantallaCompleta() {
     Tocar++;
     if (Tocar == 1) {
-        Botones.classList.add("OcultarBotones");
+        /*Botones.classList.add("OcultarBotones");
         style.setProperty('--witdhArea', '1200px');
         style.setProperty('--witdhHeight', '110%');
         style.setProperty('--TranslateY2', '-40px');
         style.setProperty('--TranslateXD', '350px');
         style.setProperty('--TranslateXD2', '-350px');
-        btnAgregar.style.display = 'none';
+        btnAgregar.style.display = 'none';*/
+        FullScreen(Contenedor);
     } else {
-        Botones.classList.remove("OcultarBotones");
-        style.setProperty('--witdhArea', '600px');
-        style.setProperty('--witdhHeight', '550px');
-        style.setProperty('--TranslateXD', '0px');
-        style.setProperty('--TranslateXD2', '0px');
-        btnAgregar.style.display = 'block';
+        ExitFullScreen();
+        // Botones.classList.remove("OcultarBotones");
+        // style.setProperty('--witdhArea', '600px');
+        // style.setProperty('--witdhHeight', '550px');
+        // style.setProperty('--TranslateXD', '0px');
+        // style.setProperty('--TranslateXD2', '0px');
+        // btnAgregar.style.display = 'block';        
         Tocar = 0;
     }
 }
@@ -668,7 +687,9 @@ function PantallaCompleta2() {
     }
 }
 
-btnPantalla.addEventListener("click", function () {
+const Contenedor = document.getElementById("Contenedor");
+
+btnPantalla.addEventListener("click", function () {    
     PantallaCompleta();
     document.getElementById("Contenido").focus();
 });
@@ -814,7 +835,7 @@ btnEliminarCard.onclick = async function () {
 var elemento = document.getElementById("Menu");
 
 btnFullCard.onclick = function () {
-    FullScreen();
+    FullScreen(elemento);
 }
 
 btnFullExit.onclick = function () {
@@ -828,7 +849,7 @@ document.addEventListener('fullscreenchange', () => {
     }
 });
 
-function FullScreen() {
+function FullScreen(Element) {
     btnInformacion.style.display = "none";
     btnFullCard.style.display = "none";
     btnFullExit.style.display = "block";
@@ -838,15 +859,15 @@ function FullScreen() {
     style.setProperty('--FontSize', '25px');
 
     // Verifica si el navegador soporta la API Fullscreen
-    if (elemento.requestFullscreen) {
+    if (Element.requestFullscreen) {
         // Si es así, solicita que se ponga en pantalla completa
-        elemento.requestFullscreen();
-    } else if (elemento.mozRequestFullScreen) { /* Firefox */
-        elemento.mozRequestFullScreen();
-    } else if (elemento.webkitRequestFullscreen) { /* Chrome, Safari y Opera */
-        elemento.webkitRequestFullscreen();
-    } else if (elemento.msRequestFullscreen) { /* Internet Explorer y Edge */
-        elemento.msRequestFullscreen();
+        Element.requestFullscreen();
+    } else if (Element.mozRequestFullScreen) { /* Firefox */
+    Element.mozRequestFullScreen();
+    } else if (Element.webkitRequestFullscreen) { /* Chrome, Safari y Opera */
+    Element.webkitRequestFullscreen();
+    } else if (Element.msRequestFullscreen) { /* Internet Explorer y Edge */
+    Element.msRequestFullscreen();
     }
 }
 
@@ -858,6 +879,7 @@ function ExitFullScreen() {
     style.setProperty('--TamanoHeightLetra', '80%');
     style.setProperty('--FontSize', '20px');
     contadorFullScreen = 0;
+    Tocar = 0;
 
     // Verifica si el navegador soporta la API Fullscreen
     if (document.exitFullscreen) {
