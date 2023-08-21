@@ -366,7 +366,7 @@ body {
     width: 5px;
     height: 200px;
     bottom: 102%;
-    background-color: white;
+    background-color: var(--ModoNoche);
 }
 
 .TitulosAreas::after,
@@ -376,7 +376,7 @@ body {
     width: 5px;
     height: 200px;
     bottom: 102%;
-    background-color: white;
+    background-color: var(--ModoNoche);
 }
 
 ul,

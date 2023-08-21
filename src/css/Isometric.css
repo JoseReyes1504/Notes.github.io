@@ -59,10 +59,25 @@ body {
     right: 2%;
 }
 
+#Busqueda{
+    position: absolute;    
+    bottom: 2%;
+    left: 5%;
+    fill:  var(--ModoNoche); 
+    z-index: 1;
+    border: 2px solid var(--ModoNoche);
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+#Busqueda:hover{
+    background-color: #3496db;
+}   
+
 .Menu {
-    position: absolute;
+    position: absolute;    
     background-image: linear-gradient(to right top, #673250, #522e4c, #3e2a45, #2c243b, #1d1e2e, #1b2231, #1a2634, #192a36, #1b3c4a, #1a505b, #1d646a, #297974);
-    background-color: white;
+    /* background-color: #34495e ; */
     border: 2px solid white;
     color: white;
     width: var(--WidthCard);
@@ -94,7 +109,8 @@ body {
     height: var(--TamanoHeightLetra);
     font-size: var(--FontSize);
     overflow-y: scroll;     
-    padding-left: 5%;     
+    padding-left: 8%;     
+    /* background-color: red; */
     opacity: var(--opacidad);
     transition: all 200ms;    
 }

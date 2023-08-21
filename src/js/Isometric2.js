@@ -133,7 +133,7 @@ async function CargarClases() {
         lista += `
                 <li class="Lista1" style="--i:${Numero};"><a data-id=${Datos.ID} data-IDRef=${doc.id} href="#">${Datos.Titulo}</a></li>                                    
                 `
-    });
+    });        
 
     ContenedorListaClases.innerHTML = lista;
     const Clases = ContenedorListaClases.querySelectorAll('.Lista1');
