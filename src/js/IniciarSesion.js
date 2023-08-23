@@ -9,6 +9,7 @@ btnEntrar.addEventListener("click", async () => {
     try {
         const credenciales = await IniciarSesion(email.value, password.value);  
         localStorage.setItem("User", credenciales.user.email);        
+        console.log(credenciales);
         if(credenciales != null){
             location.href="./src/html/Menu.html";
         }

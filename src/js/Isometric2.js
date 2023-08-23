@@ -1,4 +1,4 @@
-import { ObtenerDato, BorrarCard, AgregarCards, ActualizarCard, EliminarTema, CerrarSesion, obtenerClase, EliminarClase, AgregarTema, AgregarClase, onSnapshot, db, collection, query, where, getDocs, BorrarCards, updateDoc } from "./db.js";
+import { ObtenerDato, ObetnerBusquedaTema, BorrarCard, AgregarCards, ActualizarCard, EliminarTema, CerrarSesion, obtenerClase, EliminarClase, AgregarTema, AgregarClase, onSnapshot, db, collection, query, where, getDocs, BorrarCards, updateDoc } from "./db.js";
 import { MostrarMSJ } from "./MSJ.js";
 const style = document.documentElement.style;
 
@@ -24,6 +24,8 @@ const btnCerrar = document.getElementById('btnCerrarSesion');
 const btnEliminar = document.getElementById('btnEliminar');
 const MSJ = document.getElementById('MSJ');
 
+const btnBusqueda = document.getElementById("Busqueda");
+
 var Titulo = '';
 var Contenido = '';
 var Boton = 0;
@@ -46,11 +48,75 @@ var MenuActivo = true;
 
 ////////////////////////////////////////////////// FUNCIONES //////////////////////////////////////////////////////
 
+const btnInfo = document.getElementById("btnInfo");
+var ToquesInfo = 0;
+
+btnInfo.addEventListener("click", () => {
+    ToquesInfo++;
+    if (ToquesInfo <= 1) {
+        style.setProperty("--displayInfo", "block");
+        document.getElementById("Creado").innerHTML = "Creado Por: " + localStorage.getItem("NoteUser");
+        document.getElementById("Fecha").innerHTML = "Fecha: " + localStorage.getItem("Fecha");
+    } else {
+        style.setProperty("--displayInfo", "none");
+        ToquesInfo = 0;
+    }
+});
+
+
 function ReplaceSaltos(texto) {
     texto = texto.replace(/\r?\n/g, "<br>");
     // texto = texto.replace(/\[b\](.*?)\[\/b\]/g, "<b> </b>")
     return texto;
 }
+
+function BotonTema(Temas) {
+    Temas.forEach(btn => {
+        btn.addEventListener('click', async (event) => {
+            const doc = await obtenerClase(event.target.dataset.id);
+            CodigoTema = doc.id;
+            CodigoTemaRef = event.target.dataset.idref;
+            style.setProperty('--TranslateArrow2', '-80px');
+            EliminarColorBoton(2);
+            btn.classList.add('BotonSeleccionado');
+            ResetearIndex();
+            style.setProperty('--IndexContenedor', '6');
+            btnEliminarStyle('Tema');
+
+            if (ApuntesActivo == true) {
+                style.setProperty('--opacidadLista', '100%');
+            } else {
+                style.setProperty('--opacidadLista', '0%');
+            }
+
+            localStorage.setItem('CodigoTema', CodigoTema);
+            CargarCards();
+        });
+    });
+}
+
+var txtBusqueda = document.getElementById("txtBusqueda");
+
+btnBusqueda.addEventListener("click", async () => {
+    try {
+        await ObetnerBusquedaTema(txtBusqueda.value.toUpperCase()).then(data => {
+            var lista = '';
+            var Numero = 10;
+            data.forEach((data) => {
+                const Datos = data;
+                lista += `
+                    <li class="Lista2" style="${Numero}"><a data-id=${Datos.ID} data-IDRef=${Datos.id} href="#"> ${Datos.Titulo}</a></li>                                    
+                    `
+            });
+
+            ContenedorListaClases2.innerHTML = lista;
+            const Temas = ContenedorListaClases2.querySelectorAll('.Lista2');
+            BotonTema(Temas);
+        });
+    } catch (err) {
+        console.log(err);
+    }
+});
 
 btnCerrar.addEventListener("click", async () => {
     try {
@@ -133,7 +199,7 @@ async function CargarClases() {
         lista += `
                 <li class="Lista1" style="--i:${Numero};"><a data-id=${Datos.ID} data-IDRef=${doc.id} href="#">${Datos.Titulo}</a></li>                                    
                 `
-    });        
+    });
 
     ContenedorListaClases.innerHTML = lista;
     const Clases = ContenedorListaClases.querySelectorAll('.Lista1');
@@ -203,29 +269,7 @@ async function CargarTemas() {
 
     ContenedorListaClases2.innerHTML = lista;
     const Temas = ContenedorListaClases2.querySelectorAll('.Lista2');
-
-    Temas.forEach(btn => {
-        btn.addEventListener('click', async (event) => {
-            const doc = await obtenerClase(event.target.dataset.id);
-            CodigoTema = doc.id;
-            CodigoTemaRef = event.target.dataset.idref;
-            style.setProperty('--TranslateArrow2', '-80px');
-            EliminarColorBoton(2);
-            btn.classList.add('BotonSeleccionado');
-            ResetearIndex();
-            style.setProperty('--IndexContenedor', '6');
-            btnEliminarStyle('Tema');
-
-            if (ApuntesActivo == true) {
-                style.setProperty('--opacidadLista', '100%');
-            } else {
-                style.setProperty('--opacidadLista', '0%');
-            }
-
-            localStorage.setItem('CodigoTema', CodigoTema);
-            CargarCards();
-        });
-    });
+    BotonTema(Temas);
 }
 
 
@@ -307,7 +351,7 @@ window.addEventListener("keydown", async (btn) => {
     if (btn.code == "KeyT" && NotasActivas == true) {
         AbrirCard();
     }
-    
+
     if (btn.code == "KeyS" && NotasActivas == true) {
         crearDocumento();
     }
@@ -341,6 +385,16 @@ btnAgregar.onclick = function () {
     AgregarDatos();
 }
 
+
+var fechaActual = new Date();
+
+var año = fechaActual.getFullYear();
+var mes = fechaActual.getMonth() + 1;
+var dia = fechaActual.getDate();
+
+var Fecha = `${año}-${mes}-${dia}`;
+
+
 function AgregarDatos() {
     Titulo = document.getElementById('Titulo').value;
     Contenido = document.getElementById('Contenido').innerHTML;
@@ -363,7 +417,7 @@ function AgregarDatos() {
                 }
                 else {
                     Contenido = ReplaceSaltos(Contenido);
-                    AgregarCards(Titulo, Contenido, CodigoTema);
+                    AgregarCards(Titulo, Contenido, CodigoTema, Fecha, Usuario);
                     limpiar();
                     localStorage.setItem('CodigoTema', CodigoTema);
                     CambiarColorMSJ(" #adee7a");
@@ -403,7 +457,7 @@ function AgregarDatos() {
                 } else {
                     var Codigo = GenerarCodigo();
                     CodigoTema = Codigo;
-                    AgregarTema(Titulo, Codigo, CodigoClase);
+                    AgregarTema(Titulo.toUpperCase(), Codigo, CodigoClase, Usuario);
                     style.setProperty('--TranslateArrow2', '-80px');
                     CargarTemas();
                     CambiarColorMSJ("#adee7a");
@@ -689,7 +743,7 @@ function PantallaCompleta2() {
 
 const Contenedor = document.getElementById("Contenedor");
 
-btnPantalla.addEventListener("click", function () {    
+btnPantalla.addEventListener("click", function () {
     PantallaCompleta();
     document.getElementById("Contenido").focus();
 });
@@ -758,8 +812,12 @@ async function CargarCards() {
         btn.addEventListener('click', async (event) => {
             const doc = await ObtenerDato(event.target.dataset.id);
             const Informacion = doc.data();
+
+            localStorage.setItem("NoteUser", Informacion.Usuario);
+            localStorage.setItem("Fecha", Informacion.Fecha);
+
             Transladar();
-            EliminarColorBoton(3)
+            EliminarColorBoton(3);
             btn.classList.add('BotonSeleccionado');
             NotasActivas = true;
             CodigoCard = event.target.dataset.id;
@@ -798,6 +856,8 @@ function CerrarCard() {
     NotasActivas = false;
     EliminarColorBoton(3);
     SetMenuActivo();
+    style.setProperty("--displayInfo", "none");
+    ToquesInfo = 0;
 }
 
 function SetMenuActivo() {
@@ -863,11 +923,11 @@ function FullScreen(Element) {
         // Si es así, solicita que se ponga en pantalla completa
         Element.requestFullscreen();
     } else if (Element.mozRequestFullScreen) { /* Firefox */
-    Element.mozRequestFullScreen();
+        Element.mozRequestFullScreen();
     } else if (Element.webkitRequestFullscreen) { /* Chrome, Safari y Opera */
-    Element.webkitRequestFullscreen();
+        Element.webkitRequestFullscreen();
     } else if (Element.msRequestFullscreen) { /* Internet Explorer y Edge */
-    Element.msRequestFullscreen();
+        Element.msRequestFullscreen();
     }
 }
 

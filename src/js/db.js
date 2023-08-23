@@ -43,34 +43,50 @@ export const ActualizarCard = (ID) => doc(db, "Cards", ID);
 
 export const EliminarTema = (id) => deleteDoc(doc(db, 'Tema', id));
 
-export function AgregarCards(Titulo, Contenido, IDTema) {
-    addDoc(collection(db, 'Cards'), { Titulo, Contenido, IDTema });
+export function AgregarCards(Titulo, Contenido, IDTema, Fecha, Usuario) {
+    addDoc(collection(db, 'Cards'), { Titulo, Contenido, IDTema, Fecha, Usuario});
+}
+
+export function AgregarTema(Titulo, ID, IDClase, Usuario) {
+    addDoc(collection(db, 'Tema'), { Titulo, ID, IDClase, Usuario});
 }
 
 export function AgregarClase(IDUser,ID, Titulo) {
     addDoc(collection(db, 'Clases'), {IDUser, Titulo, ID });
 }
 
-export async function ObtenerTemaClase(Tema, arrTema, CodigoClase){
-    const q = query(collection(db, "Tema"), where("IDClase", "==", CodigoClase));
 
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc) => {
-        const Datos = doc.data();
-        Tema = {
-            'Titulo': Datos.Titulo,
-            "ID": Datos.ID,
-            "IDClase": Datos.IDClase,
-        };
-        arrTema = Tema;        
+
+export async function ObetnerBusquedaTema(BsTema) {
+    const startQ = query(collection(db, "Tema"), where("Titulo", ">=", BsTema));
+    const endQ = query(collection(db, "Tema"), where("Titulo", "<=", BsTema + "\uf8ff"));
+    
+    const [startSnapshot, endSnapshot] = await Promise.all([getDocs(startQ), getDocs(endQ)]);
+
+    const results = [];
+
+    
+    startSnapshot.forEach((doc) => {
+        if (results.length < 2) { // Agregar solo si aún no hay 2 resultados
+            const Datos = doc.data();
+            results.push(Datos);
+        }
     });
+
+    endSnapshot.forEach((doc) => {
+        if (results.length < 2) { // Agregar solo si aún no hay 2 resultados
+            const Datos = doc.data();
+            // Evitar duplicados
+            if (!results.some(result => result.id === Datos.id)) {
+                results.push(Datos);
+            }
+        }
+    });
+
+    return results;
 }
 
 export const obtenerClase = (ID) => getDoc(doc(db, 'Clases', ID));
-
-export function AgregarTema(Titulo, ID, IDClase) {
-    addDoc(collection(db, 'Tema'), { Titulo, ID, IDClase });
-}
 
 export {
     db,

@@ -25,9 +25,11 @@
     --opacidadLista: 0%;    
     --TamanoHeightLetra: 80%;
     --FontSize: 20px;    
-    
+        
     --ModoNoche: white;
     --ModoNocheFont: #181818;
+
+    --displayInfo: none;
 }
 
 body {
@@ -61,8 +63,8 @@ body {
 
 #Busqueda{
     position: absolute;    
-    bottom: 2%;
-    left: 5%;
+    bottom: 18%;
+    left: 1%;
     fill:  var(--ModoNoche); 
     z-index: 1;
     border: 2px solid var(--ModoNoche);
@@ -78,7 +80,7 @@ body {
     position: absolute;    
     background-image: linear-gradient(to right top, #673250, #522e4c, #3e2a45, #2c243b, #1d1e2e, #1b2231, #1a2634, #192a36, #1b3c4a, #1a505b, #1d646a, #297974);
     /* background-color: #34495e ; */
-    border: 2px solid white;
+    border: 2px solid var(--ModoNoche);
     color: white;
     width: var(--WidthCard);
     height: var(--AlturaAmbos);
@@ -93,6 +95,38 @@ body {
     opacity: var(--opacidadLista);
     z-index: var(--IndexCards);
     transform: translateX(var(--TranslateInfox));
+}
+
+.InformacionNote{
+    position: absolute;
+    width: 100%;
+    height: auto;    
+    top: -15%;
+    display: var(--displayInfo);
+    border: 2px solid var(--ModoNoche);
+    border-radius: 5px;
+    background-image: linear-gradient(to right top, #673250, #522e4c, #3e2a45, #2c243b, #1d1e2e, #1b2231, #1a2634, #192a36, #1b3c4a, #1a505b, #1d646a, #297974);
+    transition: all 200ms;
+    z-index: 6;
+}
+
+.InformacionNote::after{
+    position: absolute;
+    left: 50%;
+    bottom: -8%;
+    content: "";
+    width: 10px;
+    height: 5%;
+    background-color: white;
+}
+
+.InformacionNote p{        
+    width: auto;    
+    height: 20px;
+    margin: 0% -5%;
+    font-size: 18px;    
+    display: var(--displayInfo);
+    /* background-color: red; */
 }
 
 .Menu h1 {    
@@ -147,12 +181,12 @@ body {
     position: absolute;
     right: 1%;    
     top: 1%;
-    width: 180px;
+    width: 215px;
     height: 30px;
     /* background-color: #181818; */
 }
 
-.BotonCopy, #btnEliminarCard, #btnFullCard, #btnFullExit, #btnEditarNota, #btnCrearPDF{
+.BotonCopy, #btnEliminarCard, #btnFullCard, #btnFullExit, #btnEditarNota, #btnCrearPDF, #btnInfo{
     fill: white;
     cursor: pointer;
     margin: 0% 1%;
@@ -184,7 +218,7 @@ body {
     fill:  #f59d39 ;
 }
 
-.BotonCopy:hover, #btnFullCard:hover, #btnFullExit:hover, #btnEditarNota:hover, #btnCrearPDF:hover{
+.BotonCopy:hover, #btnFullCard:hover, #btnFullExit:hover, #btnEditarNota:hover, #btnCrearPDF:hover, #btnInfo:hover{
     fill: #181818;
 }
 
