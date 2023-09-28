@@ -187,17 +187,17 @@ body {
     transform: translateX(var(--TranslateXD2));
 }
 
-.opciones {    
-    display: flex;    
-    justify-content: center;        
+.opciones {
+    display: flex;
+    justify-content: center;
     width: 80%;
     height: 8%;
-    margin: auto;    
+    margin: auto;
     align-items: center;
     border-radius: 10px;
     /* background-color: red; */
     background-color: var(--ModoNocheFont);
-    color: var(--ModoNoche);    
+    color: var(--ModoNoche);
 }
 
 .opciones select {
@@ -205,7 +205,8 @@ body {
     width: 20%;
 }
 
-.opciones button, select {
+.opciones button,
+select {
     margin: 5% 0.5%;
     background-color: var(--ModoNocheFont);
     color: var(--ModoNoche);
@@ -213,10 +214,11 @@ body {
     border-radius: 10px;
     cursor: pointer;
     transition: all 400ms;
-    opacity: var(--opacity);    
+    opacity: var(--opacity);
 }
 
-.opciones button:hover, select:hover {
+.opciones button:hover,
+select:hover {
     background-color: var(--ModoNoche);
     color: var(--ModoNocheFont);
     border: 2px solid var(--ModoNocheFont);
@@ -224,7 +226,7 @@ body {
 
 #Contenido {
     width: 80%;
-    height: 72%;    
+    height: 72%;
     resize: none;
     /* background-color: var(--ModoNocheFont); */
     color: var(--ModoNoche);
@@ -436,7 +438,7 @@ ul li::after,
     border: 1.5px solid var(--ModoNoche);
     transform-origin: right;
     transform: skewY(30deg);
-    border-top-right-radius: 10px;    
+    border-top-right-radius: 10px;
     transition: all 800ms;
 }
 
@@ -562,6 +564,22 @@ ul li a:hover {
 
 .OcultarBotones {
     transform: translateY(-500px);
+}
+
+.inpBusqueda {
+    width: 200px;
+    position: absolute;
+    bottom: 18.5%;
+    z-index: 1;
+    font-size: 16px;
+    height: 40px;
+    left: 5%;
+    border-radius: 10px;
+    background-color: var(--ModoNocheFont);
+    color: var(--ModoNoche);    
+    text-align: center;
+    border: 2px solid var(--ModoNoche);
+    outline: none;
 }
 
 

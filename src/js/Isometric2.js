@@ -97,26 +97,26 @@ function BotonTema(Temas) {
 
 var txtBusqueda = document.getElementById("txtBusqueda");
 
-btnBusqueda.addEventListener("click", async () => {
-    try {
-        await ObetnerBusquedaTema(txtBusqueda.value.toUpperCase()).then(data => {
-            var lista = '';
-            var Numero = 10;
-            data.forEach((data) => {
-                const Datos = data;
-                lista += `
-                    <li class="Lista2" style="${Numero}"><a data-id=${Datos.ID} data-IDRef=${Datos.id} href="#"> ${Datos.Titulo}</a></li>                                    
-                    `
-            });
+// btnBusqueda.addEventListener("click", async () => {
+//     try {
+//         await ObetnerBusquedaTema(txtBusqueda.value.toUpperCase()).then(data => {
+//             var lista = '';
+//             var Numero = 10;
+//             data.forEach((data) => {
+//                 const Datos = data;
+//                 lista += `
+//                     <li class="Lista2" style="${Numero}"><a data-id=${Datos.ID} data-IDRef=${Datos.id} href="#"> ${Datos.Titulo}</a></li>                                    
+//                     `
+//             });
 
-            ContenedorListaClases2.innerHTML = lista;
-            const Temas = ContenedorListaClases2.querySelectorAll('.Lista2');
-            BotonTema(Temas);
-        });
-    } catch (err) {
-        console.log(err);
-    }
-});
+//             ContenedorListaClases2.innerHTML = lista;
+//             const Temas = ContenedorListaClases2.querySelectorAll('.Lista2');
+//             BotonTema(Temas);
+//         });
+//     } catch (err) {
+//         console.log(err);
+//     }
+// });
 
 btnCerrar.addEventListener("click", async () => {
     try {
@@ -150,6 +150,10 @@ function AlertMSJ(Descripcion) {
     setTimeout(EsconderMSJ, 3000);
 }
 
+function EsconderMSJ() {
+    style.setProperty('--TranslateMsj', '-200px');
+}
+
 function AlertMSJSinEsconder(Descripcion) {
     MSJ.innerHTML = Descripcion;
     style.setProperty('--TranslateMsj', '0px');
@@ -159,10 +163,6 @@ function CambiarColorMSJ(Color = '#3bafde') {
     style.setProperty('--ColorMSJ', Color);
 }
 
-
-function EsconderMSJ() {
-    style.setProperty('--TranslateMsj', '-200px');
-}
 
 
 function GenerarCodigo(i = 0) {

@@ -58,8 +58,8 @@ export function AgregarClase(IDUser,ID, Titulo) {
 
 
 export async function ObetnerBusquedaTema(BsTema) {
-    const startQ = query(collection(db, "Tema"), where("Titulo", ">=", BsTema));
-    const endQ = query(collection(db, "Tema"), where("Titulo", "<=", BsTema + "\uf8ff"));
+    const startQ = query(collection(db, "Cards"), where("Titulo", ">=", BsTema));
+    const endQ = query(collection(db, "Cards"), where("Titulo", "<=", BsTema + "\uf8ff"));
     
     const [startSnapshot, endSnapshot] = await Promise.all([getDocs(startQ), getDocs(endQ)]);
 
