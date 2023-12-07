@@ -407,7 +407,7 @@ function AgregarDatos() {
                 AlertMSJ('LLene los Datos');
             } else {
                 if (CodigoClase == '') {
-                    AlertMSJ('Elija la clase');
+                    AlertMSJ('Elija el directorio');
                     ResetearIndex();
                     style.setProperty('--IndexClase', '6');
                     style.setProperty('--TranslateArrow', '0px');
@@ -428,7 +428,7 @@ function AgregarDatos() {
         case 1:
             //CLASES
             if (Titulo == '') {
-                AlertMSJ('LLene el Nombre de la clase');
+                AlertMSJ('LLene el Nombre del directorio');
             } else {
                 CodigoClase = Codigo;
                 AgregarClase(Usuario, Codigo, Titulo);
@@ -495,7 +495,7 @@ function CerrarCardsScreen() {
     Tocar4 = 0;
     ApuntesActivo = false;
     MostrarControles(false);
-    TipoAccion.innerHTML = 'Clase';
+    TipoAccion.innerHTML = 'Directorio';
     ColoresBotonesOff(1, 3, 2, 5);
     document.getElementById('Contenido').style.opacity = '0%';
     btnClaseAct = true;
@@ -513,14 +513,14 @@ btnEliminar.onclick = async function () {
         style.setProperty('--Color4', '#181818');
         LimpiarCodigos();
         CambiarColorMSJ("#e74c3c");
-        AlertMSJ('Se elimino la clase');
+        AlertMSJ('Se elimino el Directorio');
         CargarClases();
         CargarTemas();
         await BorrarCards(CodigoTema);
         style.setProperty('--TranslateArrow', '-80px');
         style.setProperty('--TranslateArrow2', '-80px');
     } else if (CodigoClase == '') {
-        AlertMSJ('Seleccione una clase');
+        AlertMSJ('Seleccione un directorio');
     }
 
     if (CodigoClase != '' && CodigoTema != '') {
@@ -535,7 +535,7 @@ btnEliminar.onclick = async function () {
 
 function Clase() {
     MostrarControles(false);
-    TipoAccion.innerHTML = 'Clase';
+    TipoAccion.innerHTML = 'Directorio';
     ColoresBotonesOff(1, 3, 2, 5);
     document.getElementById('Contenido').style.opacity = '0%';
     btnClaseAct = true;
@@ -696,23 +696,10 @@ var Tocar4 = 0;
 
 function PantallaCompleta() {
     Tocar++;
-    if (Tocar == 1) {
-        /*Botones.classList.add("OcultarBotones");
-        style.setProperty('--witdhArea', '1200px');
-        style.setProperty('--witdhHeight', '110%');
-        style.setProperty('--TranslateY2', '-40px');
-        style.setProperty('--TranslateXD', '350px');
-        style.setProperty('--TranslateXD2', '-350px');
-        btnAgregar.style.display = 'none';*/
+    if (Tocar == 1) {        
         FullScreen(Contenedor);
     } else {
-        ExitFullScreen();
-        // Botones.classList.remove("OcultarBotones");
-        // style.setProperty('--witdhArea', '600px');
-        // style.setProperty('--witdhHeight', '550px');
-        // style.setProperty('--TranslateXD', '0px');
-        // style.setProperty('--TranslateXD2', '0px');
-        // btnAgregar.style.display = 'block';        
+        ExitFullScreen();    
         Tocar = 0;
     }
 }

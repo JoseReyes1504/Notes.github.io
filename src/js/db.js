@@ -18,8 +18,6 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore();
 export const auth = getAuth(app);
 
-
-
 /// Inicio De Sesion
 
 export const IniciarSesion = (Correo, Password) => signInWithEmailAndPassword(auth, Correo, Password);
