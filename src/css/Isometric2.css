@@ -585,103 +585,11 @@ ul li a:hover {
 
 @media only screen and (min-device-width : 320px) and (max-device-width : 768px) {
 
-    .Contenedor {
-        height: 500px;
-        margin-top: 0%;
-    }
-
-    .ContenedorPrincipal {
-        width: 360px;
-        height: auto;
-        margin: 20% 2%;
-        z-index: var(--IndexContenedor);
-    }
-
-    .ContenedorBotones {
-        margin-bottom: 30%;
-        width: 380px;
-        align-items: flex-start;
-        z-index: 5;
-    }
-
-    .ContenedorSecundario,
-    .ContenedorTerciario {
-        width: 100%;
-        right: 0%;
-        min-height: 600px;
-        margin-top: 55%;
-        z-index: var(--IndexClase);
-    }
-
-    .ContenedorTerciario {
-        margin-right: 2.3%;
-        z-index: var(--Index);
-    }
-
-    .ContenedorAreas,
-    .Areas2 {
-        margin-left: 10%;
-    }
-
-    .ContenedorAreas {
-        transform: translateX(var(--TranslateXD2Movil));
-    }
-
-
-    .ContenedorFlecha,
-    .ContenedorFlecha2 {
-        top: 0%;
-        margin-top: 10%;
-        margin-right: 2%;
-    }
-
-    .ContenedorFlecha2 {
-        margin-left: -8%;
-    }
-
-    ul li,
-    .Lista2 li {
-        width: 200px;
-    }
-
-    ul li {
-        min-width: 200px;
-        width: auto;
-        height: auto;
-        font-size: 12px;
-    }
-
-    .ContenedorAreas h1::before,
-    .ContenedorAreas2 h1::before {
-        width: 0px;
-    }
-
-    .ContenedorAreas h1::after,
-    .ContenedorAreas2 h1::after {
-        width: 0px;
-    }
-
-    .Mensaje {
-        width: 310px;
-        text-align: center;
-        height: 50px;
-        margin: 1% 7%;
-    }
-
-    #Titulo,
-    #Contenido {
-        font-size: 16px;
+    .ContenedorBotones{
         background-color: red;
-    }
+        flex-direction: column;
+    }    
 
-    .Enlace {
-        font-size: 10px;
-        width: 100px;
-        height: 80px;
-    }
 
-    .FormBotones input {
-        font-size: 14px;
-    }
 
 }
