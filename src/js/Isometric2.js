@@ -226,7 +226,7 @@ async function CargarClases() {
                 style.setProperty('--IndexContenedor', '6');
             }
 
-            btnEliminarStyle('Clase');
+            btnEliminarStyle('Directorio');
         });
     });
 }

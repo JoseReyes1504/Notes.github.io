@@ -21,7 +21,7 @@
     --CardTop: 400px;
     --ListaBootom: -400px;    
     --MargenAmbos: 10% 40%;
-    --AlturaAmbos: 500px;
+    --AlturaAmbos: 600px;
     --opacidadLista: 0%;    
     --TamanoHeightLetra: 80%;
     --FontSize: 20px;    
@@ -41,6 +41,7 @@ body {
 .ContenedorCards {
     position: absolute;
     background-color: var(--ModoNocheFont);
+    /* background-color: red; */
     display: flex;
     margin: var(--MargenAmbos);
     justify-content: center;
