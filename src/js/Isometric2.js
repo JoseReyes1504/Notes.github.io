@@ -25,6 +25,7 @@ const btnEliminar = document.getElementById('btnEliminar');
 const MSJ = document.getElementById('MSJ');
 
 const btnBusqueda = document.getElementById("Busqueda");
+var txtBusqueda = document.getElementById("txtBusqueda");
 
 var Titulo = '';
 var Contenido = '';
@@ -130,9 +131,7 @@ function BotonCard(Cards) {
     });
 }
 
-var txtBusqueda = document.getElementById("txtBusqueda");
-
-btnBusqueda.addEventListener("click", async () => {
+async function Busqueda() {
     try {
         const cards = await buscarCards(txtBusqueda.value.toUpperCase());
         var Numero = 10;
@@ -140,17 +139,24 @@ btnBusqueda.addEventListener("click", async () => {
         cards.forEach((card) => {
             Numero--;
             lista += `
-            <li class="Lista" style="--i:${Numero};"><a data-id=${card.objectID} href="#">${card.Titulo}</a></li>                                    
+            <li class="Lista" style="--i:${Numero};"><a data-id=${card.objectID} href="#">${card.Titulo}</a></li>
             `
         });
         ContenedorBtn.innerHTML = lista;
-        Cards = ContenedorBtn.querySelectorAll('.Lista');
-        BotonCard(Cards);
-        AbrirApuntesScreen();
-        style.setProperty('--opacidadLista', '100%');
+        var Listas = ContenedorBtn.querySelectorAll('.Lista');
+        BotonCard(Listas);        
+        if (ApuntesActivo == true) {
+            style.setProperty('--opacidadLista', '100%');
+        } else {
+            style.setProperty('--opacidadLista', '0%');
+        }
     } catch (err) {
         console.log("Error al buscar cards:", err);
     }
+}
+
+txtBusqueda.addEventListener("input", function () {    
+    Busqueda();
 });
 
 btnCerrar.addEventListener("click", async () => {
@@ -380,7 +386,7 @@ window.addEventListener("keydown", async (btn) => {
         AgregarDatos();
     }
     else if (btn.shiftKey && btn.code == "Enter" && EdicionActiva == true) {
-        EditarNota();        
+        EditarNota();
     }
 
     if (btn.code == "KeyT" && NotasActivas == true) {
@@ -666,15 +672,18 @@ function MostrarControles(NoMostrar) {
     if (NoMostrar == true) {
         document.getElementById('Titulo').style.opacity = '0%';
         document.getElementById('btnPantalla').style.opacity = '0%';
-        document.getElementById('btnEliminar').style.opacity = '0%';
-        btnAgregar.value = 'Salir Notas';
-        // style.setProperty('--Visibilidad', 'hidden');
+        document.getElementById('btnEliminar').style.opacity = '0%';        
+        document.getElementById('txtBusqueda').style.visibility = 'visible';
+        document.getElementById('Busqueda').style.visibility = 'visible';
+        btnAgregar.value = 'Salir Notas';        
     } else {
         style.setProperty('--opacity', '0%');
         btnAgregar.value = 'Agregar';
         document.getElementById('btnPantalla').style.opacity = '100%';
         document.getElementById('Titulo').style.opacity = '100%';
         document.getElementById('btnEliminar').style.opacity = '100%';
+        document.getElementById('txtBusqueda').style.visibility = 'hidden';
+        document.getElementById('Busqueda').style.visibility = 'hidden';
     }
 }
 
@@ -708,7 +717,7 @@ function FuncionBoton() {
         style.setProperty('--TranslateArrow', '80px');
         style.setProperty('--TranslatdeArrow2', '-80px');
         btnEliminar.value = 'Eliminar';
-        btnEliminar.setAttribute('disabled', true);
+        btnEliminar.setAttribute('disabled', true);        
         LimpiarCodigos();
     }
 }
@@ -961,7 +970,7 @@ btnEditarNota.addEventListener('click', async () => {
 async function EditarNota() {
     // Obtener valores de los campos de entrada
     const Contenido = ReplaceSaltos(document.getElementById('Contenido').innerHTML);
-    const Titulo = document.getElementById('Titulo').value;    
+    const Titulo = document.getElementById('Titulo').value;
 
     // Actualizar en Firestore
     ActualizarTodo(CodigoCard, Titulo, Contenido);

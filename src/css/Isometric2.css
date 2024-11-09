@@ -186,7 +186,7 @@ body {
     left: 52%;
     width: 160px;
     height: 60px;
-    /* visibility: hidden; */
+    opacity: 0%;
     font-size: 20px;
     transform: translateX(var(--TranslateXD2));
 }
@@ -582,15 +582,16 @@ ul li a:hover {
 
 #Busqueda{
     position: absolute;    
-    bottom: 1%;
-    left: 12%;
-    width:50px;
-    height: 50px;
+    bottom: 7%;
+    left: 1%;
+    width:25px;
+    height: 25px;
     fill:  var(--ModoNoche); 
     z-index: 1;
-    border: 2px solid var(--ModoNoche);
-    border-radius: 10px;
+    /* border: 2px solid var(--ModoNoche); */
+    border-radius: 5px;
     cursor: pointer;
+    visibility: hidden;
 }
 
 #Busqueda:hover{
@@ -611,6 +612,7 @@ ul li a:hover {
     text-align: center;
     border: 2px solid var(--ModoNoche);
     outline: none;
+    visibility: hidden;    
 }
 
 
