@@ -1,4 +1,4 @@
-import { ObtenerDato, ObetnerBusquedaTema, BorrarCard, AgregarCards, ActualizarCard, EliminarTema, CerrarSesion, obtenerClase, EliminarClase, AgregarTema, AgregarClase, onSnapshot, db, collection, query, where, getDocs, BorrarCards, updateDoc } from "./db.js";
+import { ObtenerDato, buscarCards, BorrarCard, AgregarCards, ActualizarTodo, EliminarTema, CerrarSesion, obtenerClase, EliminarClase, AgregarTema, AgregarClase, onSnapshot, db, collection, query, where, getDocs, BorrarCards, updateDoc } from "./db.js";
 import { MostrarMSJ } from "./MSJ.js";
 const style = document.documentElement.style;
 
@@ -95,28 +95,63 @@ function BotonTema(Temas) {
     });
 }
 
+function BotonCard(Cards) {
+    Cards.forEach(btn => {
+        btn.addEventListener('click', async (event) => {
+            const doc = await ObtenerDato(event.target.dataset.id);
+            const Informacion = doc.data();
+
+            localStorage.setItem("NoteUser", Informacion.Usuario);
+            localStorage.setItem("Fecha", Informacion.Fecha);
+
+            Transladar();
+            EliminarColorBoton(3);
+            btn.classList.add('BotonSeleccionado');
+            NotasActivas = true;
+            CodigoCard = event.target.dataset.id;
+            MenuActivo = false;
+            if (event.target.dataset.id == 0) {
+                CerrarCard();
+            } else {
+                TituloCard.innerHTML = Informacion.Titulo;
+                ///Cortar String
+                Text = Informacion.Contenido;
+                Text = ReplaceEnters(Text);
+                Text2 = Informacion.Contenido;
+                Codigo = event.target.dataset.id;
+                ContenedorTexto.innerHTML = Text2;
+                style.setProperty('--Widthborder', '2px');
+                style.setProperty('--heigth', '520px');
+                style.setProperty('--CardTop', '400px');
+                style.setProperty('--ListaBootom', '200px');
+
+            }
+        });
+    });
+}
+
 var txtBusqueda = document.getElementById("txtBusqueda");
 
-// btnBusqueda.addEventListener("click", async () => {
-//     try {
-//         await ObetnerBusquedaTema(txtBusqueda.value.toUpperCase()).then(data => {
-//             var lista = '';
-//             var Numero = 10;
-//             data.forEach((data) => {
-//                 const Datos = data;
-//                 lista += `
-//                     <li class="Lista2" style="${Numero}"><a data-id=${Datos.ID} data-IDRef=${Datos.id} href="#"> ${Datos.Titulo}</a></li>                                    
-//                     `
-//             });
-
-//             ContenedorListaClases2.innerHTML = lista;
-//             const Temas = ContenedorListaClases2.querySelectorAll('.Lista2');
-//             BotonTema(Temas);
-//         });
-//     } catch (err) {
-//         console.log(err);
-//     }
-// });
+btnBusqueda.addEventListener("click", async () => {
+    try {
+        const cards = await buscarCards(txtBusqueda.value.toUpperCase());
+        var Numero = 10;
+        var lista = "";
+        cards.forEach((card) => {
+            Numero--;
+            lista += `
+            <li class="Lista" style="--i:${Numero};"><a data-id=${card.objectID} href="#">${card.Titulo}</a></li>                                    
+            `
+        });
+        ContenedorBtn.innerHTML = lista;
+        Cards = ContenedorBtn.querySelectorAll('.Lista');
+        BotonCard(Cards);
+        AbrirApuntesScreen();
+        style.setProperty('--opacidadLista', '100%');
+    } catch (err) {
+        console.log("Error al buscar cards:", err);
+    }
+});
 
 btnCerrar.addEventListener("click", async () => {
     try {
@@ -345,7 +380,7 @@ window.addEventListener("keydown", async (btn) => {
         AgregarDatos();
     }
     else if (btn.shiftKey && btn.code == "Enter" && EdicionActiva == true) {
-        EditarNota();
+        EditarNota();        
     }
 
     if (btn.code == "KeyT" && NotasActivas == true) {
@@ -696,10 +731,10 @@ var Tocar4 = 0;
 
 function PantallaCompleta() {
     Tocar++;
-    if (Tocar == 1) {        
+    if (Tocar == 1) {
         FullScreen(Contenedor);
     } else {
-        ExitFullScreen();    
+        ExitFullScreen();
         Tocar = 0;
     }
 }
@@ -794,39 +829,7 @@ async function CargarCards() {
     ContenedorBtn.innerHTML = lista;
     // ContenedorBtn.innerHTML = lista + `<li class="Lista" style="--i:0;"><a data-id="0" href="#">Cerrar Nota</a></li>`;
     const Botones = ContenedorBtn.querySelectorAll('.Lista');
-
-    Botones.forEach(btn => {
-        btn.addEventListener('click', async (event) => {
-            const doc = await ObtenerDato(event.target.dataset.id);
-            const Informacion = doc.data();
-
-            localStorage.setItem("NoteUser", Informacion.Usuario);
-            localStorage.setItem("Fecha", Informacion.Fecha);
-
-            Transladar();
-            EliminarColorBoton(3);
-            btn.classList.add('BotonSeleccionado');
-            NotasActivas = true;
-            CodigoCard = event.target.dataset.id;
-            MenuActivo = false;
-            if (event.target.dataset.id == 0) {
-                CerrarCard();
-            } else {
-                TituloCard.innerHTML = Informacion.Titulo;
-                ///Cortar String
-                Text = Informacion.Contenido;
-                Text = ReplaceEnters(Text);
-                Text2 = Informacion.Contenido;
-                Codigo = event.target.dataset.id;
-                ContenedorTexto.innerHTML = Text2;
-                style.setProperty('--Widthborder', '2px');
-                style.setProperty('--heigth', '520px');
-                style.setProperty('--CardTop', '400px');
-                style.setProperty('--ListaBootom', '200px');
-
-            }
-        });
-    });
+    BotonCard(Botones);
 }
 
 
@@ -956,22 +959,23 @@ btnEditarNota.addEventListener('click', async () => {
 
 
 async function EditarNota() {
-    Contenido = document.getElementById('Contenido').innerHTML;
-    Titulo = document.getElementById('Titulo').value;
-    Contenido = ReplaceSaltos(Contenido);
-    await updateDoc(ActualizarCard(CodigoCard), {
-        "Contenido": Contenido,
-        "Titulo": Titulo,
-    });
+    // Obtener valores de los campos de entrada
+    const Contenido = ReplaceSaltos(document.getElementById('Contenido').innerHTML);
+    const Titulo = document.getElementById('Titulo').value;    
+
+    // Actualizar en Firestore
+    ActualizarTodo(CodigoCard, Titulo, Contenido);
+    // Confirmación de la edición
     EdicionActiva = false;
     CambiarColorMSJ("#adee7a");
-    AlertMSJ("Edicion realizada");
+    AlertMSJ("Edición realizada");
     AbrirApuntesScreen();
     limpiar();
 
     Boton = 3;
     btnAgregar.value = "Salir Notas";
 }
+
 
 
 

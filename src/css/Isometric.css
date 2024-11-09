@@ -62,21 +62,6 @@ body {
     right: 2%;
 }
 
-#Busqueda{
-    position: absolute;    
-    bottom: 18%;
-    left: 1%;
-    fill:  var(--ModoNoche); 
-    z-index: 1;
-    border: 2px solid var(--ModoNoche);
-    border-radius: 10px;
-    cursor: pointer;
-}
-
-#Busqueda:hover{
-    background-color: #3496db;
-}   
-
 .Menu {
     position: absolute;    
     background-image: linear-gradient(to right top, #673250, #522e4c, #3e2a45, #2c243b, #1d1e2e, #1b2231, #1a2634, #192a36, #1b3c4a, #1a505b, #1d646a, #297974);
