@@ -73,8 +73,8 @@ export const ActualizarCardAlgolia = async (ID, data) => {
 export function ActualizarTodo(CodigoCard, Contenido, Titulo) {
     // Objeto con los datos a actualizar
     const datosActualizados = {
-        "Contenido": Contenido,
         "Titulo": Titulo,
+        "Contenido": Contenido
     };
 
     try {

@@ -973,7 +973,7 @@ async function EditarNota() {
     const Titulo = document.getElementById('Titulo').value;
 
     // Actualizar en Firestore
-    ActualizarTodo(CodigoCard, Titulo, Contenido);
+    ActualizarTodo(CodigoCard, Contenido, Titulo);
     // Confirmación de la edición
     EdicionActiva = false;
     CambiarColorMSJ("#adee7a");
