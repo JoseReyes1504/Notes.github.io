@@ -43,7 +43,7 @@ body {
     --TranslateXD2Movil: -350px;
 
     --ColorMSJ: #3bafde;
-    --ModoNoche: white;
+    --ModoNoche: #E1DBD6;
     --ModoNocheFont: #181818;
 }
 
@@ -198,8 +198,7 @@ body {
     height: 8%;
     margin: auto;
     align-items: center;
-    border-radius: 10px;
-    /* background-color: red; */
+    border-radius: 10px;    
     background-color: var(--ModoNocheFont);
     color: var(--ModoNoche);
 }
@@ -231,8 +230,7 @@ select:hover {
 #Contenido {
     width: 80%;
     height: 72%;
-    resize: none;
-    /* background-color: var(--ModoNocheFont); */
+    resize: none;    
     color: var(--ModoNoche);
     outline: none;
     font-size: 20px;
@@ -323,7 +321,6 @@ select:hover {
 }
 
 /* Lista */
-
 .ContenedorAreas,
 .ContenedorAreas2 {
     position: relative;    
@@ -337,12 +334,10 @@ select:hover {
     overflow-y: scroll;
     transition: all 800ms;
     transform: translateX(var(--TranslateXD));
-    /* background-color: yellow; */
 }
 
 .ContenedorAreas {
-    margin-left: -15%;
-    /* background-color: gray; */
+    margin-left: -15%;    
     transform: translateX(var(--TranslateXD2));
 }
 
@@ -426,7 +421,7 @@ ul li,
 }
 
 .BotonSeleccionado {
-    background-color: #3496db !important;
+    background-color: #9fce39 !important;
 }
 
 .BotonCreado {
@@ -462,8 +457,7 @@ ul li::after,
 }
 
 .Lista2 li::after {
-    border-top-right-radius: 0px;
-    /* border-bottom-left-radius: 10px; */
+    border-top-right-radius: 0px;    
     right: 0;
     left: -17px;
     width: 15px;
@@ -536,11 +530,23 @@ ul li a:hover {
     color: white;
 }
 
+/* PRUEBA DE DIVS DINAMICOS */
+.Lista a {
+    display: block;
+    padding: 10px;
+    color: black;
+    text-decoration: none;
+  }
+  
+  .Lista.selected a {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+  }  
 
 .SeleccionoEste {
     background-color: var(--ColorLi);
 }
-
 
 .ContenedorFlecha,
 .ContenedorFlecha2 {
@@ -550,8 +556,7 @@ ul li a:hover {
     display: flex;
     justify-content: center;
     align-items: center;    
-    overflow: hidden;
-    /* background-color: red; */
+    overflow: hidden;    
 }
 
 .ContenedorFlecha svg,
@@ -587,8 +592,7 @@ ul li a:hover {
     width:25px;
     height: 25px;
     fill:  var(--ModoNoche); 
-    z-index: 1;
-    /* border: 2px solid var(--ModoNoche); */
+    z-index: 1;    
     border-radius: 5px;
     cursor: pointer;
     visibility: hidden;
@@ -617,12 +621,8 @@ ul li a:hover {
 
 
 @media only screen and (min-device-width : 320px) and (max-device-width : 768px) {
-
     .ContenedorBotones{
         background-color: red;
         flex-direction: column;
     }    
-
-
-
 }

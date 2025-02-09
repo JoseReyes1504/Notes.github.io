@@ -26,7 +26,7 @@
     --TamanoHeightLetra: 80%;
     --FontSize: 20px;    
         
-    --ModoNoche: white;
+    --ModoNoche: #E1DBD6;
     --ModoNocheFont: #181818;
 
     --displayInfo: none;
@@ -111,8 +111,7 @@ body {
     height: 20px;
     margin: 0% -5%;
     font-size: 18px;    
-    display: var(--displayInfo);
-    /* background-color: red; */
+    display: var(--displayInfo);    
 }
 
 .Menu h1 {    
@@ -128,16 +127,10 @@ body {
     width: 100%;
     height: var(--TamanoHeightLetra);
     font-size: var(--FontSize);
-    overflow-y: scroll;     
-    padding-left: 8%;     
-    /* background-color: red; */
+    overflow-y:auto;    
+    padding-left: 8%;         
     opacity: var(--opacidad);
     transition: all 200ms;    
-}
-
-
-.Menu p:hover {
-    /* color: #f5f5dc; */
 }
 
 .BotonResumen {
@@ -365,7 +358,7 @@ body {
     .TextoCard {
         margin-top: 2%;
         height: 90%;
-        padding: 2%;
+        padding: 2%;        
         font-size: 18px;
     }
 

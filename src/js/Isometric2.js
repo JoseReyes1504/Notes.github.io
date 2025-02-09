@@ -1,12 +1,10 @@
-import { ObtenerDato, buscarCards, BorrarCard, AgregarCards, ActualizarTodo, EliminarTema, CerrarSesion, obtenerClase, EliminarClase, AgregarTema, AgregarClase, onSnapshot, db, collection, query, where, getDocs, BorrarCards, updateDoc } from "./db.js";
-import { MostrarMSJ } from "./MSJ.js";
+import { ObtenerDato, buscarCards, BorrarCard, AgregarCards, ActualizarTodo, EliminarTema, CerrarSesion, obtenerClase, EliminarClase, AgregarTema, AgregarClase, db, collection, query, where, getDocs, BorrarCards } from "./db.js";
 const style = document.documentElement.style;
 
 ////////////////////////////////////////////////////////////////// VARIABLES //////////////////////////////////////////////////////
 const TituloCard = document.getElementById('TituloCard');
 const btnInformacion = document.getElementById('VerInfor');
 const ContenedorTexto = document.getElementById('TextoCard');
-// const btnCopy = document.getElementById('btnCopy');
 const btnEliminarCard = document.getElementById('btnEliminarCard');
 const btnFullCard = document.getElementById('btnFullCard');
 const btnFullExit = document.getElementById('btnFullExit');
@@ -67,7 +65,6 @@ btnInfo.addEventListener("click", () => {
 
 function ReplaceSaltos(texto) {
     texto = texto.replace(/\r?\n/g, "<br>");
-    // texto = texto.replace(/\[b\](.*?)\[\/b\]/g, "<b> </b>")
     return texto;
 }
 
@@ -96,38 +93,42 @@ function BotonTema(Temas) {
     });
 }
 
+
+async function ejecutarAccionCard(btn) {
+    const doc = await ObtenerDato(btn.dataset.id);
+    const Informacion = doc.data();
+
+    localStorage.setItem("NoteUser", Informacion.Usuario);
+    localStorage.setItem("Fecha", Informacion.Fecha);
+    Transladar();
+    EliminarColorBoton(4);
+    btn.classList.add('BotonSeleccionado');
+    NotasActivas = true;
+    CodigoCard = btn.dataset.id;
+    MenuActivo = false;
+
+    if (btn.dataset.id == 0) {
+        CerrarCard();
+    } else {
+        TituloCard.innerHTML = Informacion.Titulo;
+        // Cortar String
+        Text = Informacion.Contenido;
+        Text = ReplaceEnters(Text);
+        Text2 = Informacion.Contenido;
+        Codigo = btn.dataset.id;
+        ContenedorTexto.innerHTML = Text2;
+        style.setProperty('--Widthborder', '2px');
+        style.setProperty('--heigth', '520px');
+        style.setProperty('--CardTop', '400px');
+        style.setProperty('--ListaBootom', '200px');
+    }
+}
+
+// Asigna el evento de clic a los botones
 function BotonCard(Cards) {
     Cards.forEach(btn => {
-        btn.addEventListener('click', async (event) => {
-            const doc = await ObtenerDato(event.target.dataset.id);
-            const Informacion = doc.data();
-
-            localStorage.setItem("NoteUser", Informacion.Usuario);
-            localStorage.setItem("Fecha", Informacion.Fecha);
-
-            Transladar();
-            EliminarColorBoton(3);
-            btn.classList.add('BotonSeleccionado');
-            NotasActivas = true;
-            CodigoCard = event.target.dataset.id;
-            MenuActivo = false;
-            if (event.target.dataset.id == 0) {
-                CerrarCard();
-            } else {
-                TituloCard.innerHTML = Informacion.Titulo;
-                ///Cortar String
-                Text = Informacion.Contenido;
-                Text = ReplaceEnters(Text);
-                Text2 = Informacion.Contenido;
-                Codigo = event.target.dataset.id;
-                ContenedorTexto.innerHTML = Text2;
-                style.setProperty('--Widthborder', '2px');
-                style.setProperty('--heigth', '520px');
-                style.setProperty('--CardTop', '400px');
-                style.setProperty('--ListaBootom', '200px');
-
-            }
-        });
+        const btna = btn.querySelector("a");
+        btn.addEventListener('click', () => ejecutarAccionCard(btna));
     });
 }
 
@@ -144,7 +145,7 @@ async function Busqueda() {
         });
         ContenedorBtn.innerHTML = lista;
         var Listas = ContenedorBtn.querySelectorAll('.Lista');
-        BotonCard(Listas);        
+        BotonCard(Listas);
         if (ApuntesActivo == true) {
             style.setProperty('--opacidadLista', '100%');
         } else {
@@ -155,7 +156,7 @@ async function Busqueda() {
     }
 }
 
-txtBusqueda.addEventListener("input", function () {    
+txtBusqueda.addEventListener("input", function () {
     Busqueda();
 });
 
@@ -183,8 +184,6 @@ function LimpiarCodigos() {
     EliminarColorBoton(0);
 }
 
-var MensajeFondo = document.getElementById("Mensaje");
-
 function AlertMSJ(Descripcion) {
     MSJ.innerHTML = Descripcion;
     style.setProperty('--TranslateMsj', '0px');
@@ -203,8 +202,6 @@ function AlertMSJSinEsconder(Descripcion) {
 function CambiarColorMSJ(Color = '#3bafde') {
     style.setProperty('--ColorMSJ', Color);
 }
-
-
 
 function GenerarCodigo(i = 0) {
     var caracteres = "abcdefghijkmnpqrtuvwxyzABCDEFGHJKMNPQRTUVWXYZ2346789";
@@ -285,8 +282,14 @@ function EliminarColorBoton(Lista) {
         Botones.forEach(btn => {
             btn.classList.remove('BotonSeleccionado');
         });
-    } else {
+    } else if (Lista == 3) {
         const Botones = ContenedorBtn.querySelectorAll('.Lista');
+
+        Botones.forEach(btn => {
+            btn.classList.remove('BotonSeleccionado');
+        });
+    } else {
+        const Botones = ContenedorBtn.querySelectorAll('a');
 
         Botones.forEach(btn => {
             btn.classList.remove('BotonSeleccionado');
@@ -327,7 +330,6 @@ function PDF() {
 
     doc.setFont("TimesNewRoman", "bold");
     doc.setFontSize(16);
-
     // Añadir título al documento
     doc.text(document.getElementById('TituloCard').innerText, 10, 10);
 
@@ -337,23 +339,25 @@ function PDF() {
     doc.fromHTML(Contenido, 10, 10, {
         width: 180
     });
-
     // Descargar el documento
     doc.save(document.getElementById('TituloCard').innerText);
 }
 
-function crearDocumento() {
-    // Obtener el contenido del elemento editable
-    var titulo = document.getElementById('TituloCard').innerText;
-    var Contenido = document.getElementById("TextoCard").innerText;
-    Contenido += titulo + Contenido;
-    // Crear un objeto Blob con el contenido en formato HTML
-    var blob = new Blob([Contenido], { type: 'application/msword' });
+function crearImagen() {
+    const contenido = document.getElementById('Menu');
 
-    // Descargar el archivo usando FileSaver.js
-    saveAs(blob, document.getElementById('TituloCard').innerText);
+    domtoimage.toPng(contenido)
+        .then(dataUrl => {
+            const link = document.createElement('a');
+            link.href = dataUrl;
+            link.download = 'captura.png';
+            link.click();
+        })
+        .catch(error => {
+            console.error('Error al capturar la imagen:', error);
+        });
+    MSJ("Se a creado la imagen");
 }
-
 
 //////////////////////////////////////////////// FUNCION BOTONES //////////////////////////////////////////////////////
 
@@ -363,11 +367,11 @@ btnModo.addEventListener("click", (value) => {
     switch (Modo) {
         case 1:
             style.setProperty("--ModoNoche", "#181818");
-            style.setProperty("--ModoNocheFont", "white");
+            style.setProperty("--ModoNocheFont", "#E1DBD6");
             btnModo.value = "Día";
             break;
         case 2:
-            style.setProperty("--ModoNoche", "white");
+            style.setProperty("--ModoNoche", "#E1DBD6");
             style.setProperty("--ModoNocheFont", "#181818");
             Modo = 0;
             btnModo.value = "Noche";
@@ -378,7 +382,6 @@ btnModo.addEventListener("click", (value) => {
 var contadorFullScreen = 0;
 
 window.addEventListener("keydown", async (btn) => {
-    // console.log(btn);
     if (btn.code == "Enter" && Boton != 0) {
         AgregarDatos();
     }
@@ -394,16 +397,16 @@ window.addEventListener("keydown", async (btn) => {
     }
 
     if (btn.code == "KeyS" && NotasActivas == true) {
-        crearDocumento();
+        crearImagen();
     }
 
-    if (btn.code == "KeyC" && NotasActivas == true) {
-        Copy();
-    }
+    // if (btn.code == "KeyC" && NotasActivas == true) {
+    //     Copy();
+    // }
 
-    if (btn.code == "KeyD" && NotasActivas == true) {
-        PDF();
-    }
+    // if (btn.code == "KeyD" && NotasActivas == true) {
+    //     PDF();
+    // }
 
     if (btn.code == "KeyF" && NotasActivas == true) {
         contadorFullScreen++;
@@ -420,12 +423,31 @@ window.addEventListener("keydown", async (btn) => {
     if (btn.code == "Escape" && MenuActivo == true) {
         CerrarCardsScreen();
     }
+
+    items.forEach(item => item.classList.remove("BotonSeleccionado"));
+
+    if (CardsCargadas == true) {
+        if (btn.key === "ArrowDown") {
+            currentIndex = (currentIndex + 1) % items.length;
+            ArrowActions();
+        } else if (btn.key === "ArrowUp") {
+            currentIndex = (currentIndex - 1 + items.length) % items.length;
+            ArrowActions();
+        }
+    }
+
 });
+
+function ArrowActions() {
+    const selectedItem = items[currentIndex];
+    selectedItem.classList.add("BotonSeleccionado");
+    const btn = selectedItem.querySelector("a");
+    ejecutarAccionCard(btn);
+}
 
 btnAgregar.onclick = function () {
     AgregarDatos();
 }
-
 
 var fechaActual = new Date();
 
@@ -632,10 +654,8 @@ btnDatos.onclick = function () {
         AlertMSJ('Seleccione una clase');
         ResetearIndex();
         style.setProperty('--IndexClase', '6');
-    } else if (CodigoTema == '') {
-        AlertMSJ('Seleccione el Tema');
     } else {
-
+        AlertMSJ('Seleccione el Tema');
     }
     AbrirApuntesScreen();
 }
@@ -672,10 +692,10 @@ function MostrarControles(NoMostrar) {
     if (NoMostrar == true) {
         document.getElementById('Titulo').style.opacity = '0%';
         document.getElementById('btnPantalla').style.opacity = '0%';
-        document.getElementById('btnEliminar').style.opacity = '0%';        
+        document.getElementById('btnEliminar').style.opacity = '0%';
         document.getElementById('txtBusqueda').style.visibility = 'visible';
         document.getElementById('Busqueda').style.visibility = 'visible';
-        btnAgregar.value = 'Salir Notas';        
+        btnAgregar.value = 'Salir Notas';
     } else {
         style.setProperty('--opacity', '0%');
         btnAgregar.value = 'Agregar';
@@ -717,14 +737,14 @@ function FuncionBoton() {
         style.setProperty('--TranslateArrow', '80px');
         style.setProperty('--TranslatdeArrow2', '-80px');
         btnEliminar.value = 'Eliminar';
-        btnEliminar.setAttribute('disabled', true);        
+        btnEliminar.setAttribute('disabled', true);
         LimpiarCodigos();
     }
 }
 
 function Copy() {
 
-    navigator.clipboard.writeText(TituloCard.innerHTML + "\n\n" + document.getElementById("TextoCard").innerText)
+    navigator.clipboard.writeText(document.getElementById("TextoCard").innerText)
         .then(() => {
             AlertMSJ('Se copio al portapapeles', true);
         })
@@ -818,28 +838,37 @@ function Transladar() {
     }
 }
 
-
 const ContenedorBtn = document.getElementById('ListaTodo');
 
+var CardsCargadas = false;
 async function CargarCards() {
     const q = query(collection(db, "Cards"), where("IDTema", "==", CodigoTema));
-
     const querySnapshot = await getDocs(q);
-    var lista = '';
-    var Numero = 10;
+
+    let lista = '';
+    let Numero = 10;
+
     querySnapshot.forEach((doc) => {
         const Cards = doc.data();
         Numero--;
         lista += `
-            <li class="Lista" style="--i:${Numero};"><a data-id=${doc.id} href="#">${Cards.Titulo}</a></li>                                    
-            `
+        <li class="Lista" style="--i:${Numero};"><a data-id=${doc.id} href="#">${Cards.Titulo}</a></li>
+      `;
     });
 
+    const ContenedorBtn = document.getElementById("ListaTodo");
     ContenedorBtn.innerHTML = lista;
-    // ContenedorBtn.innerHTML = lista + `<li class="Lista" style="--i:0;"><a data-id="0" href="#">Cerrar Nota</a></li>`;
-    const Botones = ContenedorBtn.querySelectorAll('.Lista');
-    BotonCard(Botones);
+
+    items = Array.from(ContenedorBtn.querySelectorAll('.Lista'));
+
+    BotonCard(items);
+    CardsCargadas = true;
 }
+
+let currentIndex = -1;
+let items = [];
+
+
 
 
 function CerrarCard() {
@@ -867,13 +896,6 @@ function SetMenuActivo() {
 
 function ReplaceEnters(texto) {
     texto = texto.replace(/<br>/g, "\r", "\n");
-    // texto = texto.replace(/<b>(.*?)<\/b>/g, "[b]$1[/b]");
-    return texto;
-}
-
-function ReplaceEnters2(texto) {
-    // texto = texto.replace(/\[b\](.*?)\[\/b\]/g, "<b>$1</b>");
-    texto = texto.replace(/\r\n/g, "<br>");
     return texto;
 }
 
@@ -913,19 +935,18 @@ function FullScreen(Element) {
     btnFullCard.style.display = "none";
     btnFullExit.style.display = "block";
     contadorFullScreen = 1;
-    //Aumentar Tamaño Letra
+
     style.setProperty('--TamanoHeightLetra', '90%');
     style.setProperty('--FontSize', '25px');
 
-    // Verifica si el navegador soporta la API Fullscreen
     if (Element.requestFullscreen) {
-        // Si es así, solicita que se ponga en pantalla completa
+
         Element.requestFullscreen();
-    } else if (Element.mozRequestFullScreen) { /* Firefox */
+    } else if (Element.mozRequestFullScreen) {
         Element.mozRequestFullScreen();
-    } else if (Element.webkitRequestFullscreen) { /* Chrome, Safari y Opera */
+    } else if (Element.webkitRequestFullscreen) {
         Element.webkitRequestFullscreen();
-    } else if (Element.msRequestFullscreen) { /* Internet Explorer y Edge */
+    } else if (Element.msRequestFullscreen) {
         Element.msRequestFullscreen();
     }
 }
@@ -940,15 +961,14 @@ function ExitFullScreen() {
     contadorFullScreen = 0;
     Tocar = 0;
 
-    // Verifica si el navegador soporta la API Fullscreen
     if (document.exitFullscreen) {
-        // Si es así, solicita salir del modo pantalla completa
+
         document.exitFullscreen();
-    } else if (document.mozCancelFullScreen) { /* Firefox */
+    } else if (document.mozCancelFullScreen) {
         document.mozCancelFullScreen();
-    } else if (document.webkitExitFullscreen) { /* Chrome, Safari y Opera */
+    } else if (document.webkitExitFullscreen) {
         document.webkitExitFullscreen();
-    } else if (document.msExitFullscreen) { /* Internet Explorer y Edge */
+    } else if (document.msExitFullscreen) {
         document.msExitFullscreen();
     }
 }
@@ -984,14 +1004,6 @@ async function EditarNota() {
     Boton = 3;
     btnAgregar.value = "Salir Notas";
 }
-
-
-
-
-
-
-
-
 
 
 

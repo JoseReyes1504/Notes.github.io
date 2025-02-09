@@ -16,7 +16,7 @@
     <link rel="icon" type="image/x-icon" href="../iconos/StartIcon.ico">
 </head>
 
-<body>
+<body>        
     <input type="button" id="btnModo" value="Noche">
     <span title="Cerrar Sesión"><svg xmlns="http://www.w3.org/2000/svg" id="btnCerrarSesion" height="24px"
             viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
@@ -64,12 +64,13 @@
                     <option value="<p>">Párrafo &lt;p&gt;</option>
                     <option value="<pre>">Preformateado &lt;pre&gt;</option>
                 </select>
-                <select onchange="formatoFuente('forecolor',this[this.selectedIndex].value);this.selectedIndex=0;">
-                    <option class="heading" selected>Color</option>
+                <select onchange="formatoFuente('forecolor',this[this.selectedIndex].value);this.selectedIndex=0;">                    
                     <option value="white">white</option>
-                    <option value="blue">Azul</option>
-                    <option value="green">Verde</option>
                     <option value="black">Negro</option>
+                    <option value="blue">Azul</option>
+                    <option value="orange">Anaranjado</option>
+                    <option value="green">Verde</option>
+                    <option value="yellow">Amarillo</option>
                 </select>
 
                 <button class="formatos" onclick="document.execCommand('insertorderedlist',false,'');">1.</button>
@@ -198,6 +199,7 @@
     <script type="module" src="../js/Isometric2.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.2/FileSaver.min.js"></script>    
     <script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch.umd.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"></script>
     <script src="../js/jspdf.min.js" type="text/javascript"></script>
     <script src="../js/generarPDF.js"></script>
     <script src="../js/textArea.js"></script>    
