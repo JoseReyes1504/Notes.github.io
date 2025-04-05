@@ -16,22 +16,26 @@
     <link rel="icon" type="image/x-icon" href="../iconos/StartIcon.ico">
 </head>
 
-<body>        
+<body>
     <input type="button" id="btnModo" value="Noche">
     <span title="Cerrar Sesión"><svg xmlns="http://www.w3.org/2000/svg" id="btnCerrarSesion" height="24px"
             viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
             <path
                 d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z" />
         </svg></span>
-    <span title="Busqueda"><svg xmlns="http://www.w3.org/2000/svg" id="Busqueda" height="25px" viewBox="0 -960 960 960" width="25px" fill="#e8eaed"><path d="M765-144 526-383q-30 22-65.79 34.5-35.79 12.5-76.18 12.5Q284-336 214-406t-70-170q0-100 70-170t170-70q100 0 170 70t70 170.03q0 40.39-12.5 76.18Q599-464 577-434l239 239-51 51ZM384-408q70 0 119-49t49-119q0-70-49-119t-119-49q-70 0-119 49t-49 119q0 70 49 119t119 49Z"/></svg></span>    
-    <input class="Boton" id="btnAgregar" type="button" value="Agregar">    
+    <span title="Busqueda"><svg xmlns="http://www.w3.org/2000/svg" id="Busqueda" height="25px" viewBox="0 -960 960 960"
+            width="25px" fill="#e8eaed">
+            <path
+                d="M765-144 526-383q-30 22-65.79 34.5-35.79 12.5-76.18 12.5Q284-336 214-406t-70-170q0-100 70-170t170-70q100 0 170 70t70 170.03q0 40.39-12.5 76.18Q599-464 577-434l239 239-51 51ZM384-408q70 0 119-49t49-119q0-70-49-119t-119-49q-70 0-119 49t-49 119q0 70 49 119t119 49Z" />
+        </svg></span>
+    <input class="Boton" id="btnAgregar" type="button" value="Agregar">
 
     <div class="Mensaje">
         <p id="MSJ">Mensaje</p>
     </div>
 
     <input class="Boton" type="button" id="btnEliminar" disabled value="Eliminar">
-            <input type="text" id="txtBusqueda" class="inpBusqueda" placeholder="Buscar Titulo, Contenido">
+    <input type="text" id="txtBusqueda" class="inpBusqueda" placeholder="Buscar Titulo, Contenido">
 
     <div class="ContenedorPrincipal">
         <div class="ContenedorBotones" id="ContenedorBotones">
@@ -64,7 +68,8 @@
                     <option value="<p>">Párrafo &lt;p&gt;</option>
                     <option value="<pre>">Preformateado &lt;pre&gt;</option>
                 </select>
-                <select onchange="formatoFuente('forecolor',this[this.selectedIndex].value);this.selectedIndex=0;">                    
+                <select onchange="formatoFuente('forecolor',this[this.selectedIndex].value);this.selectedIndex=0;">
+                    <option value="">Seleccionar</option>
                     <option value="white">white</option>
                     <option value="black">Negro</option>
                     <option value="blue">Azul</option>
@@ -132,15 +137,22 @@
         </div>
     </div>
 
-    <div class="Menu" id="Menu">        
+    <div class="Menu" id="Menu">
+        <input type="color" id="colorPicker" style="display: none;">
         <h1 id="TituloCard">Notas</h1>
-        <p id="TextoCard" class="TextobtnEliminarCard">Hola</p>
+        <p id="TextoCard" class="TextobtnEliminarCard"></p>
         <input id="VerInfor" class="BotonResumen" type="button" value="Ver más información">
         <div class="InformacionNote" id="InformacionNote">
-            <p id="Creado">Creado por: Persona </p>
-            <p id="Fecha">Fecha: 23/8/2023</p>
-        </div>        
+            <p id="Creado">Creado por:  </p>
+            <p id="Fecha">Fecha:</p>
+        </div>
         <div class="Iconos-Opciones">
+            <span title="Color de tarjeta"><svg xmlns="http://www.w3.org/2000/svg" id="btnCardTema" height="24px"
+                    viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+                    <path
+                        d="M480-80q-82 0-155-31.5t-127.5-86Q143-252 111.5-325T80-480q0-83 32.5-156t88-127Q256-817 330-848.5T488-880q80 0 151 27.5t124.5 76q53.5 48.5 85 115T880-518q0 115-70 176.5T640-280h-74q-9 0-12.5 5t-3.5 11q0 12 15 34.5t15 51.5q0 50-27.5 74T480-80Zm0-400Zm-220 40q26 0 43-17t17-43q0-26-17-43t-43-17q-26 0-43 17t-17 43q0 26 17 43t43 17Zm120-160q26 0 43-17t17-43q0-26-17-43t-43-17q-26 0-43 17t-17 43q0 26 17 43t43 17Zm200 0q26 0 43-17t17-43q0-26-17-43t-43-17q-26 0-43 17t-17 43q0 26 17 43t43 17Zm120 160q26 0 43-17t17-43q0-26-17-43t-43-17q-26 0-43 17t-17 43q0 26 17 43t43 17ZM480-160q9 0 14.5-5t5.5-13q0-14-15-33t-15-57q0-42 29-67t71-25h70q66 0 113-38.5T800-518q0-121-92.5-201.5T488-800q-136 0-232 93t-96 227q0 133 93.5 226.5T480-160Z" />
+                </svg>
+            </span>
             <span title="Eliminar Nota"><svg id="btnEliminarCard" xmlns="http://www.w3.org/2000/svg" height="24"
                     width="24">
                     <path
@@ -188,7 +200,7 @@
                         d="M4.99787498,8.99999999 L4.99787498,0.999999992 L19.4999998,0.999999992 L22.9999998,4.50000005 L23,23 L4,23 M18,1 L18,6 L23,6 M14,12 L12.5,18.75 L12.25,18.75 L9.5,12 L9,12 L6.25,18.75 L6,18.75 L4.5,12 L4,12 L6,19 L6.5,19 L9,12.5 L9.5,12.5 L12,19 L12.5,19 L14.5,12 L14,12 Z" />
                 </svg>
             </span>             -->
-        </div>        
+        </div>
     </div>
     <div class="ContenedorCards">
         <ul id="ListaTodo">
@@ -197,12 +209,12 @@
 
     <script type="module" src="../js/main.js"></script>
     <script type="module" src="../js/Isometric2.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.2/FileSaver.min.js"></script>    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.2/FileSaver.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch.umd.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"></script>
     <script src="../js/jspdf.min.js" type="text/javascript"></script>
     <script src="../js/generarPDF.js"></script>
-    <script src="../js/textArea.js"></script>    
+    <script src="../js/textArea.js"></script>
 </body>
 
 </html>

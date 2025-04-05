@@ -61,6 +61,48 @@ btnInfo.addEventListener("click", () => {
         ToquesInfo = 0;
     }
 });
+const tarjeta = document.getElementById("Menu");
+const btnCardTema = document.getElementById("btnCardTema");
+const colorPicker = document.getElementById("colorPicker");
+const tarjetaInfo = document.getElementById("InformacionNote");
+
+btnCardTema.addEventListener("click", () => {
+    colorPicker.click();
+});
+
+const colorGuardado = localStorage.getItem("colorTarjeta");
+if (colorGuardado) {
+    tarjeta.style.background = colorGuardado;
+    tarjetaInfo.style.background = colorGuardado;
+    colorPicker.value = colorGuardado;
+}
+
+colorPicker.addEventListener("input", (e) => {
+    const color = e.target.value;
+    tarjeta.style.background = color;
+    tarjetaInfo.style.background = color;
+    localStorage.setItem("colorTarjeta", color);
+
+    const textoColor = esColorClaro(color) ? "black" : "white";
+    tarjeta.style.color = textoColor;
+    tarjetaInfo.style.color = textoColor;
+});
+
+
+function esColorClaro(hexColor) {
+    hexColor = hexColor.replace("#", "");
+
+    const r = parseInt(hexColor.substr(0, 2), 16);
+    const g = parseInt(hexColor.substr(2, 2), 16);
+    const b = parseInt(hexColor.substr(4, 2), 16);
+
+    const luminancia = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+
+    return luminancia > 0.5;
+}
+
+
+
 
 
 function ReplaceSaltos(texto) {
@@ -100,6 +142,7 @@ async function ejecutarAccionCard(btn) {
 
     localStorage.setItem("NoteUser", Informacion.Usuario);
     localStorage.setItem("Fecha", Informacion.Fecha);
+    
     Transladar();
     EliminarColorBoton(4);
     btn.classList.add('BotonSeleccionado');
@@ -324,59 +367,63 @@ function ResetearIndex() {
     style.setProperty('--TranslateXD2Movil', '0px');
 }
 
-function PDF() {
-    var doc = new jsPDF();
-    var Contenido = document.getElementById("TextoCard").innerHTML;
+// function PDF() {
+//     var doc = new jsPDF();
+//     var Contenido = document.getElementById("TextoCard").innerHTML;
 
-    doc.setFont("TimesNewRoman", "bold");
-    doc.setFontSize(16);
-    // Añadir título al documento
-    doc.text(document.getElementById('TituloCard').innerText, 10, 10);
+//     doc.setFont("TimesNewRoman", "bold");
+//     doc.setFontSize(16);
+//     // Añadir título al documento
+//     doc.text(document.getElementById('TituloCard').innerText, 10, 10);
 
-    doc.setFont("TimesNewRoman", "normal");
-    doc.setFontSize(11);
+//     doc.setFont("TimesNewRoman", "normal");
+//     doc.setFontSize(11);
 
-    doc.fromHTML(Contenido, 10, 10, {
-        width: 180
-    });
-    // Descargar el documento
-    doc.save(document.getElementById('TituloCard').innerText);
-}
+//     doc.fromHTML(Contenido, 10, 10, {
+//         width: 180
+//     });
+//     // Descargar el documento
+//     doc.save(document.getElementById('TituloCard').innerText);
+// }
 
-function crearImagen() {
-    const contenido = document.getElementById('Menu');
+// function crearImagen() {
+//     const contenido = document.getElementById('Menu');
 
-    domtoimage.toPng(contenido)
-        .then(dataUrl => {
-            const link = document.createElement('a');
-            link.href = dataUrl;
-            link.download = 'captura.png';
-            link.click();
-        })
-        .catch(error => {
-            console.error('Error al capturar la imagen:', error);
-        });
-    MSJ("Se a creado la imagen");
-}
+//     domtoimage.toPng(contenido)
+//         .then(dataUrl => {
+//             const link = document.createElement('a');
+//             link.href = dataUrl;
+//             link.download = 'captura.png';
+//             link.click();
+//         })
+//         .catch(error => {
+//             console.error('Error al capturar la imagen:', error);
+//         });
+//     MSJ("Se a creado la imagen");
+// }
 
 //////////////////////////////////////////////// FUNCION BOTONES //////////////////////////////////////////////////////
 
-var Modo = 0;
-btnModo.addEventListener("click", (value) => {
-    Modo++;
-    switch (Modo) {
-        case 1:
-            style.setProperty("--ModoNoche", "#181818");
-            style.setProperty("--ModoNocheFont", "#E1DBD6");
-            btnModo.value = "Día";
-            break;
-        case 2:
-            style.setProperty("--ModoNoche", "#E1DBD6");
-            style.setProperty("--ModoNocheFont", "#181818");
-            Modo = 0;
-            btnModo.value = "Noche";
-            break;
+let Modo = parseInt(localStorage.getItem("modo")) || 0;
+
+function aplicarModo() {
+    if (Modo === 1) {
+        style.setProperty("--ModoNoche", "#181818");
+        style.setProperty("--ModoNocheFont", "#E1DBD6");
+        btnModo.value = "Día";
+    } else {
+        style.setProperty("--ModoNoche", "#E1DBD6");
+        style.setProperty("--ModoNocheFont", "#181818");
+        btnModo.value = "Noche";
     }
+}
+aplicarModo();
+
+btnModo.addEventListener("click", () => {
+    Modo++;
+    if (Modo > 1) Modo = 0;
+    localStorage.setItem("modo", Modo);
+    aplicarModo();
 });
 
 var contadorFullScreen = 0;
@@ -396,9 +443,9 @@ window.addEventListener("keydown", async (btn) => {
         AbrirCard();
     }
 
-    if (btn.code == "KeyS" && NotasActivas == true) {
-        crearImagen();
-    }
+    // if (btn.code == "KeyS" && NotasActivas == true) {
+    //     crearImagen();
+    // }
 
     // if (btn.code == "KeyC" && NotasActivas == true) {
     //     Copy();
@@ -572,26 +619,32 @@ function CerrarCardsScreen() {
 btnEliminar.onclick = async function () {
 
     if (CodigoClase != '' && CodigoTema == '') {
-        await EliminarClase(CodigoClaseRef);
-        style.setProperty('--Color4', '#181818');
-        LimpiarCodigos();
-        CambiarColorMSJ("#e74c3c");
-        AlertMSJ('Se elimino el Directorio');
-        CargarClases();
-        CargarTemas();
-        await BorrarCards(CodigoTema);
-        style.setProperty('--TranslateArrow', '-80px');
-        style.setProperty('--TranslateArrow2', '-80px');
+        const confirmar = confirm("¿Estás seguro que deseas eliminar la clase?");
+        if (confirmar) {
+            await EliminarClase(CodigoClaseRef);
+            style.setProperty('--Color4', '#181818');
+            LimpiarCodigos();
+            CambiarColorMSJ("#e74c3c");
+            AlertMSJ('Se elimino el Directorio');
+            CargarClases();
+            CargarTemas();
+            await BorrarCards(CodigoTema);
+            style.setProperty('--TranslateArrow', '-80px');
+            style.setProperty('--TranslateArrow2', '-80px');
+        }
     } else if (CodigoClase == '') {
         AlertMSJ('Seleccione un directorio');
     }
 
     if (CodigoClase != '' && CodigoTema != '') {
-        EliminarTema(CodigoTemaRef);
-        CargarTemas();
-        style.setProperty('--Color4', '#181818');
-        CambiarColorMSJ("#e74c3c");
-        AlertMSJ('Se elimino el tema');
+        const confirmar = confirm("¿Estás seguro que deseas eliminar el tema?");
+        if (confirmar) {
+            EliminarTema(CodigoTemaRef);
+            CargarTemas();
+            style.setProperty('--Color4', '#181818');
+            CambiarColorMSJ("#e74c3c");
+            AlertMSJ('Se elimino el tema');
+        }
     }
 }
 
@@ -905,12 +958,15 @@ btnCopy.onclick = function () {
 
 
 btnEliminarCard.onclick = async function () {
-    await BorrarCard(Codigo);
-    CambiarColorMSJ(" #e74c3c");
-    AlertMSJ("Se elimino el apunte: " + TituloCard.innerText);
-    TituloCard.innerHTML = 'Seleccione una Nota';
-    ContenedorTexto.innerHTML = '';
-    CargarCards();
+    const confirmar = confirm("¿Estás seguro que deseas eliminar esta tarjeta?");
+    if (confirmar) {
+        await BorrarCard(Codigo);
+        CambiarColorMSJ(" #e74c3c");
+        AlertMSJ("Se elimino el apunte: " + TituloCard.innerText);
+        TituloCard.innerHTML = 'Seleccione una Nota';
+        ContenedorTexto.innerHTML = '';
+        CargarCards();
+    }
 }
 
 var elemento = document.getElementById("Menu");

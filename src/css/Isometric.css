@@ -64,8 +64,7 @@ body {
 
 .Menu {
     position: absolute;    
-    background-image: linear-gradient(to right top, #673250, #522e4c, #3e2a45, #2c243b, #1d1e2e, #1b2231, #1a2634, #192a36, #1b3c4a, #1a505b, #1d646a, #297974);
-    /* background-color: #34495e ; */
+    background-color: #34495e ;
     border: 2px solid var(--ModoNoche);
     color: white;
     width: var(--WidthCard);
@@ -160,12 +159,12 @@ body {
     position: absolute;
     right: 1%;    
     top: 1%;
-    width: 150px;
+    width: 185px;
     height: 30px;
     /* background-color: #181818; */
 }
 
-.BotonCopy, #btnEliminarCard, #btnFullCard, #btnFullExit, #btnEditarNota, #btnCrearPDF, #btnInfo{
+.BotonCopy, #btnEliminarCard, #btnFullCard, #btnFullExit, #btnEditarNota, #btnCrearPDF, #btnInfo, #btnCardTema{
     fill: white;
     cursor: pointer;
     margin: 0% 1%;
@@ -197,7 +196,7 @@ body {
     fill:  #f59d39 ;
 }
 
-.BotonCopy:hover, #btnFullCard:hover, #btnFullExit:hover, #btnEditarNota:hover, #btnCrearPDF:hover, #btnInfo:hover{
+.BotonCopy:hover, #btnFullCard:hover, #btnFullExit:hover, #btnEditarNota:hover, #btnCrearPDF:hover, #btnInfo:hover, #btnCardTema:hover{
     fill: #181818;
 }
 
