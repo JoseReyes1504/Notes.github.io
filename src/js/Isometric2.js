@@ -100,10 +100,47 @@ function esColorClaro(hexColor) {
 
     return luminancia > 0.5;
 }
+const editor = document.getElementById("Contenido");
+const toolbar = document.getElementById("toolbarFlotante");
+const colorInput = document.getElementById("colorReal");
+const colorBtn = document.getElementById("btnColor");
 
+editor.addEventListener("mouseup", () => {
+  setTimeout(() => {
+    const sel = window.getSelection();
+    if (!sel.isCollapsed && sel.rangeCount > 0) {
+      const rect = sel.getRangeAt(0).getBoundingClientRect();
+      toolbar.style.left = `${rect.left + window.scrollX}px`;
+      toolbar.style.top = `${rect.top + window.scrollY - 60}px`;
+      toolbar.style.display = "flex";
+    } else {
+      toolbar.style.display = "none";
+    }
+  }, 10);
+});
 
+document.addEventListener("mousedown", (e) => {
+  if (!editor.contains(e.target) && !toolbar.contains(e.target)) {
+    toolbar.style.display = "none";
+  }
+});
 
+colorBtn.addEventListener("click", () => {
+  colorInput.click();
+});
 
+colorInput.addEventListener("input", (e) => {
+  editor.focus(); 
+  document.execCommand("styleWithCSS", false, true);
+  document.execCommand("foreColor", false, e.target.value);
+  toolbar.style.display = "none";
+});
+
+function formatoFuente(command, value) {
+  editor.focus();
+  document.execCommand("styleWithCSS", false, true);
+  document.execCommand(command, false, value);
+}
 
 function ReplaceSaltos(texto) {
     texto = texto.replace(/\r?\n/g, "<br>");
@@ -142,7 +179,7 @@ async function ejecutarAccionCard(btn) {
 
     localStorage.setItem("NoteUser", Informacion.Usuario);
     localStorage.setItem("Fecha", Informacion.Fecha);
-    
+
     Transladar();
     EliminarColorBoton(4);
     btn.classList.add('BotonSeleccionado');

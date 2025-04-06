@@ -227,6 +227,32 @@ select:hover {
     border: 2px solid var(--ModoNocheFont);
 }
 
+.opciones svg {
+    fill: var(--ModoNoche);
+    cursor: pointer;
+  }
+  
+  .opciones svg:hover{
+    fill: #007bff;
+    cursor: pointer;
+  }
+
+  .flotante-toolbar {
+    position: absolute;
+    background: white;
+    width:400px;
+    padding: 8px 12px;
+    border-radius: 10px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+    display: none;
+    z-index: 1000;
+    flex-direction: row;
+    gap: 6px;
+    margin-top: 6%;
+  }
+  
+  
+
 #Contenido {
     width: 80%;
     height: 72%;

@@ -53,59 +53,48 @@
 
             <section class="opciones">
 
-                <button class="formatos" onclick="document.execCommand('bold',false,'');">B</button>
-                <button class="formatos" onclick="document.execCommand('italic',false,'');">I</button>
-                <button class="formatos" onclick="document.execCommand('underline',false,'');">U</button>
-
-                <select onchange="formatoFuente('formatblock',this[this.selectedIndex].value);this.selectedIndex=0;">
-                    <option class="heading" selected>Formato</option>
-                    <option value="<h1>">Cabecera &lt;h1&gt;</option>
-                    <option value="<h2>">Título &lt;h2&gt;</option>
-                    <option value="<h3>">Título &lt;h3&gt;</option>
-                    <option value="<h4>">Título &lt;h4&gt;</option>
-                    <option value="<h5>">Título &lt;h5&gt;</option>
-                    <option value="<h6>">Título &lt;h6&gt;</option>
-                    <option value="<p>">Párrafo &lt;p&gt;</option>
-                    <option value="<pre>">Preformateado &lt;pre&gt;</option>
-                </select>
-                <select onchange="formatoFuente('forecolor',this[this.selectedIndex].value);this.selectedIndex=0;">
-                    <option value="">Seleccionar</option>
-                    <option value="white">white</option>
-                    <option value="black">Negro</option>
-                    <option value="blue">Azul</option>
-                    <option value="orange">Anaranjado</option>
-                    <option value="green">Verde</option>
-                    <option value="yellow">Amarillo</option>
-                </select>
-
-                <button class="formatos" onclick="document.execCommand('insertorderedlist',false,'');">1.</button>
                 <span title="Pantalla Completa"><svg xmlns="http://www.w3.org/2000/svg" height="48" width="48"
                         id="btnPantalla">
                         <path
                             d="M7 40q-1.25 0-2.125-.875T4 37V11q0-1.25.875-2.125T7 8h34q1.25 0 2.125.875T44 11v26q0 1.25-.875 2.125T41 40Zm0-3h3.5V11H7v26Zm6.5 0h21V11h-21Zm24 0H41V11h-3.5Zm-24-26v26Z" />
                     </svg></span>
-                <button class="formatos" onclick="document.execCommand('justifyleft',false,'');">[</button>
-                <button class="formatos" onclick="document.execCommand('justifycenter',false,'');">|</button>
-                <button class="formatos" onclick="document.execCommand('justifyright',false,'');">]</button>
 
-                <select onchange="formatoFuente('fontsize',this[this.selectedIndex].value);this.selectedIndex=0;">
-                    <option class="heading" selected>Tamaño</option>
-                    <option value="1">Muy pequeña</option>
-                    <option value="2">Pequeña</option>
-                    <option value="3">Normal</option>
-                    <option value="4">Media</option>
-                    <option value="5">Grande</option>
-                    <option value="6">Muy grande</option>
-                    <option value="7">Enorme</option>
-                </select>
+                <div id="toolbarFlotante" class="flotante-toolbar"
+                    style="display: none; position: absolute; z-index: 999;">
+                    <button class="formatos" onclick="document.execCommand('bold',false,'');">B</button>
+                    <button class="formatos" onclick="document.execCommand('italic',false,'');">I</button>
+                    <button class="formatos" onclick="document.execCommand('underline',false,'');">U</button>
 
-                <select onchange="cambiarFuente(this.value)">
-                    <option class="heading" selected>Fuente</option>
-                    <option value="Arial">Arial</option>
-                    <option value="Times New Roman">Times New Roman</option>
-                    <option value="Verdana">Verdana</option>
-                    <option value="Century Gothic">Century Gothic</option>
-                </select>
+                    <select
+                        onchange="formatoFuente('formatblock',this[this.selectedIndex].value); this.selectedIndex=0;">
+                        <option selected>F</option>
+                        <option value='h1'>H1</option>
+                        <option value='h2'>H2</option>
+                        <option value='h3'>H3</option>
+                        <option value='h4'>H4</option>
+                        <option value='h5'>H5</option>
+                        <option value='h6'>H6</option>
+                        <option value='p'>Párrafo</option>
+                        <option value='pre'>Pre</option>
+                    </select>
+
+                    <button class="formatos" onclick="document.execCommand('insertorderedlist',false,'');">1.</button>
+                    <button class="formatos" onclick="document.execCommand('justifyleft',false,'');">[</button>
+                    <button class="formatos" onclick="document.execCommand('justifycenter',false,'');">|</button>
+                    <button class="formatos" onclick="document.execCommand('justifyright',false,'');">]</button>
+
+                    <select onchange="formatoFuente('fontsize',this[this.selectedIndex].value); this.selectedIndex=0;">
+                        <option selected>T</option>
+                        <option value="1">Muy pequeña</option>
+                        <option value="2">Pequeña</option>
+                        <option value="3">Normal</option>
+                        <option value="4">Media</option>
+                        <option value="5">Grande</option>
+                        <option value="6">Muy grande</option>
+                        <option value="7">Enorme</option>
+                    </select>
+                    <button id="btnColor" class="formatos">C</button>
+                    <input type="color" id="colorReal" style="opacity: 0; position: absolute; width: 1px; height: 1px;">                    
             </section>
         </div>
     </div>
@@ -143,7 +132,7 @@
         <p id="TextoCard" class="TextobtnEliminarCard"></p>
         <input id="VerInfor" class="BotonResumen" type="button" value="Ver más información">
         <div class="InformacionNote" id="InformacionNote">
-            <p id="Creado">Creado por:  </p>
+            <p id="Creado">Creado por: </p>
             <p id="Fecha">Fecha:</p>
         </div>
         <div class="Iconos-Opciones">
