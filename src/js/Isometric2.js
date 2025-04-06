@@ -61,45 +61,69 @@ btnInfo.addEventListener("click", () => {
         ToquesInfo = 0;
     }
 });
+
 const tarjeta = document.getElementById("Menu");
-const btnCardTema = document.getElementById("btnCardTema");
-const colorPicker = document.getElementById("colorPicker");
 const tarjetaInfo = document.getElementById("InformacionNote");
+const colorA = document.getElementById("colorA");
+const colorB = document.getElementById("colorB");
+const direccionGradiente = document.getElementById("direccionGradiente");
+const btnAplicarGradiente = document.getElementById("btnAplicarGradiente");
+const btnMostrarControles = document.getElementById("btnMostrarControles");
+const vistaPrevia = document.getElementById("VistaPreviaGradiente");
+const controles = document.getElementById("ControlesGradiente");
 
-btnCardTema.addEventListener("click", () => {
-    colorPicker.click();
+// Mostrar/ocultar controles al presionar el botón
+btnMostrarControles.addEventListener("click", (e) => {
+    e.stopPropagation(); // Evita que dispare el cierre al hacer clic en el botón
+    controles.style.display = controles.style.display === "none" ? "flex" : "none";
 });
 
-const colorGuardado = localStorage.getItem("colorTarjeta");
-if (colorGuardado) {
-    tarjeta.style.background = colorGuardado;
-    tarjetaInfo.style.background = colorGuardado;
-    colorPicker.value = colorGuardado;
-}
-
-colorPicker.addEventListener("input", (e) => {
-    const color = e.target.value;
-    tarjeta.style.background = color;
-    tarjetaInfo.style.background = color;
-    localStorage.setItem("colorTarjeta", color);
-
-    const textoColor = esColorClaro(color) ? "black" : "white";
-    tarjeta.style.color = textoColor;
-    tarjetaInfo.style.color = textoColor;
+// Cerrar si hace clic fuera
+document.addEventListener("click", (e) => {
+    if (!controles.contains(e.target) && e.target !== btnMostrarControles) {
+        controles.style.display = "none";
+    }
 });
 
+// Aplicar gradiente
+btnAplicarGradiente.addEventListener("click", () => {
+    const gradiente = generarGradiente();
+    aplicarGradiente(gradiente);
+    localStorage.setItem("gradienteTarjeta", gradiente);
+});
 
-function esColorClaro(hexColor) {
-    hexColor = hexColor.replace("#", "");
-
-    const r = parseInt(hexColor.substr(0, 2), 16);
-    const g = parseInt(hexColor.substr(2, 2), 16);
-    const b = parseInt(hexColor.substr(4, 2), 16);
-
-    const luminancia = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
-
-    return luminancia > 0.5;
+// Función para generar gradiente
+function generarGradiente() {
+    const color1 = colorA.value;
+    const color2 = colorB.value;
+    const direccion = direccionGradiente.value;
+    return `linear-gradient(${direccion}, ${color1}, ${color2})`;
 }
+
+// Función para aplicar gradiente
+function aplicarGradiente(gradiente) {
+    tarjeta.style.background = gradiente;
+    tarjetaInfo.style.background = gradiente;
+    tarjeta.style.color = "white";
+    tarjetaInfo.style.color = "white";
+    vistaPrevia.style.background = gradiente;
+}
+
+// Vista previa dinámica
+[colorA, colorB, direccionGradiente].forEach(el => {
+    el.addEventListener("input", () => {
+        const gradiente = generarGradiente();
+        vistaPrevia.style.background = gradiente;
+    });
+});
+
+// Cargar gradiente al iniciar
+const gradienteGuardado = localStorage.getItem("gradienteTarjeta");
+if (gradienteGuardado) {
+    aplicarGradiente(gradienteGuardado);
+}
+
+
 const editor = document.getElementById("Contenido");
 const toolbar = document.getElementById("toolbarFlotante");
 const colorInput = document.getElementById("colorReal");
@@ -119,21 +143,23 @@ editor.addEventListener("mouseup", () => {
   }, 10);
 });
 
+
+colorBtn.addEventListener("click", () => {
+    colorInput.click();
+  });
+  
+  colorInput.addEventListener("input", (e) => {
+    editor.focus(); 
+    document.execCommand("styleWithCSS", false, true);
+    document.execCommand("foreColor", false, e.target.value);
+    toolbar.style.display = "none";
+  });
+  
+
 document.addEventListener("mousedown", (e) => {
   if (!editor.contains(e.target) && !toolbar.contains(e.target)) {
     toolbar.style.display = "none";
   }
-});
-
-colorBtn.addEventListener("click", () => {
-  colorInput.click();
-});
-
-colorInput.addEventListener("input", (e) => {
-  editor.focus(); 
-  document.execCommand("styleWithCSS", false, true);
-  document.execCommand("foreColor", false, e.target.value);
-  toolbar.style.display = "none";
 });
 
 function formatoFuente(command, value) {

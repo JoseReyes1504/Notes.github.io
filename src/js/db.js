@@ -36,21 +36,17 @@ export const ObtenerDato = (id) => getDoc(doc(db, 'Cards', id));
 
 // export const BorrarCard = (id) => deleteDoc(doc(db, 'Cards', id));
 
-// Función para borrar un documento en Firestore y en Algolia
 export const BorrarCard = (id) => {
     try {
-        // Eliminar de Firestore
         deleteDoc(doc(db, 'Cards', id));
         console.log(`Card ${id} eliminada de Firestore`);
 
-        // Eliminar de Algolia
-        index.deleteObject(id);  // Usa el mismo `id` como `objectID` en Algolia
+        index.deleteObject(id);
         console.log(`Card ${id} eliminada de Algolia`);
     } catch (error) {
         console.error("Error al borrar la card:", error);
     }
 };
-
 
 export const EliminarClase = (id) => deleteDoc(doc(db, 'Clases', id));
 
@@ -71,18 +67,15 @@ export const ActualizarCardAlgolia = async (ID, data) => {
 };
 
 export function ActualizarTodo(CodigoCard, Contenido, Titulo) {
-    // Objeto con los datos a actualizar
     const datosActualizados = {
         "Titulo": Titulo,
         "Contenido": Contenido
     };
 
     try {
-        // Actualizar en Firestore
         updateDoc(ActualizarCard(CodigoCard), datosActualizados);
         console.log(`Documento ${CodigoCard} actualizado en Firestore`);
 
-        // Actualizar en Algolia
         ActualizarCardAlgolia(CodigoCard, datosActualizados);
         console.log(`Documento ${CodigoCard} actualizado en Algolia`);
     } catch (error) {
@@ -93,14 +86,10 @@ export function ActualizarTodo(CodigoCard, Contenido, Titulo) {
 
 export const EliminarTema = (id) => deleteDoc(doc(db, 'Tema', id));
 
-// Función para agregar una "Card" a Firestore y sincronizarla con Algolia
 export function AgregarCards(Titulo, Contenido, IDTema, Fecha, Usuario) {
-    // Agregar el documento a Firestore
     addDoc(collection(db, 'Cards'), { Titulo, Contenido, IDTema, Fecha, Usuario })
         .then((docRef) => {
             console.log(`Card agregada a Firestore con ID: ${docRef.id}`);
-
-            // Agregar el documento "Card" a Algolia
             const card = {
                 objectID: docRef.id, Titulo, Contenido, IDTema, Fecha, Usuario
             };
@@ -127,15 +116,14 @@ export function AgregarClase(IDUser, ID, Titulo) {
     addDoc(collection(db, 'Clases'), { IDUser, Titulo, ID });
 }
 
-// Función de búsqueda en Algolia
 export async function buscarCards(query) {
     try {
-        const results = await index.search(query);  // Esperamos a que se resuelva la búsqueda
-        console.log(results.hits);  // Mostramos los resultados de la búsqueda
-        return results.hits;  // Retornamos las cards encontradas
+        const results = await index.search(query);
+        console.log(results.hits);
+        return results.hits;
     } catch (error) {
         console.error("Error en la búsqueda:", error);
-        return [];  // Retornamos un array vacío si hay un error
+        return [];  
     }
 }
 

@@ -64,7 +64,6 @@ body {
 
 .Menu {
     position: absolute;    
-    background-color: #34495e ;
     border: 2px solid var(--ModoNoche);
     color: white;
     width: var(--WidthCard);
@@ -94,6 +93,66 @@ body {
     transition: all 200ms;
     z-index: 6;
 }
+#ControlesGradiente {
+    display: none; /* Oculto por defecto */
+    position: absolute; /* Asegura que esté sobre los demás */
+    top: 60px; /* Ajusta según tu layout */
+    left: 70%; /* Ajusta según tu layout */
+    z-index: 1000; /* Asegura que esté al frente */
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+    padding: 1rem;
+    background: #181818;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+    width: max-content;
+  }
+  
+  #ControlesGradiente label {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.9rem;
+    color: white;
+  }
+  
+  #ControlesGradiente input[type="color"],
+  #ControlesGradiente select {
+    margin-top: 0.2rem;
+    padding: 0.3rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+  }
+  
+  #btnAplicarGradiente{
+    padding: 0.5rem 1rem;
+    background-color: #444;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  #btnAplicarGradiente:hover {
+    background-color: #222;
+  }
+
+  #direccionGradiente{
+    background-color: white;
+    color: white;
+  }
+  
+  #VistaPreviaGradiente {
+    width: 100%;
+    height: 60px;
+    border-radius: 8px;
+    margin-top: 1rem;
+    border: 1px solid #ccc;
+  }
+  
+  
 
 .InformacionNote::after{
     position: absolute;
@@ -164,7 +223,7 @@ body {
     /* background-color: #181818; */
 }
 
-.BotonCopy, #btnEliminarCard, #btnFullCard, #btnFullExit, #btnEditarNota, #btnCrearPDF, #btnInfo, #btnCardTema{
+.BotonCopy, #btnEliminarCard, #btnFullCard, #btnFullExit, #btnEditarNota, #btnCrearPDF, #btnInfo, #btnMostrarControles{
     fill: white;
     cursor: pointer;
     margin: 0% 1%;
@@ -196,7 +255,7 @@ body {
     fill:  #f59d39 ;
 }
 
-.BotonCopy:hover, #btnFullCard:hover, #btnFullExit:hover, #btnEditarNota:hover, #btnCrearPDF:hover, #btnInfo:hover, #btnCardTema:hover{
+.BotonCopy:hover, #btnFullCard:hover, #btnFullExit:hover, #btnEditarNota:hover, #btnCrearPDF:hover, #btnInfo:hover, #btnMostrarControles:hover{
     fill: #181818;
 }
 
