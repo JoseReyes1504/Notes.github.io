@@ -17,7 +17,9 @@ var btnAgregar = document.getElementById('btnAgregar');
 const btnTema = document.getElementById('btnTema');
 const btnClase = document.getElementById('btnClase');
 const btnCard = document.getElementById('btnCard');
+const btnNotaRapida = document.getElementById('btnNotaRapida');
 const btnDatos = document.getElementById('btnDatos');
+const btnDatosRapidos = document.getElementById('btnDatosRapidos');
 const btnCerrar = document.getElementById('btnCerrarSesion');
 const btnEliminar = document.getElementById('btnEliminar');
 const MSJ = document.getElementById('MSJ');
@@ -72,27 +74,23 @@ const btnMostrarControles = document.getElementById("btnMostrarControles");
 const vistaPrevia = document.getElementById("VistaPreviaGradiente");
 const controles = document.getElementById("ControlesGradiente");
 
-// Mostrar/ocultar controles al presionar el botón
 btnMostrarControles.addEventListener("click", (e) => {
-    e.stopPropagation(); // Evita que dispare el cierre al hacer clic en el botón
+    e.stopPropagation();
     controles.style.display = controles.style.display === "none" ? "flex" : "none";
 });
 
-// Cerrar si hace clic fuera
 document.addEventListener("click", (e) => {
     if (!controles.contains(e.target) && e.target !== btnMostrarControles) {
         controles.style.display = "none";
     }
 });
 
-// Aplicar gradiente
 btnAplicarGradiente.addEventListener("click", () => {
     const gradiente = generarGradiente();
     aplicarGradiente(gradiente);
     localStorage.setItem("gradienteTarjeta", gradiente);
 });
 
-// Función para generar gradiente
 function generarGradiente() {
     const color1 = colorA.value;
     const color2 = colorB.value;
@@ -100,7 +98,6 @@ function generarGradiente() {
     return `linear-gradient(${direccion}, ${color1}, ${color2})`;
 }
 
-// Función para aplicar gradiente
 function aplicarGradiente(gradiente) {
     tarjeta.style.background = gradiente;
     tarjetaInfo.style.background = gradiente;
@@ -109,7 +106,6 @@ function aplicarGradiente(gradiente) {
     vistaPrevia.style.background = gradiente;
 }
 
-// Vista previa dinámica
 [colorA, colorB, direccionGradiente].forEach(el => {
     el.addEventListener("input", () => {
         const gradiente = generarGradiente();
@@ -117,7 +113,6 @@ function aplicarGradiente(gradiente) {
     });
 });
 
-// Cargar gradiente al iniciar
 const gradienteGuardado = localStorage.getItem("gradienteTarjeta");
 if (gradienteGuardado) {
     aplicarGradiente(gradienteGuardado);
@@ -130,42 +125,42 @@ const colorInput = document.getElementById("colorReal");
 const colorBtn = document.getElementById("btnColor");
 
 editor.addEventListener("mouseup", () => {
-  setTimeout(() => {
-    const sel = window.getSelection();
-    if (!sel.isCollapsed && sel.rangeCount > 0) {
-      const rect = sel.getRangeAt(0).getBoundingClientRect();
-      toolbar.style.left = `${rect.left + window.scrollX}px`;
-      toolbar.style.top = `${rect.top + window.scrollY - 60}px`;
-      toolbar.style.display = "flex";
-    } else {
-      toolbar.style.display = "none";
-    }
-  }, 10);
+    setTimeout(() => {
+        const sel = window.getSelection();
+        if (!sel.isCollapsed && sel.rangeCount > 0) {
+            const rect = sel.getRangeAt(0).getBoundingClientRect();
+            toolbar.style.left = `${rect.left + window.scrollX}px`;
+            toolbar.style.top = `${rect.top + window.scrollY - 60}px`;
+            toolbar.style.display = "flex";
+        } else {
+            toolbar.style.display = "none";
+        }
+    }, 10);
 });
 
 
 colorBtn.addEventListener("click", () => {
     colorInput.click();
-  });
-  
-  colorInput.addEventListener("input", (e) => {
-    editor.focus(); 
+});
+
+colorInput.addEventListener("input", (e) => {
+    editor.focus();
     document.execCommand("styleWithCSS", false, true);
     document.execCommand("foreColor", false, e.target.value);
     toolbar.style.display = "none";
-  });
-  
+});
+
 
 document.addEventListener("mousedown", (e) => {
-  if (!editor.contains(e.target) && !toolbar.contains(e.target)) {
-    toolbar.style.display = "none";
-  }
+    if (!editor.contains(e.target) && !toolbar.contains(e.target)) {
+        toolbar.style.display = "none";
+    }
 });
 
 function formatoFuente(command, value) {
-  editor.focus();
-  document.execCommand("styleWithCSS", false, true);
-  document.execCommand(command, false, value);
+    editor.focus();
+    document.execCommand("styleWithCSS", false, true);
+    document.execCommand(command, false, value);
 }
 
 function ReplaceSaltos(texto) {
@@ -230,7 +225,6 @@ async function ejecutarAccionCard(btn) {
     }
 }
 
-// Asigna el evento de clic a los botones
 function BotonCard(Cards) {
     Cards.forEach(btn => {
         const btna = btn.querySelector("a");
@@ -384,7 +378,6 @@ function EliminarColorBoton(Lista) {
         });
     } else if (Lista == 2) {
         const Botones = ContenedorListaClases2.querySelectorAll('.Lista2');
-
         Botones.forEach(btn => {
             btn.classList.remove('BotonSeleccionado');
         });
@@ -430,41 +423,6 @@ function ResetearIndex() {
     style.setProperty('--TranslateXD2Movil', '0px');
 }
 
-// function PDF() {
-//     var doc = new jsPDF();
-//     var Contenido = document.getElementById("TextoCard").innerHTML;
-
-//     doc.setFont("TimesNewRoman", "bold");
-//     doc.setFontSize(16);
-//     // Añadir título al documento
-//     doc.text(document.getElementById('TituloCard').innerText, 10, 10);
-
-//     doc.setFont("TimesNewRoman", "normal");
-//     doc.setFontSize(11);
-
-//     doc.fromHTML(Contenido, 10, 10, {
-//         width: 180
-//     });
-//     // Descargar el documento
-//     doc.save(document.getElementById('TituloCard').innerText);
-// }
-
-// function crearImagen() {
-//     const contenido = document.getElementById('Menu');
-
-//     domtoimage.toPng(contenido)
-//         .then(dataUrl => {
-//             const link = document.createElement('a');
-//             link.href = dataUrl;
-//             link.download = 'captura.png';
-//             link.click();
-//         })
-//         .catch(error => {
-//             console.error('Error al capturar la imagen:', error);
-//         });
-//     MSJ("Se a creado la imagen");
-// }
-
 //////////////////////////////////////////////// FUNCION BOTONES //////////////////////////////////////////////////////
 
 let Modo = parseInt(localStorage.getItem("modo")) || 0;
@@ -505,18 +463,6 @@ window.addEventListener("keydown", async (btn) => {
     if (btn.code == "KeyT" && NotasActivas == true) {
         AbrirCard();
     }
-
-    // if (btn.code == "KeyS" && NotasActivas == true) {
-    //     crearImagen();
-    // }
-
-    // if (btn.code == "KeyC" && NotasActivas == true) {
-    //     Copy();
-    // }
-
-    // if (btn.code == "KeyD" && NotasActivas == true) {
-    //     PDF();
-    // }
 
     if (btn.code == "KeyF" && NotasActivas == true) {
         contadorFullScreen++;
@@ -647,6 +593,18 @@ function AgregarDatos() {
         case 4:
             EditarNota();
             break;
+        case 5:
+            //NOTAS
+            if (Titulo == '' || Contenido == '') {
+                AlertMSJ('LLene los Datos');
+            } else {
+                Contenido = ReplaceSaltos(Contenido);
+                AgregarCards(Titulo, Contenido, "NTRAPD", Fecha, Usuario);
+                limpiar();
+                CambiarColorMSJ(" #adee7a");
+                AlertMSJ('Se Agrego la nota Rapida');
+            }
+            break;
     }
 }
 
@@ -669,7 +627,6 @@ function CerrarCardsScreen() {
     ApuntesActivo = false;
     MostrarControles(false);
     TipoAccion.innerHTML = 'Directorio';
-    ColoresBotonesOff(1, 3, 2, 5);
     document.getElementById('Contenido').style.opacity = '0%';
     btnClaseAct = true;
     FuncionBoton();
@@ -715,7 +672,6 @@ btnEliminar.onclick = async function () {
 function Clase() {
     MostrarControles(false);
     TipoAccion.innerHTML = 'Directorio';
-    ColoresBotonesOff(1, 3, 2, 5);
     document.getElementById('Contenido').style.opacity = '0%';
     btnClaseAct = true;
     FuncionBoton();
@@ -725,7 +681,6 @@ function Clase() {
 function Tema() {
     MostrarControles(false);
     TipoAccion.innerHTML = 'Tema';
-    ColoresBotonesOff(2, 1, 3, 5);
     btnTemaAct = true
     document.getElementById('Contenido').style.opacity = '0%';
     FuncionBoton();
@@ -736,7 +691,6 @@ function Cards() {
     MostrarControles(false);
     TipoAccion.innerHTML = 'Nota';
     btnCardAct = true;
-    ColoresBotonesOff(3, 1, 2, 5);
     document.getElementById('Contenido').style.opacity = '100%';
     style.setProperty('--Visibilidad', 'visible');
     style.setProperty('--opacity', '100%');
@@ -744,16 +698,49 @@ function Cards() {
     Boton = 0;
 }
 
+function CardsFlash() {
+    MostrarControles(false);
+    TipoAccion.innerHTML = 'Nota Rapida';
+    btnNotaRapidaAct = true;
+    document.getElementById('Contenido').style.opacity = '100%';
+    style.setProperty('--Visibilidad', 'visible');
+    style.setProperty('--opacity', '100%');
+    FuncionBoton();
+    Boton = 5;
+}
+
+function RemoverClase(a, b, c, d, e) {
+    a.classList.add('BotonSeleccionado');
+    b.classList.remove("BotonSeleccionado");
+    c.classList.remove("BotonSeleccionado");
+    d.classList.remove("BotonSeleccionado");
+    e.classList.remove("BotonSeleccionado");
+}
+
 btnClase.onclick = function () {
+    RemoverClase(btnClase, btnTema, btnCard, btnNotaRapida, btnDatos);
+    btnClase.classList.add('BotonSeleccionado');
     Clase();
 }
 
 btnTema.onclick = function () {
+    RemoverClase(btnTema, btnClase, btnCard, btnNotaRapida, btnDatos);
+    btnTema.classList.add('BotonSeleccionado');
+    Clase();
     Tema();
 }
 
 btnCard.onclick = function () {
+    RemoverClase(btnCard, btnTema, btnClase, btnNotaRapida, btnDatos);
+    btnCard.classList.add('BotonSeleccionado');
+    Clase();
     Cards();
+}
+
+btnNotaRapida.onclick = function () {
+    RemoverClase(btnNotaRapida, btnCard, btnTema, btnClase, btnDatos);
+    btnNotaRapida.classList.add('BotonSeleccionado');
+    CardsFlash();
 }
 
 btnDatos.onclick = function () {
@@ -773,14 +760,21 @@ btnDatos.onclick = function () {
     } else {
         AlertMSJ('Seleccione el Tema');
     }
-    AbrirApuntesScreen();
+    AbrirApuntesScreen('Notas');
 }
 
-function AbrirApuntesScreen() {
-    TipoAccion.innerHTML = 'Apuntes';
+
+btnDatosRapidos.onclick = function () {
+    CodigoTema = "NTRAPD";
+    CargarCards();
+    AbrirApuntesScreen('Notas Rapidas');
+    CodigoTema = "";
+}
+
+function AbrirApuntesScreen(Tipo) {
+    TipoAccion.innerHTML = Tipo;
     document.getElementById('Contenido').style.opacity = '0%';
     style.setProperty('--opacity', '0%');
-    ColoresBotonesOff(5, 3, 2, 1);
     MostrarControles(true);
     style.setProperty('--TranslateY2', '-40px');
     ApuntesActivo = true;
@@ -795,13 +789,6 @@ function AbrirApuntesScreen() {
     style.setProperty('--TranslateXD', '0px');
     Boton = 3;
     PantallaCompleta2();
-}
-
-function ColoresBotonesOff(ColorAct, Color2, Color3, Color5) {
-    style.setProperty('--Color' + ColorAct, '#2e4053');
-    style.setProperty('--Color' + Color2, '#181818');
-    style.setProperty('--Color' + Color3, '#181818');
-    style.setProperty('--Color' + Color5, '#181818');
 }
 
 function MostrarControles(NoMostrar) {
@@ -828,9 +815,10 @@ var btnClaseAct = false;
 var btnTemaAct = false;
 var btnCardAct = false;
 var btnDatosAct = false;
+var btnNotaRapidaAct = false;
 
 function FuncionBoton() {
-    if ((btnClaseAct || btnTemaAct || btnCardAct || btnDatosAct) == true) {
+    if ((btnClaseAct || btnTemaAct || btnCardAct || btnDatosAct || btnNotaRapidaAct) == true) {
         document.getElementById("Titulo").focus();
         style.setProperty('--TranslateY', '-320px');
         style.setProperty('--Heigth', '50px');
@@ -841,7 +829,7 @@ function FuncionBoton() {
         Tocar = 0;
     }
 
-    else if ((btnClaseAct && btnTemaAct && btnCardAct) == false) {
+    else if ((btnClaseAct && btnTemaAct && btnCardAct && btnNotaRapidaAct) == false) {
         style.setProperty('--TranslateY2', '-40px');
         style.setProperty('--TranslateY', '00px');
         style.setProperty('--Heigth', '640px');
@@ -1107,13 +1095,11 @@ btnEditarNota.addEventListener('click', async () => {
 
 
 async function EditarNota() {
-    // Obtener valores de los campos de entrada
     const Contenido = ReplaceSaltos(document.getElementById('Contenido').innerHTML);
     const Titulo = document.getElementById('Titulo').value;
 
-    // Actualizar en Firestore
     ActualizarTodo(CodigoCard, Contenido, Titulo);
-    // Confirmación de la edición
+
     EdicionActiva = false;
     CambiarColorMSJ("#adee7a");
     AlertMSJ("Edición realizada");

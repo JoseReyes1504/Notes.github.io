@@ -16,10 +16,6 @@ body {
     --TranslateY2: -20px;
     --Heigth: 740px;
     --Color1: #181818;
-    --Color2: #181818;
-    --Color3: #181818;
-    --Color4: #181818;
-    --Color5: #181818;
     --ColorBoton: #181818;
     --ColorLi: #3496db;
     --ColorHover: rgb(170, 255, 169);
@@ -328,25 +324,35 @@ select:hover {
 }
 
 #btnTema {
-    background-color: var(--Color2);
+    background-color: var(--Color1);
 }
 
 #btnCard {
-    background-color: var(--Color3);
+    background-color: var(--Color1);
 }
 
 #btnEliminar {
-    background-color: var(--Color4);
+    background-color: var(--Color1);
+}
+
+#btnDatosRapidos {
+    border: none;
+    color: white;
+    background-color: var(--Color1);
+    border: 2px solid var(--ModoNoche); 
 }
 
 #btnDatos {
     border: none;
     color: white;
-    border: 2px solid var(--ModoNoche);
-    background-color: var(--Color5);    
+    background-color: var(--Color1);
+    border: 2px solid var(--ModoNoche);   
 }
 
-/* Lista */
+#btnNotaRapida{
+    background-color: var(--Color1);
+}
+
 .ContenedorAreas,
 .ContenedorAreas2 {
     position: relative;    
