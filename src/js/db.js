@@ -39,12 +39,12 @@ export const ObtenerDato = (id) => getDoc(doc(db, 'Cards', id));
 export const BorrarCard = (id) => {
     try {
         deleteDoc(doc(db, 'Cards', id));
-        console.log(`Card ${id} eliminada de Firestore`);
+        //console.log(`Card ${id} eliminada de Firestore`);
 
         index.deleteObject(id);
-        console.log(`Card ${id} eliminada de Algolia`);
+        //console.log(`Card ${id} eliminada de Algolia`);
     } catch (error) {
-        console.error("Error al borrar la card:", error);
+        //console.error("Error al borrar la card:", error);
     }
 };
 
@@ -60,9 +60,9 @@ export const ActualizarCardAlgolia = async (ID, data) => {
     try {
         const card = { ...data, objectID: ID };
         await index.saveObject(card);
-        console.log(`Card ${ID} actualizada en Algolia`);
+        //console.log(`Card ${ID} actualizada en Algolia`);
     } catch (error) {
-        console.error("Error al actualizar la card en Algolia:", error);
+        //console.error("Error al actualizar la card en Algolia:", error);
     }
 };
 
@@ -74,12 +74,12 @@ export function ActualizarTodo(CodigoCard, Contenido, Titulo) {
 
     try {
         updateDoc(ActualizarCard(CodigoCard), datosActualizados);
-        console.log(`Documento ${CodigoCard} actualizado en Firestore`);
+        //console.log(`Documento ${CodigoCard} actualizado en Firestore`);
 
         ActualizarCardAlgolia(CodigoCard, datosActualizados);
-        console.log(`Documento ${CodigoCard} actualizado en Algolia`);
+        //console.log(`Documento ${CodigoCard} actualizado en Algolia`);
     } catch (error) {
-        console.error("Error al actualizar el documento:", error);
+        //console.error("Error al actualizar el documento:", error);
     }
 }
 
@@ -89,21 +89,21 @@ export const EliminarTema = (id) => deleteDoc(doc(db, 'Tema', id));
 export function AgregarCards(Titulo, Contenido, IDTema, Fecha, Usuario) {
     addDoc(collection(db, 'Cards'), { Titulo, Contenido, IDTema, Fecha, Usuario })
         .then((docRef) => {
-            console.log(`Card agregada a Firestore con ID: ${docRef.id}`);
+            //console.log(`Card agregada a Firestore con ID: ${docRef.id}`);
             const card = {
                 objectID: docRef.id, Titulo, Contenido, IDTema, Fecha, Usuario
             };
 
             index.saveObject(card)
                 .then(() => {
-                    console.log(`Card ${docRef.id} sincronizada con Algolia`);
+                    //console.log(`Card ${docRef.id} sincronizada con Algolia`);
                 })
                 .catch(error => {
-                    console.error("Error al sincronizar con Algolia: ", error);
+                    //console.error("Error al sincronizar con Algolia: ", error);
                 });
         })
         .catch(error => {
-            console.error("Error al agregar card a Firestore: ", error);
+            //console.error("Error al agregar card a Firestore: ", error);
         });
 }
 
@@ -119,10 +119,10 @@ export function AgregarClase(IDUser, ID, Titulo) {
 export async function buscarCards(query) {
     try {
         const results = await index.search(query);
-        console.log(results.hits);
+        //console.log(results.hits);
         return results.hits;
     } catch (error) {
-        console.error("Error en la búsqueda:", error);
+        //console.error("Error en la búsqueda:", error);
         return [];  
     }
 }

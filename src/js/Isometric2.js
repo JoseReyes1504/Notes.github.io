@@ -24,7 +24,6 @@ const btnCerrar = document.getElementById('btnCerrarSesion');
 const btnEliminar = document.getElementById('btnEliminar');
 const MSJ = document.getElementById('MSJ');
 
-const btnBusqueda = document.getElementById("Busqueda");
 var txtBusqueda = document.getElementById("txtBusqueda");
 
 var Titulo = '';
@@ -46,7 +45,7 @@ var Codigo = '';
 var ApuntesActivo = false;
 var NotasActivas = false;
 var MenuActivo = true;
-
+var NotasRapidas = false;
 ////////////////////////////////////////////////// FUNCIONES //////////////////////////////////////////////////////
 
 const btnInfo = document.getElementById("btnInfo");
@@ -709,36 +708,38 @@ function CardsFlash() {
     Boton = 5;
 }
 
-function RemoverClase(a, b, c, d, e) {
+function RemoverClase(a, b, c, d, e, f) {
     a.classList.add('BotonSeleccionado');
     b.classList.remove("BotonSeleccionado");
     c.classList.remove("BotonSeleccionado");
     d.classList.remove("BotonSeleccionado");
     e.classList.remove("BotonSeleccionado");
+    f.classList.remove("BotonSeleccionado");
 }
 
 btnClase.onclick = function () {
-    RemoverClase(btnClase, btnTema, btnCard, btnNotaRapida, btnDatos);
+    RemoverClase(btnClase, btnTema, btnCard, btnNotaRapida, btnDatos, btnDatosRapidos);
     btnClase.classList.add('BotonSeleccionado');
     Clase();
 }
 
 btnTema.onclick = function () {
-    RemoverClase(btnTema, btnClase, btnCard, btnNotaRapida, btnDatos);
+    RemoverClase(btnTema, btnClase, btnCard, btnNotaRapida, btnDatos, btnDatosRapidos);
     btnTema.classList.add('BotonSeleccionado');
     Clase();
     Tema();
 }
 
 btnCard.onclick = function () {
-    RemoverClase(btnCard, btnTema, btnClase, btnNotaRapida, btnDatos);
+    RemoverClase(btnCard, btnTema, btnClase, btnNotaRapida, btnDatos, btnDatosRapidos);
     btnCard.classList.add('BotonSeleccionado');
     Clase();
     Cards();
+
 }
 
 btnNotaRapida.onclick = function () {
-    RemoverClase(btnNotaRapida, btnCard, btnTema, btnClase, btnDatos);
+    RemoverClase(btnNotaRapida, btnCard, btnTema, btnClase, btnDatos, btnDatosRapidos);
     btnNotaRapida.classList.add('BotonSeleccionado');
     CardsFlash();
 }
@@ -757,33 +758,45 @@ btnDatos.onclick = function () {
         AlertMSJ('Seleccione una clase');
         ResetearIndex();
         style.setProperty('--IndexClase', '6');
-    } else {
+    } else if (CodigoTema == '') {
         AlertMSJ('Seleccione el Tema');
     }
-    AbrirApuntesScreen('Notas');
+    AbrirApuntesScreen("Notas", 1);
+    RemoverClase(btnDatos, btnCard, btnTema, btnClase, btnNotaRapida, btnDatosRapidos);
+    NotasRapidas = false;
 }
 
 
 btnDatosRapidos.onclick = function () {
-    CodigoTema = "NTRAPD";
-    CargarCards();
-    AbrirApuntesScreen('Notas Rapidas');
+    AbrirApuntesScreen("Notas Rapidas", 2);
+    EliminarColorBoton(2);
+    RemoverClase(btnDatosRapidos, btnDatos, btnCard, btnTema, btnClase, btnNotaRapida);
+    NotasRapidas = true;
     CodigoTema = "";
 }
 
-function AbrirApuntesScreen(Tipo) {
+function AbrirApuntesScreen(Tipo, Dato) {
     TipoAccion.innerHTML = Tipo;
     document.getElementById('Contenido').style.opacity = '0%';
     style.setProperty('--opacity', '0%');
     MostrarControles(true);
     style.setProperty('--TranslateY2', '-40px');
     ApuntesActivo = true;
-    if (ApuntesActivo == true && CodigoTema != "") {
-        style.setProperty('--opacidadLista', '100%');
-        CargarCards();
-    } else {
+
+    if (Dato) {
+        if (Dato === 1) {
+            style.setProperty('--opacidadLista', '100%');  
+            CargarCards();
+        } else {
+            CodigoTema = "NTRAPD";
+            style.setProperty('--opacidadLista', '100%');
+            CargarCards();
+        }
+    }
+    else {
         style.setProperty('--opacidadLista', '0%');
     }
+
     btnDatosAct = true;
     FuncionBoton();
     style.setProperty('--TranslateXD', '0px');
@@ -816,9 +829,10 @@ var btnTemaAct = false;
 var btnCardAct = false;
 var btnDatosAct = false;
 var btnNotaRapidaAct = false;
+var btnDatosRapidaAct = false;
 
 function FuncionBoton() {
-    if ((btnClaseAct || btnTemaAct || btnCardAct || btnDatosAct || btnNotaRapidaAct) == true) {
+    if ((btnClaseAct || btnTemaAct || btnCardAct || btnDatosAct || btnNotaRapidaAct || btnDatosRapidaAct) == true) {
         document.getElementById("Titulo").focus();
         style.setProperty('--TranslateY', '-320px');
         style.setProperty('--Heigth', '50px');
@@ -946,6 +960,7 @@ const ContenedorBtn = document.getElementById('ListaTodo');
 
 var CardsCargadas = false;
 async function CargarCards() {
+    console.log(CodigoTema);
     const q = query(collection(db, "Cards"), where("IDTema", "==", CodigoTema));
     const querySnapshot = await getDocs(q);
 
@@ -984,11 +999,11 @@ function CerrarCard() {
     TituloCard.innerHTML = 'Cerrada';
     ContenedorTexto.innerHTML = '';
     btnInformacion.value = 'Ver más información';
-    Toques = 0;
     NotasActivas = false;
     EliminarColorBoton(3);
     SetMenuActivo();
     style.setProperty("--displayInfo", "none");
+    Toques = 0;
     ToquesInfo = 0;
 }
 
@@ -1069,7 +1084,6 @@ function ExitFullScreen() {
     Tocar = 0;
 
     if (document.exitFullscreen) {
-
         document.exitFullscreen();
     } else if (document.mozCancelFullScreen) {
         document.mozCancelFullScreen();
@@ -1103,14 +1117,13 @@ async function EditarNota() {
     EdicionActiva = false;
     CambiarColorMSJ("#adee7a");
     AlertMSJ("Edición realizada");
-    AbrirApuntesScreen();
     limpiar();
-
-    Boton = 3;
     btnAgregar.value = "Salir Notas";
+    Boton = 3;
+    if (NotasRapidas == true) {
+        AbrirApuntesScreen('Notas Rapidas', 2);
+    } else {
+        AbrirApuntesScreen('Notas', 1);
+    }
+    ExitFullScreen();
 }
-
-
-
-
-
